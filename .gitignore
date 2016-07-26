@@ -1,0 +1,8 @@
+bin/
+.idea/
+.settings/
+
+.project
+.classpath
+
+HonorsProject.iml
