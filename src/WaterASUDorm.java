@@ -1,3 +1,10 @@
+import base.ResourceUsage;
+import base.UsageDuration;
+import base.UsageNumTimes;
+import features.AverageUsage;
+import features.HistoricalUsage;
+import features.Tips;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
