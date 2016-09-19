@@ -85,20 +85,11 @@ abstract public class ResourceUsage {
 	}
 
 	public void displayTips() throws FileNotFoundException {
-		System.out.println(tips.getTips());
+		System.out.println(tips.displayTips());
 	}
 
 	public void displayHistorical() {
-		double[] displayHist = hist.getUsage();
-	      /* for (int row = 0; row < hist.getCount(); row += 5)
-        {
-			for (int i = 0; i < 5; i++)
-			{
-
-			}
-		}*/
-		for (int i = 0; i < hist.getCount(); i++)
-			System.out.print(displayHist[i] + " ");
+		System.out.println(hist.displayHistorical());
 	}
 
 	/**
@@ -132,49 +123,49 @@ abstract public class ResourceUsage {
 	 * the absolute and percent differences, and for 3/4 outputs the input change needed. The historical
 	 * usage's array's min, max, and avg values are then updated.
 	 */
-	public void compareHistorical() {
-		double absoluteDiffMax = Math.abs(usageAmt - hist.getMaxVal());
-		double absoluteDiffAvg = Math.abs(usageAmt - hist.getAvg());
-		double absoluteDiffMin = Math.abs(usageAmt - hist.getMinVal());
-
-		if (hist.isGreaterMax(usageAmt)) {
-
-			System.out.println("You used " + fmt.format(absoluteDiffMax) + " more " + usageUnit +
-					" than your previous max usage of " + fmt.format(hist.getMaxVal()) +
-					" " + usageUnit + "! " + "That's " +
-					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMaxVal())) + " more.");
-			System.out.println("You would need to use the " + name + " " +
-					fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
-					inputUnit + " to get to your average usage.");
-		} else if (hist.isLessMin(usageAmt)) {
-			System.out.println("You used " + fmt.format(absoluteDiffMin) + " less " + usageUnit +
-					" than your previous lowest record of " + fmt.format(hist.getMinVal()) +
-					" " + usageUnit + "! " + "That's " +
-					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMinVal())) + " less.");
-			System.out.println("Keep it up!");
-		} else // within bounds of min and max
-		{
-			if (hist.isGreaterAvg(usageAmt)) {
-				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " more " + usageUnit +
-						" than your average of " + fmt.format(hist.getAvg()) +
-						" " + usageUnit + ". " + "That's " +
-						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " more.");
-				System.out.println("You would need to use the " + name + " " +
-						fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
-						inputUnit + " to get to your average usage.");
-			} else {
-				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " less " + usageUnit +
-						" than your average of " + fmt.format(hist.getAvg()) +
-						" " + usageUnit + ". " + "That's " +
-						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " less.");
-				System.out.println("You would need to use the " + name + " " +
-						fmt.format(calcInputChange(absoluteDiffMin)) + " fewer " +
-						inputUnit + " to beat your lowest record.");
-			}
-		}
-
-		hist.updateValues();
-	}
+//	public void compareHistorical() {
+//		double absoluteDiffMax = Math.abs(usageAmt - hist.getMaxVal());
+//		double absoluteDiffAvg = Math.abs(usageAmt - hist.getAvg());
+//		double absoluteDiffMin = Math.abs(usageAmt - hist.getMinVal());
+//
+//		if (hist.isGreaterMax(usageAmt)) {
+//
+//			System.out.println("You used " + fmt.format(absoluteDiffMax) + " more " + usageUnit +
+//					" than your previous max usage of " + fmt.format(hist.getMaxVal()) +
+//					" " + usageUnit + "! " + "That's " +
+//					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMaxVal())) + " more.");
+//			System.out.println("You would need to use the " + name + " " +
+//					fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
+//					inputUnit + " to get to your average usage.");
+//		} else if (hist.isLessMin(usageAmt)) {
+//			System.out.println("You used " + fmt.format(absoluteDiffMin) + " less " + usageUnit +
+//					" than your previous lowest record of " + fmt.format(hist.getMinVal()) +
+//					" " + usageUnit + "! " + "That's " +
+//					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMinVal())) + " less.");
+//			System.out.println("Keep it up!");
+//		} else // within bounds of min and max
+//		{
+//			if (hist.isGreaterAvg(usageAmt)) {
+//				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " more " + usageUnit +
+//						" than your average of " + fmt.format(hist.getAvg()) +
+//						" " + usageUnit + ". " + "That's " +
+//						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " more.");
+//				System.out.println("You would need to use the " + name + " " +
+//						fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
+//						inputUnit + " to get to your average usage.");
+//			} else {
+//				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " less " + usageUnit +
+//						" than your average of " + fmt.format(hist.getAvg()) +
+//						" " + usageUnit + ". " + "That's " +
+//						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " less.");
+//				System.out.println("You would need to use the " + name + " " +
+//						fmt.format(calcInputChange(absoluteDiffMin)) + " fewer " +
+//						inputUnit + " to beat your lowest record.");
+//			}
+//		}
+//
+//		hist.updateValues();
+//	}
 
 	abstract public double calcInputChange(double usageToChange);
 

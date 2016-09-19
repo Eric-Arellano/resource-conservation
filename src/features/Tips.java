@@ -56,7 +56,8 @@ public class Tips {
 	// ================================================================================
 	// Accesor Methods
 	// ================================================================================
-	public String getTips() throws FileNotFoundException {
+
+	public String displayTips() throws FileNotFoundException {
 		String tips = "";
 		// File readFile = new File("showerTips.txt");
 		Scanner read = new Scanner(this.tipsFile);

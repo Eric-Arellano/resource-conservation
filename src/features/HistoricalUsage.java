@@ -1,23 +1,33 @@
 package features;
 
 
+import base.ResourceUsage;
+
+import static com.sun.tools.doclint.Entity._int;
+import static com.sun.tools.doclint.Entity.or;
+
+
 public class HistoricalUsage {
 
 	// ================================================================================
 	// Instance variables
 	// ================================================================================
+
 	private double[] histUsage; // = new double[10];
 	private int count = 0;
 	private double avg = 0;
 	private int minIndex = 0;
 	private int maxIndex = 0;
 
+
 	// ================================================================================
 	// Constructor
 	// ================================================================================
+
 	public HistoricalUsage(int size) {
 		histUsage = new double[size];
 	}
+
 
 	// ================================================================================
 	// Methods to add to Array
@@ -89,7 +99,7 @@ public class HistoricalUsage {
 	 * This method updates the average, min, and max instance variables. It should be called after
 	 * ResourceUsage.compareHistUsage() is called so that the array shows updated values.
 	 */
-	public void updateValues() {
+	private void updateValues() {
 		updateAvg();
 		updateMin();
 		updateMax();
@@ -112,8 +122,16 @@ public class HistoricalUsage {
 	}
 
 	// ================================================================================
-	// Accesor methods
+	// Display Historical Usage
 	// ================================================================================
+
+	public String displayHistorical() {
+		String histUsageResult = "";
+		for (int i = 0; i < this.count; i++) {
+			histUsageResult =+ histUsage[i] + "";
+		}
+		return histUsageResult;
+	}
 
 	private void updateMax() {
 		for (int i = maxIndex + 1; i < count; i++)
@@ -124,69 +142,81 @@ public class HistoricalUsage {
 		}
 	}
 
-	public double getMinVal() {
-		return this.histUsage[minIndex];
-	}
-
-	public double getMaxVal() {
-		return this.histUsage[maxIndex];
-	}
-
-	public double getAvg() {
-		return this.avg;
-	}
-
-	public double[] getUsage() {
-		return this.histUsage;
-	}
+//	public double getMinVal() {
+//		return this.histUsage[minIndex];
+//	}
+//
+//	public double getMaxVal() {
+//		return this.histUsage[maxIndex];
+//	}
+//
+//	public double getAvg() {
+//		return this.avg;
+//	}
+//
+//	public double[] getUsage() {
+//		return this.histUsage;
+//	}
+//
+//	public int getCount() {
+//		return this.count;
+//	}
 
 	// ================================================================================
-	// Methods to evaluate comparisons
+	// Compare historical amounts
 	// ================================================================================
 
-	public int getCount() {
-		return this.count;
+	public String compareHistorical(double usage) {
+
+		// calc values
+		String comparisonType = decideComparisonType(usage);
+		double comparisonValue = getComparisonValue(comparisonType);
+		String moreOrLess = decideMoreOrLess();
+		double absoluteDiff = calcAbsoluteDiff();
+		double percentDiff;
+		String unit;
+		String name;
+
+		// base result
+		String result = "You used " + absoluteDiff + moreOrLess + unit + "than your previous " + comparisonType + "of" +
+				comparisonValue + unit + "! That's" + percentDiff + moreOrLess + "than your previous" + comparisonType;
+
+		// append additional info
+		if (isLessMin(usage)){
+			result += "\nKeep it up!";
+		}
+		else if (isGreaterMax(usage) || isGreaterAvg(usage)) {
+			result += howMuchToAvg();
+		}
+		else (!extremeValue()) {
+			result += howMuchToMin();
+		}
+		return result;
 	}
 
-	/**
-	 * Compares usage amount with historical average
-	 *
-	 * @param usage
-	 * @return true if usage is greater than average, false if lower than average
-	 */
-	public boolean isGreaterAvg(double usage) {
-		if (usage > avg) {
-			return true;
-		} else {
-			return false;
+	private String decideComparisonType(double usage) {
+		String result = "";
+		if (isGreaterAvg(usage)) {
+			result = "max";
 		}
+		else if (isLessMin(usage)) {
+			result = "min";
+		}
+		else {
+			result = "average";
+		}
+		return result;
 	}
 
-	/**
-	 * Compares usage amount with historical max
-	 *
-	 * @param usage
-	 * @return true if usage is greater than max, false if lower than min
-	 */
-	public boolean isGreaterMax(double usage) {
-		if (usage > histUsage[maxIndex]) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean isGreaterAvg(double usage) {
+		return usage > avg;
 	}
 
-	/**
-	 * Compares usage amount with historical min
-	 *
-	 * @param usage
-	 * @return true if usage is less than min, false if greater than min
-	 */
-	public boolean isLessMin(double usage) {
-		if (usage < histUsage[minIndex]) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean isGreaterMax(double usage) {
+		return usage > histUsage[maxIndex];
+	}
+
+	private boolean isLessMin(double usage) {
+		return usage < histUsage[minIndex];
 	}
 }
