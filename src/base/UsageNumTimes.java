@@ -1,10 +1,8 @@
 package base;
 
-
 import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
-
 
 public class UsageNumTimes extends ResourceUsage {
 

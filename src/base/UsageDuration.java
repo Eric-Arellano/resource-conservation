@@ -1,12 +1,8 @@
 package base;
 
-
 import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
-
-import static base.UsageDuration.convertToMin;
-
 
 public class UsageDuration extends ResourceUsage {
 
@@ -21,8 +17,6 @@ public class UsageDuration extends ResourceUsage {
 	 * @param rate      - rate of consumption, should always be in terms of minutes
 	 * @param usageUnit - e.g. "gallons" or "liters"
 	 * @param timeType  - how time will be inputted; expected "seconds", "minutes", or "both"
-	 * @param tips
-	 * @param avg
 	 */
 	public UsageDuration(String name,
 	                     double rate,
@@ -56,6 +50,14 @@ public class UsageDuration extends ResourceUsage {
 	// Prompt input Methods
 	// ================================================================================
 
+	public static double convertToMin(double numSec) {
+		return numSec / 60;
+	}
+
+	public static double convertToSec(double numMin) {
+		return numMin * 60;
+	}
+
 	public void promptInput() {
 		if (getInputUnit().equalsIgnoreCase("seconds")) {
 			promptSec();
@@ -76,6 +78,10 @@ public class UsageDuration extends ResourceUsage {
 		setInputAmt(numMin);
 	}
 
+	// ================================================================================
+	// Time unit conversion
+	// ================================================================================
+
 	private void promptMin() {
 		System.out.print("How many minutes did you use the " + getName() + "? ");
 		double numMin = in.nextDouble();
@@ -94,29 +100,8 @@ public class UsageDuration extends ResourceUsage {
 	}
 
 	// ================================================================================
-	// Time unit conversion
-	// ================================================================================
-
-	public static double convertToMin(double numSec) {
-		return numSec / 60;
-	}
-
-	public static double convertToSec(double numMin) {
-		return numMin * 60;
-	}
-
-	// ================================================================================
 	// Mutator Methods
 	// ================================================================================
-
-	/**
-	 * Mutator method to set time type for input unit. Expected values: "minutes", "seconds", or "both"
-	 *
-	 * @param type
-	 */
-	public void setTimeType(String type) {
-		setInputUnit(type);
-	}
 
 	/**
 	 * Method to prompt user to supply time type for input unit instead of programmer.

@@ -1,10 +1,3 @@
-/**
- * This superclass serves as the main class of this ResourceConservation program. It creates an object
- * for each type of resource usage, and includes the main method of calculating resource usage.
- *
- * @author ericarellano
- */
-
 package base;
 
 
@@ -14,13 +7,15 @@ import features.Tips;
 
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Scanner;
 
-
+/**
+ * Main program class. Used to create and interface with different resource consumption types.
+ *
+ * @author ericarellano
+ */
 abstract public class ResourceUsage {
 
-	private final NumberFormat percent = NumberFormat.getPercentInstance();
 	private final DecimalFormat fmt = new DecimalFormat("0.##");
 	Scanner in = new Scanner(System.in);
 
@@ -29,27 +24,27 @@ abstract public class ResourceUsage {
 	// Instance Variables
 	// ================================================================================
 
-	private String name; // name of usage type
-	private double rate;
+	private final String name; // name of usage type
+	private final double rate;
 	private double inputAmt; // user-inputted amount; not in final units
 	private String inputUnit;
 	private double usageAmt; // converted inputAmt; in final units
-	private String usageUnit; // unit to report in, such as gal
-	private Tips tips;
-	private AverageUsage avg;
-	private HistoricalUsage hist;
+	private final String usageUnit; // unit to report in, such as gal
+	private final Tips tips;
+	private final AverageUsage avg;
+	private final HistoricalUsage hist;
 
 
 	// ================================================================================
 	// Constructors
 	// ================================================================================
 
-	public ResourceUsage(String name,
-	                     double rate,
-	                     String unit,
-	                     Tips tips,
-	                     AverageUsage avg,
-	                     HistoricalUsage historical) {
+	ResourceUsage(String name,
+	              double rate,
+	              String unit,
+	              Tips tips,
+	              AverageUsage avg,
+	              HistoricalUsage historical) {
 		this.name = name;
 		this.rate = rate;
 		this.usageUnit = unit;
@@ -58,10 +53,10 @@ abstract public class ResourceUsage {
 		this.hist = historical;
 	}
 
-	public ResourceUsage(String name,
-	                     double rate,
-	                     String unit,
-	                     HistoricalUsage historical) {
+	ResourceUsage(String name,
+	              double rate,
+	              String unit,
+	              HistoricalUsage historical) {
 		this.name = name;
 		this.rate = rate;
 		this.usageUnit = unit;
@@ -111,8 +106,9 @@ abstract public class ResourceUsage {
 	// ================================================================================
 	// Accessor methods
 	// ================================================================================
+	// TODO: figure out better encapsulation of Getters and Setters
 
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
@@ -121,47 +117,16 @@ abstract public class ResourceUsage {
 	// ================================================================================
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public double getRate() {
-		return rate;
-	}
-
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-
-	public double getUsageAmt() {
-		return usageAmt;
-	}
-
-	public String getUsageUnit() {
-		return usageUnit;
-	}
-
-	public void setUsageUnit(String unit) {
-		this.usageUnit = unit;
-	}
-
-	public String getInputUnit() {
+	String getInputUnit() {
 		return inputUnit;
 	}
 
-	public void setInputUnit(String inputUnit) {
+	void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
 	}
 
-	public void setInputAmt(double input) {
+	void setInputAmt(double input) {
 		this.inputAmt = input;
 	}
 
-	public void setTips(Tips tips) {
-		this.tips = tips;
-	}
-
-	public void setAvg(AverageUsage avg) {
-		this.avg = avg;
-	}
 }
