@@ -1,6 +1,9 @@
 package features;
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 class ComparisonHelper {
 
 	private final double usageAmount;
@@ -23,11 +26,11 @@ class ComparisonHelper {
 	// ================================================================================
 
 	// Average usage constructor
-	ComparisonHelper (double usageAmount,
-	                  double avgAmount,
-	                  String unit,
-	                  String resourceName,
-	                  double rate) {
+	ComparisonHelper(double usageAmount,
+	                 double avgAmount,
+	                 String unit,
+	                 String resourceName,
+	                 double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
@@ -38,13 +41,13 @@ class ComparisonHelper {
 	}
 
 	// Historical usage constructor
-	ComparisonHelper (double usageAmount,
-	                  double avgAmount,
-	                  double minAmount,
-	                  double maxAmount,
-	                  String unit,
-	                  String resourceName,
-	                  double rate) {
+	ComparisonHelper(double usageAmount,
+	                 double avgAmount,
+	                 double minAmount,
+	                 double maxAmount,
+	                 String unit,
+	                 String resourceName,
+	                 double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = minAmount;
@@ -58,28 +61,24 @@ class ComparisonHelper {
 	// ================================================================================
 	// Return comparisons
 	// ================================================================================
-	// TODO: figure out how to format numbers
 
-	public String compareAvg() {
+	String compareAvg() {
 		String comparison = returnBaseComparison();
 		if (isGreaterAvg()) {
 			comparison += followupHowMuchToAvg();
-		}
-		else {
+		} else {
 			followupGoodJob();
 		}
 		return comparison;
 	}
 
-	public String compareHistorical() {
+	String compareHistorical() {
 		String comparison = returnBaseComparison();
 		if (isGreaterAvg()) {
 			comparison += followupHowMuchToAvg();
-		}
-		else if (isLessMin()) {
+		} else if (isLessMin()) {
 			comparison += followupGoodJob();
-		}
-		else {
+		} else {
 			comparison += followupHowMuchToMin();
 		}
 		return comparison;
@@ -94,9 +93,9 @@ class ComparisonHelper {
 		calcPercentDiff();
 		String moreOrLess = determineMoreOrLess();
 		// return result
-		return "You used " + absoluteDiff + " " + moreOrLess + " " + unit + " than " + comparisonType +
-				" of " + comparisonValue + " " + unit + "! That's " + percentDiff + " " + moreOrLess + " than " +
-				comparisonType + ".";
+		return "You used " + decimals.format(absoluteDiff) + " " + moreOrLess + " " + unit + " than " +
+				comparisonType + " of " + decimals.format(comparisonValue) + " " + unit + "! That's " +
+				percents.format(percentDiff) + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
 
@@ -105,20 +104,25 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToAvg() {
-		String followup = "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " " +
-				" fewer " + unit + " to get to ";
-			if (minAmount == 0.0 && maxAmount == 0.0) {
-				followup += " the average usage.";
-			}
-			else {
-				followup += "your average usage.";
-			}
+		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+		String followup = "\nYou would need to use the " + name + " " + changeAmount + " fewer " +
+				unit + " to get to ";
+		if (minAmount == 0.0 && maxAmount == 0.0) {
+			followup += " the average usage.";
+		} else {
+			followup += "your average usage.";
+		}
 		return followup;
 	}
 
 	private String followupHowMuchToMin() {
-		return "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + " to beat your lowest record.";
+		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+		return "\nYou would need to use the " + name + " " + changeAmount + " fewer " +
+				unit + " to beat your lowest record.";
 	}
+
+	private final NumberFormat percents = NumberFormat.getPercentInstance();
+	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
 
 	// ================================================================================
@@ -150,11 +154,9 @@ class ComparisonHelper {
 		// if historical, determine comp type
 		else if (isGreaterMax()) {
 			this.comparisonType = "your max";
-		}
-		else if (isLessMin()) {
+		} else if (isLessMin()) {
 			this.comparisonType = "your min";
-		}
-		else {
+		} else {
 			this.comparisonType = "your average";
 		}
 	}
@@ -165,8 +167,7 @@ class ComparisonHelper {
 		}
 		if (comparisonType.equals("your min")) {
 			this.comparisonValue = minAmount;
-		}
-		else {
+		} else {
 			this.comparisonValue = avgAmount;
 		}
 	}
