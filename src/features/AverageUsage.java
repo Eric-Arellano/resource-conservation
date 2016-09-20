@@ -16,61 +16,23 @@ public class AverageUsage {
 	}
 
 	public AverageUsage(double rate, double inputAmt) {
-
 		this.avg = calcAvg(rate, inputAmt);
 	}
 
-	// ================================================================================
-	// Mutator method
-	// ================================================================================
-
-	/**
-	 * This method calculates a usage amount based off of the supplied rate and input amount.
-	 *
-	 * @param rate
-	 * @param inputAmt
-	 * @return double - usage amount
-	 */
-	private double calcAvg(double rate, double inputAmt) {
-		return inputAmt * rate;
-	}
-
-	/**
-	 * Compares usage amount with average amount
-	 *
-	 * @param usage
-	 * @return true if usage is greater than average, false if lower than average
-	 */
-	public boolean isGreater(double usage) {
-		if (usage > avg) {
-			return true;
-		} else {
-			return false;
+		// Used to convert input unit to usage unit in constructor.
+		private double calcAvg(double rate, double inputAmt) {
+			return inputAmt * rate;
 		}
-	}
 
 	// ================================================================================
-	// Unique methods
+	// Public Interface
 	// ================================================================================
 
-	/**
-	 * Provides percent difference between user amount and average amount. Returns in absolute value.
-	 *
-	 * @param usage
-	 * @return double in decimal format (not percentage)
-	 */
-	public double percentDiff(double usage) {
-		double percent = (usage - avg) / avg;
-		return Math.abs(percent);
+	public String compareAverage(double usage,
+	                                String unit,
+	                                String name) {
+		ComparisonHelper comparer = new ComparisonHelper();
+		return comparer.compareAvg();
 	}
-
-	public double getAvg() {
-		return this.avg;
-	}
-
-	public void setAvg(double avg) {
-		this.avg = avg;
-	}
-
 
 }

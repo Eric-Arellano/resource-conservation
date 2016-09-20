@@ -1,10 +1,7 @@
 package features;
 
 
-import base.ResourceUsage;
-
-import static com.sun.tools.doclint.Entity._int;
-import static com.sun.tools.doclint.Entity.or;
+import features.ComparisonHelper;
 
 
 public class HistoricalUsage {
@@ -32,18 +29,6 @@ public class HistoricalUsage {
 	// ================================================================================
 	// Methods to add to Array
 	// ================================================================================
-
-	/**
-	 * Provides percent difference between user amount and historical amount. Returns in absolute value.
-	 *
-	 * @param usage      - current usage
-	 * @param historical - value being compared to, such as historical max or historical avg
-	 * @return double in decimal format (not percentage)
-	 */
-	public static double percentDiff(double usage, double historical) {
-		double percent = (usage - historical) / historical;
-		return Math.abs(percent);
-	}
 
 	/**
 	 * This method adds a usage to the instance array histUsage. If the array is filled, it
@@ -75,8 +60,8 @@ public class HistoricalUsage {
 	 */
 	public void preFill(double rate, double... input) // uses VarArg
 	{
-		for (int i = 0; i < input.length; i++) {
-			double usage = calcUsage(rate, input[i]);
+		for (double value : input) {
+			double usage = calcUsage(rate, value);
 			addHistorical(usage);
 		}
 
@@ -122,7 +107,7 @@ public class HistoricalUsage {
 	}
 
 	// ================================================================================
-	// Display Historical Usage
+	// Public Interface
 	// ================================================================================
 
 	public String displayHistorical() {
@@ -133,6 +118,20 @@ public class HistoricalUsage {
 		return histUsageResult;
 	}
 
+	public String compareHistorical(double usage,
+	                                String unit,
+	                                String name) {
+		ComparisonHelper comparer = new ComparisonHelper();
+		String comparison = comparer.compareHistorical();
+		updateValues();
+		return comparison;
+	}
+
+
+	// ================================================================================
+	// Internal Accessor Methods
+	// ================================================================================
+
 	private void updateMax() {
 		for (int i = maxIndex + 1; i < count; i++)
 		// because array stays in chronological order, don't have to re-evaluate elements before minIndex
@@ -142,15 +141,15 @@ public class HistoricalUsage {
 		}
 	}
 
-	public double getMinVal() {
+	private double getMinVal() {
 		return this.histUsage[minIndex];
 	}
 
-	public double getMaxVal() {
+	private double getMaxVal() {
 		return this.histUsage[maxIndex];
 	}
 
-	public double getAvg() {
+	private double getAvg() {
 		return this.avg;
 	}
 
@@ -162,99 +161,4 @@ public class HistoricalUsage {
 		return this.count;
 	}
 
-	// ================================================================================
-	// Compare historical amounts
-	// ================================================================================
-
-	public String compareHistorical(double usage,
-	                                String unit,
-	                                String name) {
-
-		// calc values
-		String comparisonType = decideComparisonType(usage);
-		double comparisonValue = getComparisonValue(comparisonType);
-		String moreOrLess = decideMoreOrLess(usage, comparisonValue);
-		double absoluteDiff = calcAbsoluteDiff(usage, comparisonValue);
-		double percentDiff = calcPercentDiff(usage, comparisonValue);
-
-		// base result
-		String result = "You used " + absoluteDiff + moreOrLess + unit + "than your previous " + comparisonType + "of" +
-				comparisonValue + unit + "! That's" + percentDiff + moreOrLess + "than your previous" + comparisonType;
-
-		// append additional info
-		if (isLessMin(usage)){
-			result += "\nKeep it up!";
-		}
-		else if (isGreaterMax(usage) || isGreaterAvg(usage)) {
-			result += howMuchToAvg();
-		}
-		else {
-			result += howMuchToMin();
-		}
-		return result;
-	}
-
-	private String decideComparisonType(double usage) {
-		String result = "";
-		if (isGreaterAvg(usage)) {
-			result = "max";
-		}
-		else if (isLessMin(usage)) {
-			result = "min";
-		}
-		else {
-			result = "average";
-		}
-		return result;
-	}
-
-	private double getComparisonValue(String comparisonType) {
-		double comparisonValue;
-		if (comparisonType.equals("max")) {
-			comparisonValue = getMaxVal();
-		}
-		if (comparisonType.equals("min")) {
-			comparisonValue = getMinVal();
-		}
-		else {
-			comparisonValue = getAvg();
-		}
-		return comparisonValue;
-	}
-
-	private String decideMoreOrLess(double usage, double comparisonValue) {
-		String result = usage > comparisonValue ? "more" : "less";
-		return result;
-	}
-
-	private double calcAbsoluteDiff(double usage, double comparisonValue) {
-		return Math.abs(usage - comparisonValue);
-	}
-
-	private double calcPercentDiff(double usage, double comparisonValue) {
-		return Math.abs((usage - comparisonValue) / comparisonValue);
-	}
-
-	private String howMuchToAvg() {
-		String result = "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
-				"get to your average usage.";
-		return result;
-	}
-
-	private String howMuchToMin(String name) {
-		String result = "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
-		return result;
-	}
-
-	private boolean isGreaterAvg(double usage) {
-		return usage > avg;
-	}
-
-	private boolean isGreaterMax(double usage) {
-		return usage > histUsage[maxIndex];
-	}
-
-	private boolean isLessMin(double usage) {
-		return usage < histUsage[minIndex];
-	}
 }

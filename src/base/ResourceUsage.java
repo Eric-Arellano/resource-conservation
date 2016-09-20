@@ -71,8 +71,9 @@ abstract public class ResourceUsage {
 	}
 
 	// ================================================================================
-	// Unique methods
+	// User Interface methods
 	// ================================================================================
+
 	abstract public void promptInput();
 
 	public void calcUsage() {
@@ -93,79 +94,20 @@ abstract public class ResourceUsage {
 	}
 
 	/**
-	 * Method to show user how their usage compares to the global average. This method prints
-	 * 1) whether the user used more or less than average, 2) the absolute difference, 3) the percent
-	 * difference, and 4) if usage is greater than average, the amount of inputs that would need
-	 * to be reduced to get to the average.
+	 * Compares to global average usage. Prints comparison and followup action.
 	 */
 	public void compareAverage() {
-		double absoluteDiff = Math.abs(usageAmt - avg.getAvg());
-
-		if (avg.isGreater(usageAmt)) {
-			System.out.println("You used " + fmt.format(absoluteDiff) + " more " + usageUnit +
-					" than the average. " + "That's " + percent.format(avg.percentDiff(usageAmt))
-					+ " more.");
-			System.out.println("You would need to use the " + name + " " +
-					fmt.format(calcInputChange(absoluteDiff)) + " fewer " +
-					inputUnit + " to get to the average.");
-		} else {
-			System.out.println("You used " + fmt.format(absoluteDiff) + " fewer " + usageUnit +
-					" than the average. " + "That's " + percent.format(avg.percentDiff(usageAmt))
-					+ " less.");
-		}
+		avg.compareAverage(usageAmt, inputUnit, name);
 	}
 
 	/**
-	 * Method to show user how their usage compares to their historical usage. This method first
-	 * assesses how the usage compares to the historical min and max, then to the historical average.
-	 * There are four potential outputs printed, depending on where the usage falls in the above
-	 * categories. Each output prints whether the usage was greater or lesser than the comparison value,
-	 * the absolute and percent differences, and for 3/4 outputs the input change needed. The historical
-	 * usage's array's min, max, and avg values are then updated.
+	 * Compares to historical min, max, and avg values.
+	 *
+	 * Prints comparison to relevant value and followup action. Then updates values.
 	 */
-//	public void compareHistorical() {
-//		double absoluteDiffMax = Math.abs(usageAmt - hist.getMaxVal());
-//		double absoluteDiffAvg = Math.abs(usageAmt - hist.getAvg());
-//		double absoluteDiffMin = Math.abs(usageAmt - hist.getMinVal());
-//
-//		if (hist.isGreaterMax(usageAmt)) {
-//
-//			System.out.println("You used " + fmt.format(absoluteDiffMax) + " more " + usageUnit +
-//					" than your previous max usage of " + fmt.format(hist.getMaxVal()) +
-//					" " + usageUnit + "! " + "That's " +
-//					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMaxVal())) + " more.");
-//			System.out.println("You would need to use the " + name + " " +
-//					fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
-//					inputUnit + " to get to your average usage.");
-//		} else if (hist.isLessMin(usageAmt)) {
-//			System.out.println("You used " + fmt.format(absoluteDiffMin) + " less " + usageUnit +
-//					" than your previous lowest record of " + fmt.format(hist.getMinVal()) +
-//					" " + usageUnit + "! " + "That's " +
-//					percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getMinVal())) + " less.");
-//			System.out.println("Keep it up!");
-//		} else // within bounds of min and max
-//		{
-//			if (hist.isGreaterAvg(usageAmt)) {
-//				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " more " + usageUnit +
-//						" than your average of " + fmt.format(hist.getAvg()) +
-//						" " + usageUnit + ". " + "That's " +
-//						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " more.");
-//				System.out.println("You would need to use the " + name + " " +
-//						fmt.format(calcInputChange(absoluteDiffAvg)) + " fewer " +
-//						inputUnit + " to get to your average usage.");
-//			} else {
-//				System.out.println("You used " + fmt.format(absoluteDiffAvg) + " less " + usageUnit +
-//						" than your average of " + fmt.format(hist.getAvg()) +
-//						" " + usageUnit + ". " + "That's " +
-//						percent.format(HistoricalUsage.percentDiff(usageAmt, hist.getAvg())) + " less.");
-//				System.out.println("You would need to use the " + name + " " +
-//						fmt.format(calcInputChange(absoluteDiffMin)) + " fewer " +
-//						inputUnit + " to beat your lowest record.");
-//			}
-//		}
-//
-//		hist.updateValues();
-//	}
+	public void compareHistorical() {
+		hist.compareHistorical(usageAmt, inputUnit, name);
+	}
 
 	abstract public double calcInputChange(double usageToChange);
 

@@ -95,25 +95,25 @@ class ComparisonHelper {
 	private void determineComparisonType() {
 		// check if historical or average
 		if (minAmount == 0 && maxAmount == 0) {
-			this.comparisonType = "average";
+			this.comparisonType = "average user";
 		}
 		// if historical, determine comp type
 		else if (isGreaterAvg()) {
-			this.comparisonType = "max";
+			this.comparisonType = "your max";
 		}
 		else if (isLessMin()) {
-			this.comparisonType = "min";
+			this.comparisonType = "your min";
 		}
 		else {
-			this.comparisonType = "average";
+			this.comparisonType = "your average";
 		}
 	}
 
 	private void determineComparisonAmount() {
-		if (comparisonType.equals("max")) {
+		if (comparisonType.equals("your max")) {
 			this.comparisonValue = maxAmount;
 		}
-		if (comparisonType.equals("min")) {
+		if (comparisonType.equals("your min")) {
 			this.comparisonValue = minAmount;
 		}
 		else {
