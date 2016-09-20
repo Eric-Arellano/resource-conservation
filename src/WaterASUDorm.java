@@ -5,14 +5,13 @@ import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 
 public class WaterASUDorm {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws IOException {
 		Scanner in = new Scanner(System.in);
 
 		// ================================================================================
@@ -67,14 +66,14 @@ public class WaterASUDorm {
 
 		ResourceUsage chosenUsage = shower; // using this to simplify switch menu
 		boolean quitProgram = false;
-		boolean quitUsage = false; // to quit current ResourceUsage object and choose new one
+		boolean quitUsage; // to quit current ResourceUsage object and choose new one
 
 		do {
 			// ================================================================================
 			// User selects which ResourceUsage
 			// ================================================================================
 
-			printUsages();
+			printChooseUsage();
 			int usageSelection = in.nextInt();
 			switch (usageSelection) {
 				case 1:
@@ -114,7 +113,7 @@ public class WaterASUDorm {
 
 				do {
 					quitUsage = false; // to reset boolean after quitUsage has been declared already
-					printMenu(chosenUsage);
+					printUsageMenu();
 					int menuSelection = in.nextInt();
 					System.out.println();
 					switch (menuSelection) {
@@ -155,13 +154,13 @@ public class WaterASUDorm {
 
 	}
 
-	public static void printUsages() {
+	private static void printChooseUsage() {
 		System.out.println("\nWhich of the following did you use? Choose one. \nEnter the number of " +
 				"the menu item you'd like and then press enter (\"0\" to quit)." + "\n\n\t1. the shower"
 				+ "\t\t3. the washing machine" + "\n\t2. the sink");
 	}
 
-	public static void printMenu(ResourceUsage chosenUsage) {
+	private static void printUsageMenu() {
 		System.out.println("\nWhat would you like to do now? \nEnter the number of " +
 				"the menu item you'd like and then press enter (\"0\" to quit)." +
 				"\n\n\t1. compare to the average on campus" +
