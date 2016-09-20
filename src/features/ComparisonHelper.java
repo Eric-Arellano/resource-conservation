@@ -1,16 +1,21 @@
 package features;
 
 
-public class ComparisonHelper {
+class ComparisonHelper {
 
-	private String comparisonType;
 	private double usageAmount;
 	private double avgAmount;
 	private double minAmount;
 	private double maxAmount;
 
+	private String comparisonType;
+	private double comparisonValue;
+
+	private String unit;
+	private String name;
+
 	// ================================================================================
-	// Constructor and deconstructor
+	// Constructor and destructor
 	// ================================================================================
 
 
@@ -19,27 +24,50 @@ public class ComparisonHelper {
 	// ================================================================================
 
 	public String compareAvg() {
-
+		String comparison = returnBaseComparison();
+		if (isGreaterAvg()) {
+			comparison += followupHowMuchToAvg();
+		}
+		else {
+			followupGoodJob();
+		}
+		return comparison;
 	}
 
 	public String compareHistorical() {
-
+		String comparison = returnBaseComparison();
+		if (isGreaterAvg()) {
+			comparison += followupHowMuchToAvg();
+		}
+		else if (isLessMin()) {
+			comparison += followupGoodJob();
+		}
+		else {
+			comparison += followupHowMuchToMin();
+		}
+		return comparison;
 	}
 
 	private String returnBaseComparison() {
-
+		double absoluteDiff = calcAbsoluteDiff();
+		double percentDiff = calcPercentDiff();
+		String moreOrLess = determineMoreOrLess();
+		return "You used " + absoluteDiff + moreOrLess + unit + "than your " + comparisonType +
+				"of" + comparisonValue + unit + "! That's" + percentDiff + moreOrLess + "than your " + comparisonType;
 	}
 
-	private String appendGoodJob() {
 
+	private String followupGoodJob() {
+		return "\nKeep it up!";
 	}
 
-	private String appendHowMuchToAvg() {
-
+	private String followupHowMuchToAvg() {
+		return "\nYou would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
+				"get to your average usage.";
 	}
 
-	private String appendHowMuchToMin() {
-
+	private String followupHowMuchToMin() {
+		return "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
 	}
 
 
@@ -47,16 +75,16 @@ public class ComparisonHelper {
 	// Comparison tests
 	// ================================================================================
 
-	private boolean isGreaterAvg(double usage) {
-		return usage > avgAmount;
+	private boolean isGreaterAvg() {
+		return usageAmount > avgAmount;
 	}
 
-	private boolean isGreaterMax(double usage) {
-		return usage > maxAmount;
+	private boolean isGreaterMax() {
+		return usageAmount > maxAmount;
 	}
 
-	private boolean isLessMin(double usage) {
-		return usage < minAmount;
+	private boolean isLessMin() {
+		return usageAmount < minAmount;
 	}
 
 
@@ -64,16 +92,37 @@ public class ComparisonHelper {
 	// Determine comparison type/values
 	// ================================================================================
 
-	private String determineComparisonType() {
-
+	private void determineComparisonType() {
+		// check if historical or average
+		if (minAmount == 0 && maxAmount == 0) {
+			this.comparisonType = "average";
+		}
+		// if historical, determine comp type
+		else if (isGreaterAvg()) {
+			this.comparisonType = "max";
+		}
+		else if (isLessMin()) {
+			this.comparisonType = "min";
+		}
+		else {
+			this.comparisonType = "average";
+		}
 	}
 
-	private double determineComparisonAmount() {
-
+	private void determineComparisonAmount() {
+		if (comparisonType.equals("max")) {
+			this.comparisonValue = maxAmount;
+		}
+		if (comparisonType.equals("min")) {
+			this.comparisonValue = minAmount;
+		}
+		else {
+			this.comparisonValue = avgAmount;
+		}
 	}
 
 	private String determineMoreOrLess() {
-
+		return usageAmount > comparisonValue ? "more" : "less";
 	}
 
 
@@ -82,11 +131,11 @@ public class ComparisonHelper {
 	// ================================================================================
 
 	private double calcAbsoluteDiff() {
-
+		return Math.abs(usageAmount - comparisonValue);
 	}
 
 	private double calcPercentDiff() {
-
+		return Math.abs((usageAmount - comparisonValue) / comparisonValue);
 	}
 
 
@@ -94,6 +143,7 @@ public class ComparisonHelper {
 	// Required input change
 	// ================================================================================
 
+	// TODO: come up with a design! Problem is handling differences between UsageDuration and UsageNumTimes.
 
 
 }
