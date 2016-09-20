@@ -97,7 +97,7 @@ abstract public class ResourceUsage {
 	 * Compares to global average usage. Prints comparison and followup action.
 	 */
 	public void compareAverage() {
-		avg.compareAverage(usageAmt, inputUnit, name);
+		avg.compareAverage(usageAmt, inputUnit, name, rate);
 	}
 
 	/**
@@ -121,7 +121,7 @@ abstract public class ResourceUsage {
 	// Mutator methods
 	// ================================================================================
 
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -85,6 +85,7 @@ class ComparisonHelper {
 		return comparison;
 	}
 
+	
 	private String returnBaseComparison() {
 		// calc values
 		determineComparisonType();
@@ -181,7 +182,7 @@ class ComparisonHelper {
 
 
 	// ================================================================================
-	// Calculate followup's change amount
+	// Calculate followup's required change amount
 	// ================================================================================
 
 	private double calcFollowupChangeAmount(double absoluteDiff) {
