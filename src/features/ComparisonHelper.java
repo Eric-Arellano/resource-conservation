@@ -95,7 +95,8 @@ class ComparisonHelper {
 		String moreOrLess = determineMoreOrLess();
 		// return result
 		return "You used " + absoluteDiff + " " + moreOrLess + " " + unit + " than " + comparisonType +
-				" of" + comparisonValue + unit + "! That's " + percentDiff + " " + moreOrLess + " than " + comparisonType + ".";
+				" of " + comparisonValue + " " + unit + "! That's " + percentDiff + " " + moreOrLess + " than " +
+				comparisonType + ".";
 	}
 
 
@@ -104,8 +105,15 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToAvg() {
-		return "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit +
-				" to get to your average usage.";
+		String followup = "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " " +
+				" fewer " + unit + " to get to ";
+			if (minAmount == 0.0 && maxAmount == 0.0) {
+				followup += " the average usage.";
+			}
+			else {
+				followup += "your average usage.";
+			}
+		return followup;
 	}
 
 	private String followupHowMuchToMin() {
