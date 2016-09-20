@@ -11,8 +11,12 @@ class ComparisonHelper {
 	private String comparisonType;
 	private double comparisonValue;
 
+	private double absoluteDiff;
+	private double percentDiff;
+
 	private final String unit;
 	private final String name;
+	private final double rate;
 
 	// ================================================================================
 	// Constructor
@@ -22,13 +26,15 @@ class ComparisonHelper {
 	ComparisonHelper (double usageAmount,
 	                  double avgAmount,
 	                  String unit,
-	                  String resourceName) {
+	                  String resourceName,
+	                  double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
 		this.unit = unit;
 		this.name = resourceName;
+		this.rate = rate;
 	}
 
 	// Historical usage constructor
@@ -37,13 +43,15 @@ class ComparisonHelper {
 	                  double minAmount,
 	                  double maxAmount,
 	                  String unit,
-	                  String resourceName) {
+	                  String resourceName,
+	                  double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
 		this.unit = unit;
 		this.name = resourceName;
+		this.rate = rate;
 	}
 
 
@@ -81,8 +89,8 @@ class ComparisonHelper {
 		// calc values
 		determineComparisonType();
 		determineComparisonAmount();
-		double absoluteDiff = calcAbsoluteDiff();
-		double percentDiff = calcPercentDiff();
+		calcAbsoluteDiff();
+		calcPercentDiff();
 		String moreOrLess = determineMoreOrLess();
 		// return result
 		return "You used " + absoluteDiff + moreOrLess + unit + "than your " + comparisonType +
@@ -95,16 +103,12 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToAvg() {
-		return "";
-//				"\nYou would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
-//				"get to your average usage.";
-//		TODO: figure out calcInputChange
+		return "\nYou would need to use the " + name + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + "to " +
+				"get to your average usage.";
 	}
 
 	private String followupHowMuchToMin() {
-		return "";
-//		return "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
-//		TODO: figure out CalcInputChange
+		return "You would need to use the " + name + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
 	}
 
 
@@ -167,20 +171,25 @@ class ComparisonHelper {
 	// Calculate differences
 	// ================================================================================
 
-	private double calcAbsoluteDiff() {
-		return Math.abs(usageAmount - comparisonValue);
+	private void calcAbsoluteDiff() {
+		absoluteDiff = Math.abs(usageAmount - comparisonValue);
 	}
 
-	private double calcPercentDiff() {
-		return Math.abs((usageAmount - comparisonValue) / comparisonValue);
+	private void calcPercentDiff() {
+		percentDiff = Math.abs((usageAmount - comparisonValue) / comparisonValue);
 	}
 
 
 	// ================================================================================
-	// Required input change
+	// Calculate followup's change amount
 	// ================================================================================
 
-	// TODO: come up with a design! Problem is handling differences between UsageDuration and UsageNumTimes.
-
+	private double calcFollowupChangeAmount(double absoluteDiff) {
+		double changeAmount = absoluteDiff / rate;
+		if (unit.equalsIgnoreCase("seconds")) {
+			changeAmount = base.UsageDuration.convertToSec(changeAmount);
+		}
+		return changeAmount;
+	}
 
 }

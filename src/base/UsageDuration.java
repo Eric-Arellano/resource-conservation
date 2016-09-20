@@ -5,6 +5,8 @@ import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
+import static base.UsageDuration.convertToMin;
+
 
 public class UsageDuration extends ResourceUsage {
 
@@ -91,26 +93,16 @@ public class UsageDuration extends ResourceUsage {
 		setInputUnit("minutes");
 	}
 
-	private double convertToMin(double numSec) {
-		double numMin = numSec / 60;
-		return numMin;
-	}
-
 	// ================================================================================
-	// calcInputChange
+	// Time unit conversion
 	// ================================================================================
 
-	public double calcInputChange(double usageToChange) {
-		// if (getInputUnit.equalsIgnoreCase("seconds")) { convertoMin(getInputAmt()); }
-		double inputChange = usageToChange / getRate();
-		if (getInputUnit().equalsIgnoreCase("seconds")) // because rate is always in minute
-			inputChange = convertToSec(inputChange);
-		return inputChange;
+	public static double convertToMin(double numSec) {
+		return numSec / 60;
 	}
 
-	private double convertToSec(double numMin) {
-		double numSec = numMin * 60;
-		return numSec;
+	public static double convertToSec(double numMin) {
+		return numMin * 60;
 	}
 
 	// ================================================================================

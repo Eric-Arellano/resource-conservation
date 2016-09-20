@@ -106,14 +106,13 @@ abstract public class ResourceUsage {
 	 * Prints comparison to relevant value and followup action. Then updates values.
 	 */
 	public void compareHistorical() {
-		hist.compareHistorical(usageAmt, inputUnit, name);
+		hist.compareHistorical(usageAmt, inputUnit, name, rate);
 	}
-
-	abstract public double calcInputChange(double usageToChange);
 
 	// ================================================================================
 	// Accessor methods
 	// ================================================================================
+
 	public String getName() {
 		return name;
 	}
@@ -121,6 +120,8 @@ abstract public class ResourceUsage {
 	// ================================================================================
 	// Mutator methods
 	// ================================================================================
+
+	
 	public void setName(String name) {
 		this.name = name;
 	}
