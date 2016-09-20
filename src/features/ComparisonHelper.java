@@ -28,14 +28,14 @@ class ComparisonHelper {
 	// Average usage constructor
 	ComparisonHelper(double usageAmount,
 	                 double avgAmount,
-	                 String unit,
+	                 String usageUnit,
 	                 String resourceName,
 	                 double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
-		this.unit = unit;
+		this.unit = usageUnit;
 		this.name = resourceName;
 		this.rate = rate;
 	}
@@ -45,14 +45,14 @@ class ComparisonHelper {
 	                 double avgAmount,
 	                 double minAmount,
 	                 double maxAmount,
-	                 String unit,
+	                 String usageUnit,
 	                 String resourceName,
 	                 double rate) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
-		this.unit = unit;
+		this.unit = usageUnit;
 		this.name = resourceName;
 		this.rate = rate;
 	}

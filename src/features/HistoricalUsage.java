@@ -118,8 +118,9 @@ public class HistoricalUsage {
 		return histUsageResult;
 	}
 
-	public String compareHistorical(double usage, String unit, String name, double rate) {
-		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(), unit, name, rate);
+	public String compareHistorical(double usage, String usageUnit, String name, double rate) {
+		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
+				usageUnit, name, rate);
 		String comparison = comparer.compareHistorical();
 		updateValues();
 		return comparison;
