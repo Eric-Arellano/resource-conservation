@@ -142,40 +142,40 @@ public class HistoricalUsage {
 		}
 	}
 
-//	public double getMinVal() {
-//		return this.histUsage[minIndex];
-//	}
-//
-//	public double getMaxVal() {
-//		return this.histUsage[maxIndex];
-//	}
-//
-//	public double getAvg() {
-//		return this.avg;
-//	}
-//
-//	public double[] getUsage() {
-//		return this.histUsage;
-//	}
-//
-//	public int getCount() {
-//		return this.count;
-//	}
+	public double getMinVal() {
+		return this.histUsage[minIndex];
+	}
+
+	public double getMaxVal() {
+		return this.histUsage[maxIndex];
+	}
+
+	public double getAvg() {
+		return this.avg;
+	}
+
+	public double[] getUsage() {
+		return this.histUsage;
+	}
+
+	public int getCount() {
+		return this.count;
+	}
 
 	// ================================================================================
 	// Compare historical amounts
 	// ================================================================================
 
-	public String compareHistorical(double usage) {
+	public String compareHistorical(double usage,
+	                                String unit,
+	                                String name) {
 
 		// calc values
 		String comparisonType = decideComparisonType(usage);
 		double comparisonValue = getComparisonValue(comparisonType);
-		String moreOrLess = decideMoreOrLess();
-		double absoluteDiff = calcAbsoluteDiff();
-		double percentDiff;
-		String unit;
-		String name;
+		String moreOrLess = decideMoreOrLess(usage, comparisonValue);
+		double absoluteDiff = calcAbsoluteDiff(usage, comparisonValue);
+		double percentDiff = calcPercentDiff(usage, comparisonValue);
 
 		// base result
 		String result = "You used " + absoluteDiff + moreOrLess + unit + "than your previous " + comparisonType + "of" +
@@ -188,7 +188,7 @@ public class HistoricalUsage {
 		else if (isGreaterMax(usage) || isGreaterAvg(usage)) {
 			result += howMuchToAvg();
 		}
-		else (!extremeValue()) {
+		else {
 			result += howMuchToMin();
 		}
 		return result;
@@ -205,6 +205,44 @@ public class HistoricalUsage {
 		else {
 			result = "average";
 		}
+		return result;
+	}
+
+	private double getComparisonValue(String comparisonType) {
+		double comparisonValue;
+		if (comparisonType.equals("max")) {
+			comparisonValue = getMaxVal();
+		}
+		if (comparisonType.equals("min")) {
+			comparisonValue = getMinVal();
+		}
+		else {
+			comparisonValue = getAvg();
+		}
+		return comparisonValue;
+	}
+
+	private String decideMoreOrLess(double usage, double comparisonValue) {
+		String result = usage > comparisonValue ? "more" : "less";
+		return result;
+	}
+
+	private double calcAbsoluteDiff(double usage, double comparisonValue) {
+		return Math.abs(usage - comparisonValue);
+	}
+
+	private double calcPercentDiff(double usage, double comparisonValue) {
+		return Math.abs((usage - comparisonValue) / comparisonValue);
+	}
+
+	private String howMuchToAvg() {
+		String result = "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
+				"get to your average usage.";
+		return result;
+	}
+
+	private String howMuchToMin(String name) {
+		String result = "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
 		return result;
 	}
 
