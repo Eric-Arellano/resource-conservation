@@ -3,25 +3,54 @@ package features;
 
 class ComparisonHelper {
 
-	private double usageAmount;
-	private double avgAmount;
-	private double minAmount;
-	private double maxAmount;
+	private final double usageAmount;
+	private final double avgAmount;
+	private final double minAmount;
+	private final double maxAmount;
 
 	private String comparisonType;
 	private double comparisonValue;
 
-	private String unit;
-	private String name;
+	private final String unit;
+	private final String name;
 
 	// ================================================================================
-	// Constructor and destructor
+	// Constructor
 	// ================================================================================
+
+	// Average usage constructor
+	ComparisonHelper (double usageAmount,
+	                  double avgAmount,
+	                  String unit,
+	                  String resourceName) {
+		this.usageAmount = usageAmount;
+		this.avgAmount = avgAmount;
+		this.minAmount = 0.0;
+		this.maxAmount = 0.0;
+		this.unit = unit;
+		this.name = resourceName;
+	}
+
+	// Historical usage constructor
+	ComparisonHelper (double usageAmount,
+	                  double avgAmount,
+	                  double minAmount,
+	                  double maxAmount,
+	                  String unit,
+	                  String resourceName) {
+		this.usageAmount = usageAmount;
+		this.avgAmount = avgAmount;
+		this.minAmount = minAmount;
+		this.maxAmount = maxAmount;
+		this.unit = unit;
+		this.name = resourceName;
+	}
 
 
 	// ================================================================================
 	// Return comparisons
 	// ================================================================================
+	// TODO: figure out how to format numbers
 
 	public String compareAvg() {
 		String comparison = returnBaseComparison();
@@ -49,9 +78,13 @@ class ComparisonHelper {
 	}
 
 	private String returnBaseComparison() {
+		// calc values
+		determineComparisonType();
+		determineComparisonAmount();
 		double absoluteDiff = calcAbsoluteDiff();
 		double percentDiff = calcPercentDiff();
 		String moreOrLess = determineMoreOrLess();
+		// return result
 		return "You used " + absoluteDiff + moreOrLess + unit + "than your " + comparisonType +
 				"of" + comparisonValue + unit + "! That's" + percentDiff + moreOrLess + "than your " + comparisonType;
 	}
@@ -62,12 +95,16 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToAvg() {
-		return "\nYou would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
-				"get to your average usage.";
+		return "";
+//				"\nYou would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to " +
+//				"get to your average usage.";
+//		TODO: figure out calcInputChange
 	}
 
 	private String followupHowMuchToMin() {
-		return "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
+		return "";
+//		return "You would need to use the " + name + calcInputChange(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
+//		TODO: figure out CalcInputChange
 	}
 
 
@@ -94,11 +131,11 @@ class ComparisonHelper {
 
 	private void determineComparisonType() {
 		// check if historical or average
-		if (minAmount == 0 && maxAmount == 0) {
+		if (minAmount == 0.0 && maxAmount == 0.0) {
 			this.comparisonType = "average user";
 		}
 		// if historical, determine comp type
-		else if (isGreaterAvg()) {
+		else if (isGreaterMax()) {
 			this.comparisonType = "your max";
 		}
 		else if (isLessMin()) {

@@ -28,10 +28,8 @@ public class AverageUsage {
 	// Public Interface
 	// ================================================================================
 
-	public String compareAverage(double usage,
-	                                String unit,
-	                                String name) {
-		ComparisonHelper comparer = new ComparisonHelper();
+	public String compareAverage(double usage, String unit, String name) {
+		ComparisonHelper comparer = new ComparisonHelper(usage, avg, unit, name);
 		return comparer.compareAvg();
 	}
 
