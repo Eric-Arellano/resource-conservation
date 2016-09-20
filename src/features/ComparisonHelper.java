@@ -85,7 +85,7 @@ class ComparisonHelper {
 		return comparison;
 	}
 
-	
+
 	private String returnBaseComparison() {
 		// calc values
 		determineComparisonType();
@@ -94,8 +94,8 @@ class ComparisonHelper {
 		calcPercentDiff();
 		String moreOrLess = determineMoreOrLess();
 		// return result
-		return "You used " + absoluteDiff + moreOrLess + unit + "than your " + comparisonType +
-				"of" + comparisonValue + unit + "! That's" + percentDiff + moreOrLess + "than your " + comparisonType;
+		return "You used " + absoluteDiff + " " + moreOrLess + " " + unit + " than " + comparisonType +
+				" of" + comparisonValue + unit + "! That's " + percentDiff + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
 
@@ -104,12 +104,12 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToAvg() {
-		return "\nYou would need to use the " + name + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + "to " +
-				"get to your average usage.";
+		return "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit +
+				" to get to your average usage.";
 	}
 
 	private String followupHowMuchToMin() {
-		return "You would need to use the " + name + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + "to beat your lowest record.";
+		return "\nYou would need to use the " + name + " " + calcFollowupChangeAmount(absoluteDiff) + " fewer " + unit + " to beat your lowest record.";
 	}
 
 
@@ -137,7 +137,7 @@ class ComparisonHelper {
 	private void determineComparisonType() {
 		// check if historical or average
 		if (minAmount == 0.0 && maxAmount == 0.0) {
-			this.comparisonType = "average user";
+			this.comparisonType = "the average user";
 		}
 		// if historical, determine comp type
 		else if (isGreaterMax()) {

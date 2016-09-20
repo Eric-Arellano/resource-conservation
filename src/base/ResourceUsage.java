@@ -97,7 +97,7 @@ abstract public class ResourceUsage {
 	 * Compares to global average usage. Prints comparison and followup action.
 	 */
 	public void compareAverage() {
-		avg.compareAverage(usageAmt, inputUnit, name, rate);
+		System.out.println(avg.compareAverage(usageAmt, inputUnit, name, rate));
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract public class ResourceUsage {
 	 * Prints comparison to relevant value and followup action. Then updates values.
 	 */
 	public void compareHistorical() {
-		hist.compareHistorical(usageAmt, inputUnit, name, rate);
+		System.out.println(hist.compareHistorical(usageAmt, inputUnit, name, rate));
 	}
 
 	// ================================================================================
