@@ -80,10 +80,7 @@ public class WaterASUDorm {
 					break;
 			}
 
-			if (!quitProgram) // including this conditional so that below doesn't
-			// implement if user
-			// quits program in above switch statement
-			{
+			if (!quitProgram) {
 
 				// ================================================================================
 				// Initial usage input
@@ -91,6 +88,7 @@ public class WaterASUDorm {
 
 				System.out.println();
 				chosenUsage.promptInput();
+
 				chosenUsage.calcUsage();
 				chosenUsage.displayUsage();
 
@@ -100,8 +98,9 @@ public class WaterASUDorm {
 				// ================================================================================
 
 				do {
-					changeUsage = false; // to reset boolean after quitUsage has been declared already
+					changeUsage = false; // reset boolean
 					printUsageMenu();
+
 					int menuSelection = in.nextInt();
 					System.out.println();
 					switch (menuSelection) {
@@ -126,13 +125,13 @@ public class WaterASUDorm {
 						case 0:
 							quitProgram = true;
 							break;
-						default: // add tolerability
+						default: // TODO: add tolerability
 							System.out.print("Invalid input. Please restart the program.");
 							break;
 					}
 				} while (!changeUsage && !quitProgram);
 
-			} // close if loop to allow quitting program
+			}
 
 		} while (!quitProgram);
 
