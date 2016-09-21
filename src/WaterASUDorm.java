@@ -22,7 +22,7 @@ public class WaterASUDorm {
 		Tips showerTips = new Tips("showerTips.txt");
 		AverageUsage showerAvg = new AverageUsage(2.5, 10.6); // rate = 2.5 gpm, avg 10.6 minutes
 		HistoricalUsage showerHist = new HistoricalUsage();
-		showerHist.preFill(2.5, 8.3, 9.2, 12.4, 18.1); // rate = 2.5 gpm
+		showerHist.preFillData(2.5, 8.3, 9.2, 12.4, 18.1); // rate = 2.5 gpm
 		UsageDuration shower = new UsageDuration("shower", 2.5, "gallons", "minutes", showerTips,
 				showerAvg, showerHist);
 
@@ -30,7 +30,7 @@ public class WaterASUDorm {
 		Tips sinkTips = new Tips("sinkTips.txt");
 		AverageUsage sinkAvg = new AverageUsage(1.5, 0.35); // rate = 1.5 gpm, avg 0.35 minutes
 		HistoricalUsage sinkHist = new HistoricalUsage();
-		sinkHist.preFill(1.5, 0.2, 0.6, 0.5, 0.9); // time inputted in minutes
+		sinkHist.preFillData(1.5, 0.2, 0.6, 0.5, 0.9); // time inputted in minutes
 		UsageDuration sink = new UsageDuration("sink", 1.5, "gallons", "seconds", sinkTips,
 				sinkAvg, sinkHist);
 
@@ -38,7 +38,7 @@ public class WaterASUDorm {
 		Tips washerTips = new Tips("washerTips.txt");
 		AverageUsage washerAvg = new AverageUsage(25, 4); // 25 gal per wash, avg 4 washes per month
 		HistoricalUsage washerHist = new HistoricalUsage();
-		washerHist.preFill(25, 3, 6, 5, 5);
+		washerHist.preFillData(25, 3, 6, 5, 5);
 		UsageNumTimes washer = new UsageNumTimes("washing machine", 25, "gallons", washerTips,
 				washerAvg, washerHist);
 		washer.setInputUnit("times per month");

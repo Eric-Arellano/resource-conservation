@@ -31,7 +31,7 @@ public class HistoricalUsage {
 		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
 				usageUnit, name, rate);
 		String comparison = comparer.compareHistorical();
-		updateValues();
+		updateValues(); // TODO: is this necessary?
 		return comparison;
 	}
 
@@ -54,18 +54,17 @@ public class HistoricalUsage {
 	 * @param rate  - should be same rate as in constructor of object ResourceUsage
 	 * @param input - variable argument, can supply as many as wanted
 	 */
-	public void preFill(double rate, double... input) // uses VarArg
+	public void preFillData(double rate, double... input) // uses VarArg
 	{
 		for (double value : input) {
 			double usage = calcUsage(rate, value);
 			addHistorical(usage);
 		}
-
 		updateValues();
 	}
 
 	/**
-	 * This private method is used for the sake of preFill, so that the programmer can input with
+	 * This private method is used for the sake of preFillData, so that the programmer can input with
 	 * the more accessible input units (e.g. minutes) than the usage units (e.g. gallons)
 	 *
 	 * @param rate     - should be same rate as in constructor of object ResourceUsage
@@ -82,8 +81,7 @@ public class HistoricalUsage {
 	// ================================================================================
 
 	/**
-	 * This method updates the average, min, and max instance variables. It should be called after
-	 * ResourceUsage.compareHistUsage() is called so that the array shows updated values.
+	 * Updates min, max, and avg values.
 	 */
 	private void updateValues() {
 		updateAvg();
@@ -99,16 +97,16 @@ public class HistoricalUsage {
 	}
 
 	private void updateMin() {
+		// because array is chronological, just check new values
 		for (int index = minIndex + 1; index < count; index++) {
-			// because array stays in chronological order, don't have to re-evaluate elements before minIndex
 			if (histUsage.get(index) < histUsage.get(minIndex))
 				minIndex = index;
 		}
 	}
 
 	private void updateMax() {
+		/// because array is chronological, just check new values
 		for (int index = maxIndex + 1; index < count; index++) {
-			// because array stays in chronological order, don't have to re-evaluate elements before minIndex
 			if (histUsage.get(index) > histUsage.get(maxIndex))
 				maxIndex = index;
 		}
@@ -120,7 +118,7 @@ public class HistoricalUsage {
 	// ================================================================================
 
 	private double getMinVal() {
-		return this.histUsage.get(maxIndex);
+		return this.histUsage.get(minIndex);
 	}
 
 	private double getMaxVal() {
