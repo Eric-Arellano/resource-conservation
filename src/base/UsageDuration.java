@@ -70,7 +70,7 @@ public class UsageDuration extends ResourceUsage {
 	 * Method to prompt user to supply time type for input unit instead of programmer.
 	 * Expected inputs: "minutes", "seconds", or "both"
 	 */
-	public void promptTimeType() {
+	private void promptTimeType() {
 		boolean flag = false;
 		String type = "";
 		while (!flag) {
