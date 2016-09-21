@@ -122,14 +122,17 @@ public class WaterASUDorm {
 							chosenUsage.compareHistorical();
 							break;
 						case 3:
-							chosenUsage.displayTips();
+							chosenUsage.displayHistorical();
 							break;
 						case 4:
+							chosenUsage.displayTips();
+							break;
+						case 5:
 							chosenUsage.promptInput();
 							chosenUsage.calcUsage();
 							chosenUsage.displayUsage();
 							break;
-						case 5:
+						case 6:
 							quitUsage = true;
 							break;
 						case 0:
@@ -158,16 +161,20 @@ public class WaterASUDorm {
 	private static void printChooseUsage() {
 		System.out.println("\nWhich of the following did you use? Choose one. \nEnter the number of " +
 				"the menu item you'd like and then press enter (\"0\" to quit)." + "\n\n\t1. the shower"
-				+ "\t\t3. the washing machine" + "\n\t2. the sink");
+				+ "\t\t3. the washing machine" + "\n\t2. the sink"
+		);
 	}
 
 	private static void printUsageMenu() {
 		System.out.println("\nWhat would you like to do now? \nEnter the number of " +
 				"the menu item you'd like and then press enter (\"0\" to quit)." +
 				"\n\n\t1. compare to the average on campus" +
-				"\t\t4. enter a new value" +
-				"\n\t2. compare to my historical usage" + "\t\t5. change the thing I used"
-				+ "\n\t3. get tips for conserving");
+				"\t\t4. get tips for conserving" +
+				"\n\t2. compare to my historical usage" +
+				"\t\t5. enter a new value" +
+				"\n\t3. display my historical usage" +
+				"\t\t\t6. change the thing I used"
+		);
 
 	}
 
