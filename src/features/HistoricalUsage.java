@@ -20,7 +20,7 @@ public class HistoricalUsage {
 	public String displayHistorical() {
 		String histUsageResult = "";
 		for (int i = 0; i < this.count; i++) {
-			histUsageResult = +histUsage[i] + "";
+			histUsageResult += histUsage[i] + "";
 		}
 		return histUsageResult;
 	}
@@ -41,8 +41,6 @@ public class HistoricalUsage {
 	/**
 	 * This method adds a usage to the instance array histUsage. If the array is filled, it
 	 * removes the first element and shifts all elements one to the left.
-	 *
-	 * @param usage
 	 */
 	public void addHistorical(double usage) {
 		if (count < histUsage.length) {
@@ -143,14 +141,6 @@ public class HistoricalUsage {
 
 	private double getAvg() {
 		return this.avg;
-	}
-
-	public double[] getUsage() {
-		return this.histUsage;
-	}
-
-	public int getCount() {
-		return this.count;
 	}
 
 }

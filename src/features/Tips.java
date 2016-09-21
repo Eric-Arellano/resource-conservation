@@ -13,9 +13,6 @@ public class Tips {
 
 	/**
 	 * Constructs an object with given File.
-	 *
-	 * @param fileName
-	 * @throws FileNotFoundException
 	 */
 	public Tips(File fileName) throws IOException {
 		fileName.createNewFile(); // in case file doesn't already exist
@@ -24,9 +21,6 @@ public class Tips {
 
 	/**
 	 * Constructs an object with given name of relative path to file.
-	 *
-	 * @param fileName
-	 * @throws FileNotFoundException
 	 */
 	public Tips(String fileName) throws IOException {
 		File file = new File(fileName);
