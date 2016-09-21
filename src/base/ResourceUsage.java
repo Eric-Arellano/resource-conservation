@@ -1,6 +1,5 @@
 package base;
 
-
 import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
@@ -16,14 +15,6 @@ import java.util.Scanner;
  */
 abstract public class ResourceUsage {
 
-	private final DecimalFormat fmt = new DecimalFormat("0.##");
-	Scanner in = new Scanner(System.in);
-
-
-	// ================================================================================
-	// Instance Variables
-	// ================================================================================
-
 	private final String name; // name of usage type
 	private final double rate;
 	private double inputAmt; // user-inputted amount; not in final units
@@ -34,27 +25,26 @@ abstract public class ResourceUsage {
 	private final AverageUsage avg;
 	private final HistoricalUsage hist;
 
-
-	// ================================================================================
-	// Constructor
-	// ================================================================================
+	private final DecimalFormat fmt = new DecimalFormat("0.##");
+	Scanner in = new Scanner(System.in);
 
 	ResourceUsage(String name,
 	              double rate,
-	              String unit,
+	              String usageUnit,
 	              Tips tips,
 	              AverageUsage avg,
 	              HistoricalUsage historical) {
 		this.name = name;
 		this.rate = rate;
-		this.usageUnit = unit;
+		this.usageUnit = usageUnit;
 		this.tips = tips;
 		this.avg = avg;
 		this.hist = historical;
 	}
 
+
 	// ================================================================================
-	// User Interface methods
+	// Base usage
 	// ================================================================================
 
 	abstract public void promptInput();
@@ -67,6 +57,11 @@ abstract public class ResourceUsage {
 	public void displayUsage() {
 		System.out.println("That means you used " + fmt.format(usageAmt) + " " + usageUnit + ".");
 	}
+
+
+	// ================================================================================
+	// Feature usage
+	// ================================================================================
 
 	public void displayTips() throws FileNotFoundException {
 		System.out.println(tips.displayTips());

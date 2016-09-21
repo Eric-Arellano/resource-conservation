@@ -6,10 +6,6 @@ import features.Tips;
 
 public class UsageDuration extends ResourceUsage {
 
-	// ================================================================================
-	// Constructor
-	// ================================================================================
-
 	/**
 	 * Constructs a ResourceUsage object whose input is based on time duration.
 	 *
@@ -33,17 +29,9 @@ public class UsageDuration extends ResourceUsage {
 	// Prompt input Methods
 	// ================================================================================
 
-	public static double convertToMin(double numSec) {
-		return numSec / 60;
-	}
-
-	public static double convertToSec(double numMin) {
-		return numMin * 60;
-	}
-
 	public void promptInput() {
-		if (getInputUnit().equalsIgnoreCase("seconds")) {
-			promptSec();
+		if (getInputUnit().equalsIgnoreCase("both")) {
+			promptBoth();
 		} else if (getInputUnit().equalsIgnoreCase("minutes")) {
 			promptMin();
 		} else if (getInputUnit().equalsIgnoreCase("both")) {
@@ -61,10 +49,6 @@ public class UsageDuration extends ResourceUsage {
 		setInputAmt(numMin);
 	}
 
-	// ================================================================================
-	// Time unit conversion
-	// ================================================================================
-
 	private void promptMin() {
 		System.out.print("How many minutes did you use the " + getName() + "? ");
 		double numMin = in.nextDouble();
@@ -81,10 +65,6 @@ public class UsageDuration extends ResourceUsage {
 		setInputAmt(numMin);
 		setInputUnit("minutes");
 	}
-
-	// ================================================================================
-	// Mutator Methods
-	// ================================================================================
 
 	/**
 	 * Method to prompt user to supply time type for input unit instead of programmer.
@@ -114,4 +94,18 @@ public class UsageDuration extends ResourceUsage {
 		}
 		setInputUnit(type);
 	}
+
+	// ================================================================================
+	// Time unit conversion
+	// ================================================================================
+
+	public static double convertToMin(double numSec) {
+		return numSec / 60;
+	}
+
+	public static double convertToSec(double numMin) {
+		return numMin * 60;
+	}
+
+
 }
