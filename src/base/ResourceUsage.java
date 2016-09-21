@@ -25,7 +25,7 @@ abstract public class ResourceUsage {
 	private final AverageUsage avg;
 	private final HistoricalUsage hist;
 
-	private final DecimalFormat fmt = new DecimalFormat("0.##");
+	private final DecimalFormat decimals = new DecimalFormat("0.##");
 	Scanner in = new Scanner(System.in);
 
 	ResourceUsage(String name,
@@ -55,7 +55,7 @@ abstract public class ResourceUsage {
 	}
 
 	public void displayUsage() {
-		System.out.println("That means you used " + fmt.format(usageAmt) + " " + usageUnit + ".");
+		System.out.println("That means you used " + decimals.format(usageAmt) + " " + usageUnit + ".");
 	}
 
 
@@ -68,7 +68,7 @@ abstract public class ResourceUsage {
 	}
 
 	public void displayHistorical() {
-		System.out.println(hist.displayHistorical());
+		System.out.println(hist.displayHistorical(usageUnit));
 	}
 
 	/**

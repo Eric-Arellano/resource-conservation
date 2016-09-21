@@ -1,5 +1,6 @@
 package features;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class HistoricalUsage {
@@ -10,6 +11,8 @@ public class HistoricalUsage {
 	private int minIndex = 0;
 	private int maxIndex = 0;
 
+	private final DecimalFormat decimals = new DecimalFormat("0.##");
+
 	public HistoricalUsage() {
 		histUsage = new ArrayList<>();
 	}
@@ -19,10 +22,11 @@ public class HistoricalUsage {
 	// Public Interface
 	// ================================================================================
 
-	public String displayHistorical() {
-		String histUsageResult = "";
+	public String displayHistorical(String usageUnit) {
+		String histUsageResult = "Historical usage:\t";
 		for (Double element : histUsage) {
-			histUsageResult += element.toString();
+			String amount = decimals.format(element);
+			histUsageResult += amount + " " + usageUnit + ", ";
 		}
 		return histUsageResult;
 	}
