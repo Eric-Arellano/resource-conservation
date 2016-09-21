@@ -43,27 +43,19 @@ public class WaterASUDorm {
 				washerAvg, washerHist);
 		washer.setInputUnit("times per month");
 
-		/* // Toilet object // not using toilet out of user feedback
-		Tips toiletTips = new Tips("toiletTips.txt");
-		AverageUsage toiletAvg = new AverageUsage();
-			toiletAvg.calcAvg(7, 1.6); // 4 per month
-		HistoricalUsage toiletHist = new HistoricalUsage(10);
-		UsageNumTimes toilet = new UsageNumTimes("toilet", 1.6, "gallons", toiletTips,
-				toiletAvg, toiletHist);
-		toilet.setInputUnit("times per day"); */
 
 		// ================================================================================
 		// Introduce program to users
 		// ================================================================================
 		System.out.println(welcomeMessage);
 
-		// ================================================================================
-		// User menus and main functionality
-		// ================================================================================
 
-		ResourceUsage chosenUsage = shower; // using this to simplify switch menu
+		// ================================================================================
+		// Set up variables for menus
+		// ================================================================================
 		boolean quitProgram = false;
-		boolean quitUsage; // to quit current ResourceUsage object and choose new one
+		boolean changeUsage;
+		ResourceUsage chosenUsage = shower; // arbitrary initialization
 
 		do {
 			// ================================================================================
@@ -85,14 +77,12 @@ public class WaterASUDorm {
 				case 0:
 					quitProgram = true;
 					break;
-				default: // add tolerability
+				default: // TODO: add tolerability
 					System.out.print("Invalid input. Please restart the program.");
 					break;
 			}
 
-			if (!quitProgram) // including this conditional so that below doesn't implement if user
-			// quits program in above switch statement
-			{
+			if (!quitProgram) {
 
 				// ================================================================================
 				// Initial usage input
@@ -100,6 +90,7 @@ public class WaterASUDorm {
 
 				System.out.println();
 				chosenUsage.promptInput();
+
 				chosenUsage.calcUsage();
 				chosenUsage.displayUsage();
 
@@ -109,8 +100,9 @@ public class WaterASUDorm {
 				// ================================================================================
 
 				do {
-					quitUsage = false; // to reset boolean after quitUsage has been declared already
+					changeUsage = false; // reset boolean
 					printUsageMenu();
+
 					int menuSelection = in.nextInt();
 					System.out.println();
 					switch (menuSelection) {
@@ -133,18 +125,18 @@ public class WaterASUDorm {
 							chosenUsage.displayUsage();
 							break;
 						case 6:
-							quitUsage = true;
+							changeUsage = true;
 							break;
 						case 0:
 							quitProgram = true;
 							break;
-						default: // add tolerability
+						default: // TODO: add tolerability
 							System.out.print("Invalid input. Please restart the program.");
 							break;
 					}
-				} while (!quitUsage && !quitProgram);
+				} while (!changeUsage && !quitProgram);
 
-			} // close if loop to allow quitting program
+			}
 
 		} while (!quitProgram);
 
@@ -153,6 +145,10 @@ public class WaterASUDorm {
 		in.close();
 
 	}
+
+	// ================================================================================
+	// Menu messages
+	// ================================================================================
 
 	private static String welcomeMessage = "This app helps you keep track of your water consumption" +
 			" in your ASU dorm. After choosing from several water usages, you'll input your usage and " +
