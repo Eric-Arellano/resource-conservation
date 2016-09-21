@@ -16,12 +16,12 @@ public class UsageNumTimes extends ResourceUsage {
 	 * @param rate      - rate of consumption, should always be in terms of use
 	 * @param usageUnit - e.g. "gallons" or "liters"
 	 */
-	UsageNumTimes(String name,
-	              double rate,
-	              String usageUnit,
-	              Tips tips,
-	              AverageUsage avg,
-	              HistoricalUsage historical) {
+	public UsageNumTimes(String name,
+	                     double rate,
+	                     String usageUnit,
+	                     Tips tips,
+	                     AverageUsage avg,
+	                     HistoricalUsage historical) {
 		super(name, rate, usageUnit, tips, avg, historical);
 		setInputUnit("times");
 	}
