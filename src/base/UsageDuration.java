@@ -29,23 +29,6 @@ public class UsageDuration extends ResourceUsage {
 		setInputUnit(timeType);
 	}
 
-	/**
-	 * Constructs a ResourceUsage object whose input is based on time duration. No Tips and Comparisons.
-	 *
-	 * @param name      - name of usage type, e.g. "sink" or "shower"
-	 * @param rate      - rate of consumption, should always be in terms of minutes
-	 * @param usageUnit - e.g. "gallons" or "liters"
-	 * @param timeType  - how time will be inputted; expected "seconds", "minutes", or "both"
-	 */
-	public UsageDuration(String name,
-	                     double rate,
-	                     String usageUnit,
-	                     String timeType,
-	                     HistoricalUsage historical) {
-		super(name, rate, usageUnit, historical);
-		setInputUnit(timeType);
-	}
-
 	// ================================================================================
 	// Prompt input Methods
 	// ================================================================================

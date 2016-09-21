@@ -36,7 +36,7 @@ abstract public class ResourceUsage {
 
 
 	// ================================================================================
-	// Constructors
+	// Constructor
 	// ================================================================================
 
 	ResourceUsage(String name,
@@ -50,18 +50,6 @@ abstract public class ResourceUsage {
 		this.usageUnit = unit;
 		this.tips = tips;
 		this.avg = avg;
-		this.hist = historical;
-	}
-
-	ResourceUsage(String name,
-	              double rate,
-	              String unit,
-	              HistoricalUsage historical) {
-		this.name = name;
-		this.rate = rate;
-		this.usageUnit = unit;
-		this.tips = null;
-		this.avg = null;
 		this.hist = historical;
 	}
 
@@ -104,24 +92,22 @@ abstract public class ResourceUsage {
 	}
 
 	// ================================================================================
-	// Accessor methods
+	// Getter methods
 	// ================================================================================
-	// TODO: figure out better encapsulation of Getters and Setters
 
 	String getName() {
 		return name;
 	}
 
-	// ================================================================================
-	// Mutator methods
-	// ================================================================================
-
-
 	String getInputUnit() {
 		return inputUnit;
 	}
 
-	void setInputUnit(String inputUnit) {
+	// ================================================================================
+	// Setter methods
+	// ================================================================================
+
+	public void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
 	}
 

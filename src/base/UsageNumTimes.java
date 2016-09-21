@@ -7,7 +7,7 @@ import features.Tips;
 public class UsageNumTimes extends ResourceUsage {
 
 	// ================================================================================
-	// Constructors
+	// Constructor
 	// ================================================================================
 
 	public UsageNumTimes(String name,
@@ -17,14 +17,6 @@ public class UsageNumTimes extends ResourceUsage {
 	                     AverageUsage avg,
 	                     HistoricalUsage historical) {
 		super(name, rate, usageUnit, tips, avg, historical);
-		setInputUnit("times");
-	}
-
-	public UsageNumTimes(String name,
-	                     double rate,
-	                     String usageUnit,
-	                     HistoricalUsage historical) {
-		super(name, rate, usageUnit, historical);
 		setInputUnit("times");
 	}
 
