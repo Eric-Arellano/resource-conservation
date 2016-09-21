@@ -1,25 +1,12 @@
 package features;
 
-
-import features.ComparisonHelper;
-
-
 public class HistoricalUsage {
 
-	// ================================================================================
-	// Instance variables
-	// ================================================================================
-
-	private double[] histUsage; // = new double[10];
+	private double[] histUsage; // = new double[10]; TODO: convert to ArrayList
 	private int count = 0;
 	private double avg = 0;
 	private int minIndex = 0;
 	private int maxIndex = 0;
-
-
-	// ================================================================================
-	// Constructor
-	// ================================================================================
 
 	public HistoricalUsage(int size) {
 		histUsage = new double[size];
@@ -27,7 +14,28 @@ public class HistoricalUsage {
 
 
 	// ================================================================================
-	// Methods to add to Array
+	// Public Interface
+	// ================================================================================
+
+	public String displayHistorical() {
+		String histUsageResult = "";
+		for (int i = 0; i < this.count; i++) {
+			histUsageResult = +histUsage[i] + "";
+		}
+		return histUsageResult;
+	}
+
+	public String compareHistorical(double usage, String usageUnit, String name, double rate) {
+		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
+				usageUnit, name, rate);
+		String comparison = comparer.compareHistorical();
+		updateValues();
+		return comparison;
+	}
+
+
+	// ================================================================================
+	// Add data to Array
 	// ================================================================================
 
 	/**
@@ -80,6 +88,11 @@ public class HistoricalUsage {
 		return inputAmt * rate;
 	}
 
+
+	// ================================================================================
+	// Update values
+	// ================================================================================
+
 	/**
 	 * This method updates the average, min, and max instance variables. It should be called after
 	 * ResourceUsage.compareHistUsage() is called so that the array shows updated values.
@@ -106,31 +119,6 @@ public class HistoricalUsage {
 		}
 	}
 
-	// ================================================================================
-	// Public Interface
-	// ================================================================================
-
-	public String displayHistorical() {
-		String histUsageResult = "";
-		for (int i = 0; i < this.count; i++) {
-			histUsageResult =+ histUsage[i] + "";
-		}
-		return histUsageResult;
-	}
-
-	public String compareHistorical(double usage, String usageUnit, String name, double rate) {
-		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
-				usageUnit, name, rate);
-		String comparison = comparer.compareHistorical();
-		updateValues();
-		return comparison;
-	}
-
-
-	// ================================================================================
-	// Internal Accessor Methods
-	// ================================================================================
-
 	private void updateMax() {
 		for (int i = maxIndex + 1; i < count; i++)
 		// because array stays in chronological order, don't have to re-evaluate elements before minIndex
@@ -139,6 +127,11 @@ public class HistoricalUsage {
 				maxIndex = i;
 		}
 	}
+
+
+	// ================================================================================
+	// Internal Accessor Methods
+	// ================================================================================
 
 	private double getMinVal() {
 		return this.histUsage[minIndex];

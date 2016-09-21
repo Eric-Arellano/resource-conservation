@@ -1,6 +1,5 @@
 package features;
 
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -22,7 +21,7 @@ class ComparisonHelper {
 	private final double rate;
 
 	// ================================================================================
-	// Constructor
+	// Constructors
 	// ================================================================================
 
 	// Average usage constructor

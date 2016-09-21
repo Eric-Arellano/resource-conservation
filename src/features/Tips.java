@@ -1,9 +1,7 @@
 package features;
 
-
 import java.io.*;
 import java.util.Scanner;
-
 
 public class Tips {
 
@@ -19,7 +17,7 @@ public class Tips {
 	 * @param fileName
 	 * @throws FileNotFoundException
 	 */
-	public Tips(File fileName) throws FileNotFoundException, IOException {
+	public Tips(File fileName) throws IOException {
 		fileName.createNewFile(); // in case file doesn't already exist
 		this.tipsFile = fileName;
 	}
@@ -30,14 +28,14 @@ public class Tips {
 	 * @param fileName
 	 * @throws FileNotFoundException
 	 */
-	public Tips(String fileName) throws FileNotFoundException, IOException {
+	public Tips(String fileName) throws IOException {
 		File file = new File(fileName);
 		file.createNewFile(); // in case file doesn't already exist
 		this.tipsFile = file;
 	}
 
 	// ================================================================================
-	// Mutator Methods
+	// Change Tips
 	// ================================================================================
 
 	public void rewriteTips(String rewrittenTips) throws IOException {
@@ -54,7 +52,7 @@ public class Tips {
 	}
 
 	// ================================================================================
-	// Accesor Methods
+	// Show Tips
 	// ================================================================================
 
 	public String displayTips() throws FileNotFoundException {
