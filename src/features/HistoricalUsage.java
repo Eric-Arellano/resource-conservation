@@ -1,15 +1,17 @@
 package features;
 
+import java.util.ArrayList;
+
 public class HistoricalUsage {
 
-	private double[] histUsage; // = new double[10]; TODO: convert to ArrayList
+	private ArrayList<Double> histUsage;
 	private int count = 0;
 	private double avg = 0;
 	private int minIndex = 0;
 	private int maxIndex = 0;
 
-	public HistoricalUsage(int size) {
-		histUsage = new double[size];
+	public HistoricalUsage() {
+		histUsage = new ArrayList<>();
 	}
 
 
@@ -19,8 +21,8 @@ public class HistoricalUsage {
 
 	public String displayHistorical() {
 		String histUsageResult = "";
-		for (int i = 0; i < this.count; i++) {
-			histUsageResult += histUsage[i] + "";
+		for (Double element : histUsage) {
+			histUsageResult += element.toString();
 		}
 		return histUsageResult;
 	}
@@ -38,23 +40,11 @@ public class HistoricalUsage {
 	// Add data to Array
 	// ================================================================================
 
-	/**
-	 * This method adds a usage to the instance array histUsage. If the array is filled, it
-	 * removes the first element and shifts all elements one to the left.
-	 */
 	public void addHistorical(double usage) {
-		if (count < histUsage.length) {
-			histUsage[count] = usage;
-			count++;
-		} else // remove first element and shift all elements one to the left
-		{
-			for (int i = 1; i < histUsage.length; i++)
-				histUsage[i - 1] = histUsage[i];
-			histUsage[histUsage.length - 1] = usage;
-		}
-
-		if (count <= 2) // to prevent comparing with empty instance variables
-			// <= 2 because you need at least 2 values to have a max and min
+		histUsage.add(usage);
+		count++;
+		// if enough values, update min/max/avg
+		if (count <= 2)
 			updateValues();
 	}
 
@@ -103,26 +93,24 @@ public class HistoricalUsage {
 
 	private void updateAvg() {
 		double sum = 0;
-		for (int i = 0; i < count; i++)
-			sum += histUsage[i];
-		avg = sum / count;
+		for (Double element : histUsage)
+			sum += element;
+		this.avg = sum / count;
 	}
 
 	private void updateMin() {
-		for (int i = minIndex + 1; i < count; i++)
-		// because array stays in chronological order, don't have to re-evaluate elements before minIndex
-		{
-			if (histUsage[i] < histUsage[minIndex])
-				minIndex = i;
+		for (int index = minIndex + 1; index < count; index++) {
+			// because array stays in chronological order, don't have to re-evaluate elements before minIndex
+			if (histUsage.get(index) < histUsage.get(minIndex))
+				minIndex = index;
 		}
 	}
 
 	private void updateMax() {
-		for (int i = maxIndex + 1; i < count; i++)
-		// because array stays in chronological order, don't have to re-evaluate elements before minIndex
-		{
-			if (histUsage[i] > histUsage[maxIndex])
-				maxIndex = i;
+		for (int index = maxIndex + 1; index < count; index++) {
+			// because array stays in chronological order, don't have to re-evaluate elements before minIndex
+			if (histUsage.get(index) > histUsage.get(maxIndex))
+				maxIndex = index;
 		}
 	}
 
@@ -132,11 +120,11 @@ public class HistoricalUsage {
 	// ================================================================================
 
 	private double getMinVal() {
-		return this.histUsage[minIndex];
+		return this.histUsage.get(maxIndex);
 	}
 
 	private double getMaxVal() {
-		return this.histUsage[maxIndex];
+		return this.histUsage.get(maxIndex);
 	}
 
 	private double getAvg() {
