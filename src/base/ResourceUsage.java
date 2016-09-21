@@ -51,7 +51,8 @@ abstract public class ResourceUsage {
 
 	public void calcUsage() {
 		usageAmt = inputAmt * rate;
-		hist.addHistorical(usageAmt);
+		hist.addHistorical(usageAmt); // TODO: fix logical error, current usage is being treated as
+		// historical
 	}
 
 	public void displayUsage() {
@@ -80,7 +81,7 @@ abstract public class ResourceUsage {
 
 	/**
 	 * Compares to historical min, max, and avg values. Prints comparison to relevant value and
-	 * followup action. Then updates values.
+	 * followup action.
 	 */
 	public void compareHistorical() {
 		System.out.println(hist.compareHistorical(usageAmt, usageUnit, name, rate));

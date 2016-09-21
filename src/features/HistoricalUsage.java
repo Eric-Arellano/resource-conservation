@@ -41,7 +41,6 @@ public class HistoricalUsage {
 		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
 				usageUnit, name, rate);
 		String comparison = comparer.compareHistorical();
-		updateValues(); // TODO: is this necessary?
 		return comparison;
 	}
 
