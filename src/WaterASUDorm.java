@@ -43,19 +43,12 @@ public class WaterASUDorm {
 				washerAvg, washerHist);
 		washer.setInputUnit("times per month");
 
-		/* // Toilet object // not using toilet out of user feedback
-		Tips toiletTips = new Tips("toiletTips.txt");
-		AverageUsage toiletAvg = new AverageUsage();
-			toiletAvg.calcAvg(7, 1.6); // 4 per month
-		HistoricalUsage toiletHist = new HistoricalUsage(10);
-		UsageNumTimes toilet = new UsageNumTimes("toilet", 1.6, "gallons", toiletTips,
-				toiletAvg, toiletHist);
-		toilet.setInputUnit("times per day"); */
 
 		// ================================================================================
 		// Introduce program to users
 		// ================================================================================
 		System.out.println(welcomeMessage);
+
 
 		// ================================================================================
 		// User menus and main functionality
