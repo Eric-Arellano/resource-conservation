@@ -2,6 +2,7 @@ package features;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HistoricalUsage {
 
@@ -24,9 +25,14 @@ public class HistoricalUsage {
 
 	public String displayHistorical(String usageUnit) {
 		String histUsageResult = "Historical usage:\t";
-		for (Double element : histUsage) {
-			String amount = decimals.format(element);
-			histUsageResult += amount + " " + usageUnit + ", ";
+		Iterator<Double> iterator = histUsage.iterator();
+		if (iterator.hasNext()) {
+			String amount = decimals.format(iterator.next());
+			histUsageResult += amount + " " + usageUnit;
+		}
+		while (iterator.hasNext()) {
+			String amount = decimals.format(iterator.next());
+			histUsageResult += ", " + amount + " " + usageUnit;
 		}
 		return histUsageResult;
 	}
