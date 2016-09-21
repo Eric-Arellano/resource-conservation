@@ -83,7 +83,7 @@ class ComparisonHelper {
 		return comparison;
 	}
 
-
+	// TODO: fix logic, for historical max actually comparing to avg even though saying max
 	private String returnBaseComparison() {
 		// calc values
 		determineComparisonType();
