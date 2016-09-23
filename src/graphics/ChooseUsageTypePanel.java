@@ -4,6 +4,8 @@ import base.ResourceUsage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -14,6 +16,7 @@ class ChooseUsageTypePanel extends JPanel {
 
 	private Vector<ResourceUsage> resourceUsages;
 	private int resourceCount;
+	private ResourceUsage currentUsage;
 
 
 	//  ------------------------------------------------------------------------
@@ -22,7 +25,7 @@ class ChooseUsageTypePanel extends JPanel {
 
 	ChooseUsageTypePanel(Vector<ResourceUsage> resourceUsages) {
 		this.resourceUsages = resourceUsages;
-		resourceCount = resourceUsages.size();
+		this.resourceCount = resourceUsages.size();
 
 		JLabel prompt = new JLabel("Choose resource usage:");
 		JPanel radioOptions = createRadioOptions();
@@ -42,10 +45,10 @@ class ChooseUsageTypePanel extends JPanel {
 
 		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
 		while (usageIterator.hasNext()) {
-			ResourceUsage currentUsage = usageIterator.next(); // TODO: check no off-by-1 error
+			currentUsage = usageIterator.next(); // TODO: check no off-by-1 error
 			// add radio option
 			// add event listener
-			this.add(createRadioLabel(currentUsage));
+			this.add(createRadioLabel());
 		}
 
 		return radioPanel;
@@ -55,9 +58,15 @@ class ChooseUsageTypePanel extends JPanel {
 
 	}
 
-	private JLabel createRadioLabel(ResourceUsage currentUsage) {
+	private JLabel createRadioLabel() {
 		return new JLabel(currentUsage.getName());
 	}
 
+	private class createRadioListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent radioOptionSelected) {
+
+		}
+	}
 
 }
