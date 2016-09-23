@@ -1,27 +1,13 @@
 package features;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Tips { // TODO: make catch statements more useful
 
 	private File tipsFile;
-
-	// ================================================================================
-	// Constructors
-	// ================================================================================
-
-	/**
-	 * Constructs an object with given File.
-	 */
-	public Tips(File fileName) {
-		try {
-			fileName.createNewFile();
-		} catch (IOException fileCreationError) {
-			System.out.println("File could not be created correctly.");
-		}
-		this.tipsFile = fileName;
-	}
 
 	/**
 	 * Constructs an object with given name of relative path to file.
@@ -34,23 +20,6 @@ public class Tips { // TODO: make catch statements more useful
 			System.out.println("File could not be created correctly.");
 		}
 		this.tipsFile = file;
-	}
-
-	// ================================================================================
-	// Change Tips
-	// ================================================================================
-
-	public void rewriteTips(String rewrittenTips) throws IOException {
-
-		PrintWriter rewrite = new PrintWriter(new FileWriter(tipsFile, false)); // false means it will rewrite
-		rewrite.println(rewrittenTips);
-		rewrite.close();
-	}
-
-	public void addTips(String newTips) throws IOException {
-		PrintWriter add = new PrintWriter(new FileWriter(tipsFile, true)); // true means it will append
-		add.println(newTips);
-		add.close();
 	}
 
 	// ================================================================================
