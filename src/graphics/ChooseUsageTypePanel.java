@@ -7,24 +7,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Allows user to choose between all usage types at any time.
  */
 class ChooseUsageTypePanel extends JPanel {
 
-	private Vector<ResourceUsage> resourceUsages;
-	private int resourceCount;
-
+	private final UsageTypeManager usageTypeManager;
 
 	//  ------------------------------------------------------------------------
 	//  Setup panel
 	//  ------------------------------------------------------------------------
 
-	ChooseUsageTypePanel(Vector<ResourceUsage> resourceUsages) {
-		this.resourceUsages = resourceUsages;
-		this.resourceCount = resourceUsages.size();
+	ChooseUsageTypePanel(UsageTypeManager usageTypeManager) {
+		this.usageTypeManager = usageTypeManager;
 
 		JLabel prompt = new JLabel("Choose resource usage:");
 		JPanel radioOptions = createRadioOptions();
@@ -40,11 +36,11 @@ class ChooseUsageTypePanel extends JPanel {
 
 	private JPanel createRadioOptions() {
 		JPanel radioPanel = new JPanel();
-		radioPanel.setLayout(new GridLayout(resourceCount, 2));
+		radioPanel.setLayout(new GridLayout(usageTypeManager.getResourceCount(), 2));
 
-		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
+		Iterator<ResourceUsage> usageIterator = usageTypeManager.provideIterator();
 		while (usageIterator.hasNext()) {
-			MainPanel.setCurrentUsage() = usageIterator.next(); // TODO: check no off-by-1 error
+			usageTypeManager.setCurrentUsage(usageIterator.next()); // TODO: check no off-by-1 error
 			// add radio option
 			// add event listener
 			this.add(createRadioLabel());
@@ -58,7 +54,9 @@ class ChooseUsageTypePanel extends JPanel {
 	}
 
 	private JLabel createRadioLabel() {
-		return new JLabel(currentUsage.getName());
+		return new JLabel(usageTypeManager
+				.getCurrentUsage()
+				.getName());
 	}
 
 	private class createRadioListener implements ActionListener {
