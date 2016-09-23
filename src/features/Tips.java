@@ -12,8 +12,8 @@ public class Tips { // TODO: make catch statements more useful
 	/**
 	 * Constructs an object with given name of relative path to file.
 	 */
-	public Tips(String fileName) {
-		File file = new File(fileName);
+	public Tips(String filePath) {
+		File file = new File(filePath);
 		try {
 			file.createNewFile();
 		} catch (IOException fileCreationError) {
@@ -31,7 +31,7 @@ public class Tips { // TODO: make catch statements more useful
 		try (Scanner read = new Scanner(this.tipsFile)) {
 			while (read.hasNextLine()) {
 				tips += read.nextLine();
-				tips += "\n"; // to account for line breaks
+				tips += "\n"; // for line breaks
 			}
 		} catch (FileNotFoundException fileNotFound) {
 			System.out.println("Oops! File not found. Please make sure file was set up properly");
