@@ -58,10 +58,8 @@ public class HistoricalUsage {
 	}
 
 	/**
-	 * This method allows the programmer to fill the array with previous values without any user input
-	 *
 	 * @param rate  - should be same rate as in constructor of object ResourceUsage
-	 * @param input - variable argument, can supply as many as wanted
+	 * @param input - note in input amount (e.g. minute), not usage amount (e.g. gallons)
 	 */
 	public void preFillData(double rate, double... input) // uses VarArg
 	{
@@ -72,14 +70,6 @@ public class HistoricalUsage {
 		updateValues();
 	}
 
-	/**
-	 * This private method is used for the sake of preFillData, so that the programmer can input with
-	 * the more accessible input units (e.g. minutes) than the usage units (e.g. gallons)
-	 *
-	 * @param rate     - should be same rate as in constructor of object ResourceUsage
-	 * @param inputAmt - should match the unit used in rate; e.g. if gpm, input in minutes
-	 * @return - usage amount
-	 */
 	private double calcUsage(double rate, double inputAmt) {
 		return inputAmt * rate;
 	}
