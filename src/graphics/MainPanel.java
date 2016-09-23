@@ -12,6 +12,15 @@ import java.util.Vector;
 public class MainPanel extends JPanel {
 
 	private Vector<ResourceUsage> resourceUsages;
+	private ResourceUsage currentUsage; // TODO: Figure out this logic of where curr should be stored.
+
+	protected ResourceUsage getCurrentUsage() {
+		return currentUsage;
+	}
+
+	protected void setCurrentUsage(ResourceUsage newUsage) {
+		currentUsage = newUsage;
+	}
 
 	//  ------------------------------------------------------------------------
 	//  Setup panel

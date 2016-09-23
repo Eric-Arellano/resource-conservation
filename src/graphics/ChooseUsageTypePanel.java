@@ -16,7 +16,6 @@ class ChooseUsageTypePanel extends JPanel {
 
 	private Vector<ResourceUsage> resourceUsages;
 	private int resourceCount;
-	private ResourceUsage currentUsage;
 
 
 	//  ------------------------------------------------------------------------
@@ -45,7 +44,7 @@ class ChooseUsageTypePanel extends JPanel {
 
 		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
 		while (usageIterator.hasNext()) {
-			currentUsage = usageIterator.next(); // TODO: check no off-by-1 error
+			MainPanel.setCurrentUsage() = usageIterator.next(); // TODO: check no off-by-1 error
 			// add radio option
 			// add event listener
 			this.add(createRadioLabel());
