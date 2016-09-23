@@ -42,12 +42,22 @@ class ChooseUsageTypePanel extends JPanel {
 
 		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
 		while (usageIterator.hasNext()) {
+			ResourceUsage currentUsage = usageIterator.next(); // TODO: check no off-by-1 error
 			// add radio option
 			// add event listener
-			// add label
+			this.add(createRadioLabel(currentUsage));
 		}
 
 		return radioPanel;
 	}
+
+	private void createRadioIcon() {
+
+	}
+
+	private JLabel createRadioLabel(ResourceUsage currentUsage) {
+		return new JLabel(currentUsage.getName());
+	}
+
 
 }

@@ -90,11 +90,11 @@ abstract public class ResourceUsage {
 	// Getter methods
 	// ================================================================================
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	String getInputUnit() {
+	public String getInputUnit() {
 		return inputUnit;
 	}
 
