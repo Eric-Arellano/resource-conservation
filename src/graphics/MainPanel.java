@@ -24,7 +24,7 @@ public class MainPanel extends JPanel {
 
 		// create panels
 		JPanel welcomeMessagePanel = createWelcomeMessagePanel(welcomeMessage);
-		ChooseUsageTypePanel chooseUsageTypePanel = new ChooseUsageTypePanel();
+		ChooseUsageTypePanel chooseUsageTypePanel = new ChooseUsageTypePanel(resourceUsages);
 		UsageDataPanel usageDataPanel = new UsageDataPanel();
 		AnalysisPanel analysisPanel = new AnalysisPanel();
 
