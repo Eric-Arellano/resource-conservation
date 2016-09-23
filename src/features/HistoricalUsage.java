@@ -64,13 +64,13 @@ public class HistoricalUsage {
 	public void preFillData(double rate, double... input) // uses VarArg
 	{
 		for (double value : input) {
-			double usage = calcUsage(rate, value);
+			double usage = calcUsageFromInput(rate, value);
 			addHistorical(usage);
 		}
 		updateValues();
 	}
 
-	private double calcUsage(double rate, double inputAmt) {
+	private double calcUsageFromInput(double rate, double inputAmt) {
 		return inputAmt * rate;
 	}
 

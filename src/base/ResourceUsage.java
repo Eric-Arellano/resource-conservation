@@ -48,7 +48,7 @@ abstract public class ResourceUsage {
 
 	abstract public void promptInput();
 
-	public void calcUsage() {
+	public void calcUsageFromInput() {
 		usageAmt = inputAmt * rate;
 		hist.addHistorical(usageAmt); // TODO: fix logical error, current usage is being treated as
 		// historical
