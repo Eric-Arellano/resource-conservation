@@ -5,13 +5,12 @@ import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 
 public class WaterASUDorm {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 
 		// ================================================================================

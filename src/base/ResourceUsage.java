@@ -4,7 +4,6 @@ import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
-import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -64,7 +63,7 @@ abstract public class ResourceUsage {
 	// Feature usage
 	// ================================================================================
 
-	public void displayTips() throws FileNotFoundException {
+	public void displayTips() {
 		System.out.println(tips.displayTips());
 	}
 
