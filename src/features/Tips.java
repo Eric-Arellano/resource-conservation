@@ -3,7 +3,7 @@ package features;
 import java.io.*;
 import java.util.Scanner;
 
-public class Tips {
+public class Tips { // TODO: make catch statements more useful
 
 	private File tipsFile;
 
@@ -14,17 +14,25 @@ public class Tips {
 	/**
 	 * Constructs an object with given File.
 	 */
-	public Tips(File fileName) throws IOException {
-		fileName.createNewFile(); // in case file doesn't already exist
+	public Tips(File fileName) {
+		try {
+			fileName.createNewFile();
+		} catch (IOException fileCreationError) {
+			System.out.println("File could not be created correctly.");
+		}
 		this.tipsFile = fileName;
 	}
 
 	/**
 	 * Constructs an object with given name of relative path to file.
 	 */
-	public Tips(String fileName) throws IOException {
+	public Tips(String fileName) {
 		File file = new File(fileName);
-		file.createNewFile(); // in case file doesn't already exist
+		try {
+			file.createNewFile();
+		} catch (IOException fileCreationError) {
+			System.out.println("File could not be created correctly.");
+		}
 		this.tipsFile = file;
 	}
 
@@ -49,15 +57,16 @@ public class Tips {
 	// Show Tips
 	// ================================================================================
 
-	public String displayTips() throws FileNotFoundException {
+	public String displayTips() {
 		String tips = "";
-		// File readFile = new File("showerTips.txt");
-		Scanner read = new Scanner(this.tipsFile);
-		while (read.hasNextLine()) {
-			tips += read.nextLine();
-			tips += "\n"; // to account for line breaks
+		try (Scanner read = new Scanner(this.tipsFile)) {
+			while (read.hasNextLine()) {
+				tips += read.nextLine();
+				tips += "\n"; // to account for line breaks
+			}
+		} catch (FileNotFoundException fileNotFound) {
+			System.out.println("Oops! File not found. Please make sure file was set up properly");
 		}
-		read.close();
 		return tips;
 	}
 
