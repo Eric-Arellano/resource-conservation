@@ -37,40 +37,17 @@ class ChooseUsageTypePanel extends JPanel {
 	//  ------------------------------------------------------------------------
 
 	private JPanel createRadioOptions() {
-		JPanel radioButtonsPanel = createRadioButtonsPanel();
-		JPanel radioLabelsPanel = createRadioLabelsPanel();
-
 		JPanel radioPanel = new JPanel();
-		radioPanel.setLayout(new GridLayout(1, 2));
+		radioPanel.setLayout(new GridLayout(resourceCount, 2));
 
-		radioPanel.add(radioButtonsPanel);
-		radioPanel.add(radioLabelsPanel);
-		return radioPanel;
-	}
-
-	private JPanel createRadioButtonsPanel() {
 		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
-
-		JPanel radioButtonsPanel = new JPanel();
-		radioButtonsPanel.setLayout(new GridLayout(resourceCount, 1));
 		while (usageIterator.hasNext()) {
-			// create new radio option
+			// add radio option
 			// add event listener
-			// add to panel
+			// add label
 		}
-		return radioButtonsPanel;
-	}
 
-	private JPanel createRadioLabelsPanel() {
-		Iterator<ResourceUsage> usageIterator = resourceUsages.iterator();
-
-		JPanel radioLabelsPanel = new JPanel();
-		radioLabelsPanel.setLayout(new GridLayout(resourceCount, 1));
-		while (usageIterator.hasNext()) {
-			// create new label from name attribute
-			// add to panel
-		}
-		return radioLabelsPanel;
+		return radioPanel;
 	}
 
 }
