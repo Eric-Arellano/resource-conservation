@@ -45,14 +45,7 @@ class ComparisonHelper {
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
-
-		String comparison = returnBaseComparison();
-		if (isGreaterAvg()) {
-			comparison += followupHowMuchToAvg();
-		} else {
-			comparison += followupGoodJob();
-		}
-		return comparison;
+		return returnBaseComparison() + addAverageFollowup();
 	}
 
 	String compareHistorical(double usageAmount, double avgAmount, double minAmount, double maxAmount) {
@@ -60,17 +53,9 @@ class ComparisonHelper {
 		this.avgAmount = avgAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
-
-		String comparison = returnBaseComparison();
-		if (isGreaterAvg()) {
-			comparison += followupHowMuchToAvg();
-		} else if (isLessMin()) {
-			comparison += followupGoodJob();
-		} else {
-			comparison += followupHowMuchToMin();
-		}
-		return comparison;
+		return returnBaseComparison() + addHistoricalFollowup();
 	}
+
 
 	// ================================================================================
 	// Return comparisons
@@ -90,6 +75,23 @@ class ComparisonHelper {
 				percents.format(percentDiff) + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
+	private String addAverageFollowup() {
+		if (isGreaterAvg()) {
+			return followupHowMuchToAvg();
+		} else {
+			return followupGoodJob();
+		}
+	}
+
+	private String addHistoricalFollowup() {
+		if (isGreaterAvg()) {
+			return followupHowMuchToAvg();
+		} else if (isLessMin()) {
+			return followupGoodJob();
+		} else {
+			return followupHowMuchToMin();
+		}
+	}
 
 	private String followupGoodJob() {
 		return "\nKeep it up!";
