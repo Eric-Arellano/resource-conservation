@@ -12,15 +12,28 @@ import static org.junit.Assert.assertEquals;
 public class HistoricalUsageTest {
 
 	public static class NoPriorData {
+		private HistoricalUsage sampleHistorical;
+
+		@Before
+		public void setUpNoPriorData() {
+			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min");
+		}
+
+		@Test
+		public void displayHistorical_NoData() {
+			String returnedMessage = sampleHistorical.displayHistorical();
+			String expectedMessage = "Historical usage:\t";
+			assertEquals(expectedMessage, returnedMessage);
+		}
 
 		@Test
 		public void compareHistorical_NoData() {
-			HistoricalUsage sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min");
 			String returnedMessage = sampleHistorical.compareHistorical(30);
 			String expectedMessage = "Oops! Looks like there's no historical data to compare to.";
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
+
 
 	public static class OnePriorDatum {
 		private HistoricalUsage sampleHistorical;
@@ -29,6 +42,13 @@ public class HistoricalUsageTest {
 		public void setUpOnePriorDatum() throws Exception {
 			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min", 10); // rate 2; input 10
 			// min (usage 20)
+		}
+
+		@Test
+		public void displayHistorical_OneDatum() {
+			String returnedMessage = sampleHistorical.displayHistorical();
+			String expectedMessage = "Historical usage:\t20 gal";
+			assertEquals(expectedMessage, returnedMessage);
 		}
 
 		@Test
@@ -57,6 +77,7 @@ public class HistoricalUsageTest {
 		}
 	}
 
+
 	public static class PriorData {
 		private HistoricalUsage sampleHistorical;
 
@@ -66,6 +87,12 @@ public class HistoricalUsageTest {
 			// input 30 min (usage 60), 20 min (usage 40), 10 min (usage 20); avg 20 min (avg usage 40)
 		}
 
+		@Test
+		public void displayHistorical_OneDatum() {
+			String returnedMessage = sampleHistorical.displayHistorical();
+			String expectedMessage = "Historical usage:\t60 gal, 40 gal, 20 gal";
+			assertEquals(expectedMessage, returnedMessage);
+		}
 
 		@Test
 		public void compareHistorical_LessMin() {
