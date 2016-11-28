@@ -34,8 +34,8 @@ public class UsageDuration extends ResourceUsage {
 			promptBoth();
 		} else if (getInputUnit().equalsIgnoreCase("minutes")) {
 			promptMin();
-		} else if (getInputUnit().equalsIgnoreCase("both")) {
-			promptBoth();
+		} else if (getInputUnit().equalsIgnoreCase("seconds")) {
+			promptSec();
 		} else {
 			promptTimeType();
 			promptInput();

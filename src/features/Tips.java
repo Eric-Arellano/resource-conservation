@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Tips { // TODO: make catch statements more useful
 
-	private File tipsFile;
+	private final File tipsFile; // TODO: convert to Java 7's Path API
 
 	/**
 	 * Constructs an object with given resourceName of relative path to file.

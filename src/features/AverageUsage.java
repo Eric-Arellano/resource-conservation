@@ -2,12 +2,12 @@ package features;
 
 public class AverageUsage {
 
-	private double avg; // in usage unit (not input unit), e.g. gallons
+	private final double avg; // in usage unit (not input unit), e.g. gallons
 
-	String resourceName;
-	double rate;
-	String usageUnit;
-	String inputUnit;
+	private final String resourceName;
+	private final double rate;
+	private final String usageUnit;
+	private final String inputUnit;
 
 	// ================================================================================
 	// Constructors

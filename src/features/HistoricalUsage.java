@@ -2,21 +2,20 @@ package features;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.StringJoiner;
 
 public class HistoricalUsage {
 
-	private ArrayList<Double> histUsage;
+	private final ArrayList<Double> histUsage;
 	private int count = 0;
 	private double avg = 0;
 	private int minIndex = 0;
 	private int maxIndex = 0;
 
-	String resourceName;
-	double rate;
-	String usageUnit;
-	String inputUnit;
+	private final String resourceName;
+	private final double rate;
+	private final String usageUnit;
+	private final String inputUnit;
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
@@ -65,9 +64,8 @@ public class HistoricalUsage {
 
 	public String displayHistorical() {
 		StringJoiner result = new StringJoiner(", ", "Historical usage:\t", "");
-		Iterator<Double> iterator = histUsage.iterator();
-		while (iterator.hasNext()) {
-			final String usageAmount = decimals.format(iterator.next());
+		for (double value : histUsage) {
+			final String usageAmount = decimals.format(value);
 			result.add(usageAmount + " " + usageUnit);
 		}
 		return result.toString();
@@ -76,8 +74,7 @@ public class HistoricalUsage {
 	public String compareHistorical(double usageAmt) {
 		ComparisonHelper comparer = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit, usageAmt,
 				getAvg(), getMinVal(), getMaxVal());
-		String comparison = comparer.compareHistorical();
-		return comparison;
+		return comparer.compareHistorical();
 	}
 
 

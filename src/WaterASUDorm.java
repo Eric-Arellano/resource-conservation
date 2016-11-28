@@ -153,9 +153,9 @@ public class WaterASUDorm {
 	// Menu messages
 	// ================================================================================
 
-	private static String welcomeMessage = "This app helps you keep track of your water consumption" +
-			" in your ASU dorm. After choosing from several water usages, you'll input your usage and " +
-			"then can compare it to your historical usage or the average on college campuses.";
+	private static final String welcomeMessage = "This app helps you keep track of your water " +
+			"consumption in your ASU dorm. After choosing from several water usages, you'll input your " +
+			"usage and then can compare it to your historical usage or the average on college campuses.";
 
 	private static void printChooseUsage() {
 		System.out.println("\nWhich of the following did you use? Choose one. \nEnter the number of " +
