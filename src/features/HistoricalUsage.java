@@ -8,11 +8,10 @@ import java.util.StringJoiner;
 public class HistoricalUsage {
 
 	private final ArrayList<Double> histUsage;
+	private final ComparisonHelper comparisonHelper;
 
-	private final String resourceName;
 	private final double rate;
 	private final String usageUnit;
-	private final String inputUnit;
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
@@ -28,10 +27,9 @@ public class HistoricalUsage {
 	                       String usageUnit,
 	                       String inputUnit) {
 		histUsage = new ArrayList<>();
-		this.resourceName = resourceName;
 		this.rate = rate;
 		this.usageUnit = usageUnit;
-		this.inputUnit = inputUnit;
+		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
 	}
 
 	/**
@@ -43,10 +41,9 @@ public class HistoricalUsage {
 	                       String inputUnit,
 	                       double... preExistingInputAmounts) {
 		histUsage = new ArrayList<>();
-		this.resourceName = resourceName;
 		this.rate = rate;
 		this.usageUnit = usageUnit;
-		this.inputUnit = inputUnit;
+		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
 		preFillData(preExistingInputAmounts);
 
 	}
@@ -80,9 +77,7 @@ public class HistoricalUsage {
 		if (histUsage.isEmpty()) {
 			return "Oops! Looks like there's no historical data to compare to.";
 		} else {
-			ComparisonHelper comparer = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit, usageAmt,
-					getAvg(), getMinVal(), getMaxVal());
-			return comparer.compareHistorical();
+			return comparisonHelper.compareHistorical(usageAmt, getAvg(), getMinVal(), getMaxVal());
 		}
 	}
 

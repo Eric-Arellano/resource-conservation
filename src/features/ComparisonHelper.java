@@ -5,10 +5,10 @@ import java.text.NumberFormat;
 
 class ComparisonHelper {
 
-	private final double usageAmount;
-	private final double avgAmount;
-	private final double minAmount;
-	private final double maxAmount;
+	private double usageAmount;
+	private double avgAmount;
+	private double minAmount;
+	private double maxAmount;
 
 	private String comparisonType;
 	private double comparisonValue;
@@ -16,60 +16,36 @@ class ComparisonHelper {
 	private double absoluteDiff;
 	private double percentDiff;
 
-
 	private final String resourceName;
 	private final double rate;
 	private final String usageUnit;
 	private final String inputUnit;
 
 	// ================================================================================
-	// Constructors
+	// Constructor
 	// ================================================================================
 
-	// Average usage constructor
 	ComparisonHelper(String resourceName,
 	                 double rate,
 	                 String usageUnit,
-	                 String inputUnit,
-	                 double usageAmount,
-	                 double avgAmount) {
+	                 String inputUnit) {
+		this.resourceName = resourceName;
+		this.rate = rate;
+		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
+	}
+
+
+	// ================================================================================
+	// Compare methods
+	// ================================================================================
+
+	String compareGlobalAvg(double usageAmount, double avgAmount) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
 
-		this.resourceName = resourceName;
-		this.rate = rate;
-		this.usageUnit = usageUnit;
-		this.inputUnit = inputUnit;
-	}
-
-	// Historical usage constructor
-	ComparisonHelper(String resourceName,
-	                 double rate,
-	                 String usageUnit,
-	                 String inputUnit,
-	                 double usageAmount,
-	                 double avgAmount,
-	                 double minAmount,
-	                 double maxAmount) {
-		this.usageAmount = usageAmount;
-		this.avgAmount = avgAmount;
-		this.minAmount = minAmount;
-		this.maxAmount = maxAmount;
-
-		this.resourceName = resourceName;
-		this.rate = rate;
-		this.usageUnit = usageUnit;
-		this.inputUnit = inputUnit;
-	}
-
-
-	// ================================================================================
-	// Return comparisons
-	// ================================================================================
-
-	String compareAvg() {
 		String comparison = returnBaseComparison();
 		if (isGreaterAvg()) {
 			comparison += followupHowMuchToAvg();
@@ -79,7 +55,12 @@ class ComparisonHelper {
 		return comparison;
 	}
 
-	String compareHistorical() {
+	String compareHistorical(double usageAmount, double avgAmount, double minAmount, double maxAmount) {
+		this.usageAmount = usageAmount;
+		this.avgAmount = avgAmount;
+		this.minAmount = minAmount;
+		this.maxAmount = maxAmount;
+
 		String comparison = returnBaseComparison();
 		if (isGreaterAvg()) {
 			comparison += followupHowMuchToAvg();
@@ -90,6 +71,10 @@ class ComparisonHelper {
 		}
 		return comparison;
 	}
+
+	// ================================================================================
+	// Return comparisons
+	// ================================================================================
 
 	// TODO: fix logic, for historical max actually comparing to avg even though saying max
 	private String returnBaseComparison() {
@@ -171,8 +156,7 @@ class ComparisonHelper {
 		// if historical, determine comp type
 		else if (checkSingleHistoricalDatum()) {
 			this.comparisonType = "your prior usage";
-		}
-		else if (isGreaterMax()) {
+		} else if (isGreaterMax()) {
 			this.comparisonType = "your max";
 		} else if (isLessMin()) {
 			this.comparisonType = "your min";
