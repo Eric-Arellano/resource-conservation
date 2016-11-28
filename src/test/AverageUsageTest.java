@@ -11,14 +11,13 @@ public class AverageUsageTest {
 
 	@Before
 	public void setupAverageUsage() {
-		sampleAverage = new AverageUsage(20); // avg usage 20 (rate 2 gpm)
+		sampleAverage = new AverageUsage("shower", 2, "gal", "min", 20); // avg usage 20 (rate 2 gpm)
 	}
 
 	@Test
 	public void compareAverage_LessThanAverage() {
 		setupAverageUsage();
-		String returnedMessage = sampleAverage.compareAverage(10, "gal", "shower", 2); // usage 10,
-		// rate 2 gpm
+		String returnedMessage = sampleAverage.compareAverage(10); // usage 10
 		String expectedMessage = "You used 10 less gal than the average use of 20 gal! That's 50% " +
 				"less than the average use.\nKeep it up!";
 		assertEquals(expectedMessage, returnedMessage);
@@ -27,8 +26,7 @@ public class AverageUsageTest {
 	@Test
 	public void compareAverage_EqualToAverage() {
 		setupAverageUsage();
-		String returnedMessage = sampleAverage.compareAverage(20, "gal", "shower", 2); // usage 20,
-		// rate 2 gpm
+		String returnedMessage = sampleAverage.compareAverage(20); // usage 20,
 		String expectedMessage = "You used 0 more gal than the average use of 20 gal! That's 0% " +
 				"more than the average use.\nKeep it up!";
 		assertEquals(expectedMessage, returnedMessage);
@@ -37,8 +35,7 @@ public class AverageUsageTest {
 	@Test
 	public void compareAverage_GreaterThanAverage() {
 		setupAverageUsage();
-		String returnedMessage = sampleAverage.compareAverage(40, "gal", "shower", 2); // usage 40,
-		// rate 2 gpm
+		String returnedMessage = sampleAverage.compareAverage(40); // usage 40
 		String expectedMessage = "You used 20 more gal than the average use of 20 gal! That's 100% " +
 				"more than the average use.\nYou would need to use the shower 10 fewer min to get to the" +
 				" average usage.";

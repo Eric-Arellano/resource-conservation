@@ -16,44 +16,52 @@ class ComparisonHelper {
 	private double absoluteDiff;
 	private double percentDiff;
 
-	private final String unit;
-	private final String name;
+
+	private final String resourceName;
 	private final double rate;
+	private final String usageUnit;
+	private final String inputUnit;
 
 	// ================================================================================
 	// Constructors
 	// ================================================================================
 
 	// Average usage constructor
-	ComparisonHelper(double usageAmount,
-	                 double avgAmount,
+	ComparisonHelper(String resourceName,
+	                 double rate,
 	                 String usageUnit,
-	                 String resourceName,
-	                 double rate) {
+	                 String inputUnit,
+	                 double usageAmount,
+	                 double avgAmount) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
-		this.unit = usageUnit;
-		this.name = resourceName;
+
+		this.resourceName = resourceName;
 		this.rate = rate;
+		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
 	}
 
 	// Historical usage constructor
-	ComparisonHelper(double usageAmount,
+	ComparisonHelper(String resourceName,
+	                 double rate,
+	                 String usageUnit,
+	                 String inputUnit,
+	                 double usageAmount,
 	                 double avgAmount,
 	                 double minAmount,
-	                 double maxAmount,
-	                 String usageUnit,
-	                 String resourceName,
-	                 double rate) {
+	                 double maxAmount) {
 		this.usageAmount = usageAmount;
 		this.avgAmount = avgAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
-		this.unit = usageUnit;
-		this.name = resourceName;
+
+		this.resourceName = resourceName;
 		this.rate = rate;
+		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
 	}
 
 
@@ -92,8 +100,8 @@ class ComparisonHelper {
 		calcPercentDiff();
 		String moreOrLess = determineMoreOrLess();
 		// return result
-		return "You used " + decimals.format(absoluteDiff) + " " + moreOrLess + " " + unit + " than " +
-				comparisonType + " of " + decimals.format(comparisonValue) + " " + unit + "! That's " +
+		return "You used " + decimals.format(absoluteDiff) + " " + moreOrLess + " " + usageUnit + " than " +
+				comparisonType + " of " + decimals.format(comparisonValue) + " " + usageUnit + "! That's " +
 				percents.format(percentDiff) + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
@@ -104,8 +112,8 @@ class ComparisonHelper {
 
 	private String followupHowMuchToAvg() {
 		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
-		String followup = "\nYou would need to use the " + name + " " + changeAmount + " fewer " +
-				unit + " to get to ";
+		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
+				inputUnit + " to get to ";
 		if (minAmount == 0.0 && maxAmount == 0.0) {
 			followup += "the average usage.";
 		} else {
@@ -116,8 +124,8 @@ class ComparisonHelper {
 
 	private String followupHowMuchToMin() {
 		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
-		return "\nYou would need to use the " + name + " " + changeAmount + " fewer " +
-				unit + " to beat your lowest record.";
+		return "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
+				inputUnit + " to beat your lowest record.";
 	}
 
 	private final NumberFormat percents = NumberFormat.getPercentInstance();
@@ -195,7 +203,7 @@ class ComparisonHelper {
 
 	private double calcFollowupChangeAmount(double absoluteDiff) {
 		double changeAmount = absoluteDiff / rate;
-		if (unit.equalsIgnoreCase("seconds")) {
+		if (usageUnit.equalsIgnoreCase("seconds")) {
 			changeAmount = base.UsageDuration.convertToSec(changeAmount);
 		}
 		return changeAmount;

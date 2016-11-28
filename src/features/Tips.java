@@ -10,7 +10,7 @@ public class Tips { // TODO: make catch statements more useful
 	private File tipsFile;
 
 	/**
-	 * Constructs an object with given name of relative path to file.
+	 * Constructs an object with given resourceName of relative path to file.
 	 */
 	public Tips(String filePath) {
 		File file = new File(filePath);

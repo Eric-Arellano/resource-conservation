@@ -12,10 +12,22 @@ public class HistoricalUsage {
 	private int minIndex = 0;
 	private int maxIndex = 0;
 
+	String resourceName;
+	double rate;
+	String usageUnit;
+	String inputUnit;
+
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
-	public HistoricalUsage() {
+	public HistoricalUsage(String resourceName,
+	                       double rate,
+	                       String usageUnit,
+	                       String inputUnit) {
 		histUsage = new ArrayList<>();
+		this.resourceName = resourceName;
+		this.rate = rate;
+		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
 	}
 
 
@@ -37,9 +49,9 @@ public class HistoricalUsage {
 		return histUsageResult;
 	}
 
-	public String compareHistorical(double usage, String usageUnit, String name, double rate) {
-		ComparisonHelper comparer = new ComparisonHelper(usage, getAvg(), getMinVal(), getMaxVal(),
-				usageUnit, name, rate);
+	public String compareHistorical(double usageAmt) {
+		ComparisonHelper comparer = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit, usageAmt,
+				getAvg(), getMinVal(), getMaxVal());
 		String comparison = comparer.compareHistorical();
 		return comparison;
 	}
@@ -49,8 +61,8 @@ public class HistoricalUsage {
 	// Add data to Array
 	// ================================================================================
 
-	public void addHistorical(double usage) {
-		histUsage.add(usage);
+	public void addHistorical(double usageAmt) {
+		histUsage.add(usageAmt);
 		count++;
 		// if enough values, update min/max/avg
 		if (count <= 2)
@@ -61,6 +73,7 @@ public class HistoricalUsage {
 	 * @param rate  - should be same rate as in constructor of object ResourceUsage
 	 * @param input - note in input amount (e.g. minute), not usage amount (e.g. gallons)
 	 */
+	// TODO: Refactor preFill function to be constructor instead
 	public void preFillData(double rate, double... input) // uses VarArg
 	{
 		for (double value : input) {

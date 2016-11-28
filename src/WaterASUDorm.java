@@ -18,25 +18,30 @@ public class WaterASUDorm {
 		// ================================================================================
 
 		// Shower object
+		// rate = 2.5 gpm, avg = 10.6 min
 		Tips showerTips = new Tips("showerTips.txt");
-		AverageUsage showerAvg = new AverageUsage(2.5, 10.6); // rate = 2.5 gpm, avg 10.6 minutes
-		HistoricalUsage showerHist = new HistoricalUsage();
-		showerHist.preFillData(2.5, 8.3, 9.2, 12.4, 18.1); // rate = 2.5 gpm
+		AverageUsage showerAvg = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
+		HistoricalUsage showerHist = new HistoricalUsage("shower", 2.5, "gallons", "minutes");
+		showerHist.preFillData(2.5, 8.3, 9.2, 12.4, 18.1);
 		UsageDuration shower = new UsageDuration("shower", 2.5, "gallons", "minutes", showerTips,
 				showerAvg, showerHist);
 
 		// Sink object
+		// rate = 1.5 gpm, avg = 0.35 minutes
 		Tips sinkTips = new Tips("sinkTips.txt");
-		AverageUsage sinkAvg = new AverageUsage(1.5, 0.35); // rate = 1.5 gpm, avg 0.35 minutes
-		HistoricalUsage sinkHist = new HistoricalUsage();
-		sinkHist.preFillData(1.5, 0.2, 0.6, 0.5, 0.9); // time inputted in minutes
+		AverageUsage sinkAvg = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
+		HistoricalUsage sinkHist = new HistoricalUsage("sink", 1.5, "gallons", "seconds");
+		sinkHist.preFillData(1.5, 0.2, 0.6, 0.5, 0.9);
 		UsageDuration sink = new UsageDuration("sink", 1.5, "gallons", "seconds", sinkTips,
 				sinkAvg, sinkHist);
 
 		// Washing Machine object
+		// rate = 25 gal per wash, input unit = times per month, avg = 4 washes per month
 		Tips washerTips = new Tips("washerTips.txt");
-		AverageUsage washerAvg = new AverageUsage(25, 4); // 25 gal per wash, avg 4 washes per month
-		HistoricalUsage washerHist = new HistoricalUsage();
+		AverageUsage washerAvg = new AverageUsage("washing machine", 25, "gallons", "times per " +
+				"month", 4);
+		HistoricalUsage washerHist = new HistoricalUsage("washing machine", 25, "gallons", "times per" +
+				" month");
 		washerHist.preFillData(25, 3, 6, 5, 5);
 		UsageNumTimes washer = new UsageNumTimes("washing machine", 25, "gallons", washerTips,
 				washerAvg, washerHist);
