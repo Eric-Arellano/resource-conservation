@@ -103,12 +103,12 @@ public class HistoricalUsage {
 		updateMax();
 	}
 
-	// TODO: Simplify with Lambdas
 	private void updateAvg() {
-		double sum = 0;
-		for (Double element : histUsage)
-			sum += element;
-		this.avg = sum / count;
+		avg = histUsage
+				.stream()
+				.mapToDouble(Double::doubleValue)
+				.average()
+				.getAsDouble();
 	}
 
 	private void updateMin() {
