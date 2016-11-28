@@ -123,14 +123,17 @@ public class WaterASUDorm {
 							chosenUsage.displayTips();
 							break;
 						case 5:
+							chosenUsage.updateHistoricalBeforeNewInput();
 							chosenUsage.promptInput();
 							chosenUsage.calcUsageFromInput();
 							chosenUsage.displayUsage();
 							break;
 						case 6:
+							chosenUsage.updateHistoricalBeforeNewInput();
 							changeUsage = true;
 							break;
 						case 0:
+							chosenUsage.updateHistoricalBeforeNewInput();
 							quitProgram = true;
 							break;
 						default: // TODO: add tolerability

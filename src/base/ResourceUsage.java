@@ -50,8 +50,6 @@ abstract public class ResourceUsage {
 
 	public void calcUsageFromInput() {
 		usageAmt = inputAmt * rate;
-		hist.addHistorical(usageAmt); // TODO: fix logical error, current usage is being treated as
-		// historical
 	}
 
 	public void displayUsage() {
@@ -84,6 +82,10 @@ abstract public class ResourceUsage {
 	 */
 	public void compareHistorical() {
 		System.out.println(hist.compareHistorical(usageAmt));
+	}
+
+	public void updateHistoricalBeforeNewInput() {
+		hist.addHistorical(usageAmt);
 	}
 
 	// ================================================================================
