@@ -148,7 +148,7 @@ class ComparisonHelper {
 	private void determineComparisonType() {
 		// check if historical or average
 		if (minAmount == 0.0 && maxAmount == 0.0) {
-			this.comparisonType = "the average user";
+			this.comparisonType = "the average use";
 		}
 		// if historical, determine comp type
 		else if (isGreaterMax()) {
