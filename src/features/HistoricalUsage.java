@@ -72,9 +72,13 @@ public class HistoricalUsage {
 	}
 
 	public String compareHistorical(double usageAmt) {
-		ComparisonHelper comparer = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit, usageAmt,
-				getAvg(), getMinVal(), getMaxVal());
-		return comparer.compareHistorical();
+		if (histUsage.isEmpty()) {
+			return "Oops! Looks like there's no historical data to compare to.";
+		} else {
+			ComparisonHelper comparer = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit, usageAmt,
+					getAvg(), getMinVal(), getMaxVal());
+			return comparer.compareHistorical();
+		}
 	}
 
 
@@ -95,15 +99,13 @@ public class HistoricalUsage {
 	// Update values
 	// ================================================================================
 
-	/**
-	 * Updates min, max, and avg values.
-	 */
 	private void updateValues() {
 		updateAvg();
 		updateMin();
 		updateMax();
 	}
 
+	// TODO: Simplify with Lambdas
 	private void updateAvg() {
 		double sum = 0;
 		for (Double element : histUsage)

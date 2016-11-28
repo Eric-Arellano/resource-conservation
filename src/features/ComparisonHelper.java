@@ -114,8 +114,10 @@ class ComparisonHelper {
 		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
 		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to get to ";
-		if (minAmount == 0.0 && maxAmount == 0.0) {
+		if (checkGlobalAverage()) {
 			followup += "the average usage.";
+		} else if (checkSingleHistoricalDatum()) {
+			followup += "your prior usage.";
 		} else {
 			followup += "your average usage.";
 		}
@@ -148,6 +150,14 @@ class ComparisonHelper {
 		return usageAmount < minAmount;
 	}
 
+	private boolean checkGlobalAverage() {
+		return minAmount == 0.0 && maxAmount == 0.0 && avgAmount != 0.0;
+	}
+
+	private boolean checkSingleHistoricalDatum() {
+		return minAmount == maxAmount && minAmount == avgAmount && maxAmount == avgAmount;
+	}
+
 
 	// ================================================================================
 	// Determine comparison type/values
@@ -155,10 +165,13 @@ class ComparisonHelper {
 
 	private void determineComparisonType() {
 		// check if historical or average
-		if (minAmount == 0.0 && maxAmount == 0.0) {
+		if (checkGlobalAverage()) {
 			this.comparisonType = "the average use";
 		}
 		// if historical, determine comp type
+		else if (checkSingleHistoricalDatum()) {
+			this.comparisonType = "your prior usage";
+		}
 		else if (isGreaterMax()) {
 			this.comparisonType = "your max";
 		} else if (isLessMin()) {

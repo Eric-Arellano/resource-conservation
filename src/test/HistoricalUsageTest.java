@@ -63,7 +63,8 @@ public class HistoricalUsageTest {
 		public void compareHistorical_OneDatum_Equal() {
 			String returnedMessage = sampleHistorical.compareHistorical(20);
 			String expectedMessage = "You used 0 more gal than your prior usage of 20 gal! That's 0% " +
-					"more than your prior usage.\nKeep it up!";
+					"more than your prior usage.\nYou would need to use the shower 0 fewer min to beat " +
+					"your lowest record.";
 			assertEquals(expectedMessage, returnedMessage);
 		}
 
