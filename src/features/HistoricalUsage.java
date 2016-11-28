@@ -2,15 +2,15 @@ package features;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringJoiner;
 
 public class HistoricalUsage {
 
 	private final ArrayList<Double> histUsage;
-	private int count = 0;
 	private double avg = 0;
-	private int minIndex = 0;
-	private int maxIndex = 0;
+	private double minValue = 0;
+	private double maxValue = 0;
 
 	private final String resourceName;
 	private final double rate;
@@ -88,7 +88,6 @@ public class HistoricalUsage {
 
 	public void addHistorical(double usageAmt) {
 		histUsage.add(usageAmt);
-		count++;
 		updateValues();
 	}
 
@@ -112,19 +111,11 @@ public class HistoricalUsage {
 	}
 
 	private void updateMin() {
-		// because array is chronological, just check new values
-		for (int index = minIndex + 1; index < count; index++) {
-			if (histUsage.get(index) < histUsage.get(minIndex))
-				minIndex = index;
-		}
+		minValue = Collections.min(histUsage);
 	}
 
 	private void updateMax() {
-		/// because array is chronological, just check new values
-		for (int index = maxIndex + 1; index < count; index++) {
-			if (histUsage.get(index) > histUsage.get(maxIndex))
-				maxIndex = index;
-		}
+		maxValue = Collections.max(histUsage);
 	}
 
 
@@ -133,11 +124,11 @@ public class HistoricalUsage {
 	// ================================================================================
 
 	public double getMinVal() {
-		return this.histUsage.get(minIndex);
+		return this.minValue;
 	}
 
 	public double getMaxVal() {
-		return this.histUsage.get(maxIndex);
+		return this.maxValue;
 	}
 
 	public double getAvg() {
