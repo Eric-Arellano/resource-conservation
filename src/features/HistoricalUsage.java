@@ -8,9 +8,6 @@ import java.util.StringJoiner;
 public class HistoricalUsage {
 
 	private final ArrayList<Double> histUsage;
-	private double avg = 0;
-	private double minValue = 0;
-	private double maxValue = 0;
 
 	private final String resourceName;
 	private final double rate;
@@ -18,6 +15,10 @@ public class HistoricalUsage {
 	private final String inputUnit;
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
+
+	// ================================================================================
+	// Constructors
+	// ================================================================================
 
 	/**
 	 * Constructor with no prior historical usage.
@@ -55,12 +56,16 @@ public class HistoricalUsage {
 			double usageAmount = inputAmount * rate;
 			addHistorical(usageAmount);
 		}
-		updateValues();
 	}
+
 
 	// ================================================================================
 	// Public Interface
 	// ================================================================================
+
+	public void addHistorical(double usageAmt) {
+		histUsage.add(usageAmt);
+	}
 
 	public String displayHistorical() {
 		StringJoiner result = new StringJoiner(", ", "Historical usage:\t", "");
@@ -83,56 +88,23 @@ public class HistoricalUsage {
 
 
 	// ================================================================================
-	// Add data to Array
+	// Accessor Methods
 	// ================================================================================
 
-	public void addHistorical(double usageAmt) {
-		histUsage.add(usageAmt);
-		updateValues();
+	public double getMinVal() {
+		return Collections.min(histUsage);
 	}
 
-
-	// ================================================================================
-	// Update values
-	// ================================================================================
-
-	private void updateValues() {
-		updateAvg();
-		updateMin();
-		updateMax();
+	public double getMaxVal() {
+		return Collections.max(histUsage);
 	}
 
-	private void updateAvg() {
-		avg = histUsage
+	public double getAvg() {
+		return histUsage
 				.stream()
 				.mapToDouble(Double::doubleValue)
 				.average()
 				.getAsDouble();
-	}
-
-	private void updateMin() {
-		minValue = Collections.min(histUsage);
-	}
-
-	private void updateMax() {
-		maxValue = Collections.max(histUsage);
-	}
-
-
-	// ================================================================================
-	// Internal Accessor Methods
-	// ================================================================================
-
-	public double getMinVal() {
-		return this.minValue;
-	}
-
-	public double getMaxVal() {
-		return this.maxValue;
-	}
-
-	public double getAvg() {
-		return this.avg;
 	}
 
 }
