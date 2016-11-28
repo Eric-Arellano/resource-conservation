@@ -10,12 +10,12 @@ public class AverageUsageTest {
 	private AverageUsage sampleAverage;
 
 	@Before
-	private void setupAverageUsage() {
+	public void setupAverageUsage() {
 		sampleAverage = new AverageUsage(20); // avg usage 20 (rate 2)
 	}
 
 	@Test
-	public void compareAverage_lessThanAverage() {
+	public void compareAverage_LessThanAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareAverage(10, "min", "test", 2); // usage 10, rate 2
 		String expectedMessage = "You used 10 less min than the average user of 20 min! That's 50% " +
