@@ -66,7 +66,7 @@ class ComparisonHelper {
 		if (isGreaterAvg()) {
 			comparison += followupHowMuchToAvg();
 		} else {
-			followupGoodJob();
+			comparison += followupGoodJob();
 		}
 		return comparison;
 	}
@@ -107,7 +107,7 @@ class ComparisonHelper {
 		String followup = "\nYou would need to use the " + name + " " + changeAmount + " fewer " +
 				unit + " to get to ";
 		if (minAmount == 0.0 && maxAmount == 0.0) {
-			followup += " the average usage.";
+			followup += "the average usage.";
 		} else {
 			followup += "your average usage.";
 		}
@@ -172,7 +172,7 @@ class ComparisonHelper {
 	}
 
 	private String determineMoreOrLess() {
-		return usageAmount > comparisonValue ? "more" : "less";
+		return usageAmount >= comparisonValue ? "more" : "less";
 	}
 
 
