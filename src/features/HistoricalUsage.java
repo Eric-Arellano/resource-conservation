@@ -3,6 +3,7 @@ package features;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 public class HistoricalUsage {
 
@@ -62,18 +63,14 @@ public class HistoricalUsage {
 	// Public Interface
 	// ================================================================================
 
-	public String displayHistorical(String usageUnit) {
-		String histUsageResult = "Historical usage:\t";
+	public String displayHistorical() {
+		StringJoiner result = new StringJoiner(", ", "Historical usage:\t", "");
 		Iterator<Double> iterator = histUsage.iterator();
-		if (iterator.hasNext()) {
-			String amount = decimals.format(iterator.next());
-			histUsageResult += amount + " " + usageUnit;
-		}
 		while (iterator.hasNext()) {
-			String amount = decimals.format(iterator.next());
-			histUsageResult += ", " + amount + " " + usageUnit;
+			final String usageAmount = decimals.format(iterator.next());
+			result.add(usageAmount + " " + usageUnit);
 		}
-		return histUsageResult;
+		return result.toString();
 	}
 
 	public String compareHistorical(double usageAmt) {

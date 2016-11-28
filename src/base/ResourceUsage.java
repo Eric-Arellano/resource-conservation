@@ -68,7 +68,7 @@ abstract public class ResourceUsage {
 	}
 
 	public void displayHistorical() {
-		System.out.println(hist.displayHistorical(usageUnit));
+		System.out.println(hist.displayHistorical());
 	}
 
 	/**
