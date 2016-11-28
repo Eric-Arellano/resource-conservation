@@ -19,6 +19,9 @@ public class HistoricalUsage {
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
+	/**
+	 * Constructor with no prior historical usage.
+	 */
 	public HistoricalUsage(String resourceName,
 	                       double rate,
 	                       String usageUnit,
@@ -30,6 +33,30 @@ public class HistoricalUsage {
 		this.inputUnit = inputUnit;
 	}
 
+	/**
+	 * Constructor with variable prior historical amounts (in input units).
+	 */
+	public HistoricalUsage(String resourceName,
+	                       double rate,
+	                       String usageUnit,
+	                       String inputUnit,
+	                       double... preExistingInputAmounts) {
+		histUsage = new ArrayList<>();
+		this.resourceName = resourceName;
+		this.rate = rate;
+		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
+		preFillData(preExistingInputAmounts);
+
+	}
+
+	private void preFillData(double... input) {
+		for (double inputAmount : input) {
+			double usageAmount = inputAmount * rate;
+			addHistorical(usageAmount);
+		}
+		updateValues();
+	}
 
 	// ================================================================================
 	// Public Interface
@@ -67,24 +94,6 @@ public class HistoricalUsage {
 		// if enough values, update min/max/avg
 		if (count <= 2)
 			updateValues();
-	}
-
-	/**
-	 * @param rate  - should be same rate as in constructor of object ResourceUsage
-	 * @param input - note in input amount (e.g. minute), not usage amount (e.g. gallons)
-	 */
-	// TODO: Refactor preFill function to be constructor instead
-	public void preFillData(double rate, double... input) // uses VarArg
-	{
-		for (double value : input) {
-			double usage = calcUsageFromInput(rate, value);
-			addHistorical(usage);
-		}
-		updateValues();
-	}
-
-	private double calcUsageFromInput(double rate, double inputAmt) {
-		return inputAmt * rate;
 	}
 
 

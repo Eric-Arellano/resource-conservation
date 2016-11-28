@@ -27,8 +27,8 @@ public class HistoricalUsageTest {
 
 		@Before
 		public void setUpOnePriorDatum() throws Exception {
-			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min");
-			sampleHistorical.preFillData(2, 10); // rate 2; input 10 min (usage 20)
+			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min", 10); // rate 2; input 10
+			// min (usage 20)
 		}
 
 		@Test
@@ -62,9 +62,8 @@ public class HistoricalUsageTest {
 
 		@Before
 		public void setUpPriorData() throws Exception {
-			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min");
-			sampleHistorical.preFillData(2, 30, 20, 10); // rate 2; input 30 min (usage 60), 20 min
-			// (usage 40), 10 min (usage 20); avg 20 min (avg usage 40)
+			sampleHistorical = new HistoricalUsage("shower", 2, "gal", "min", 30, 20, 10); // rate 2;
+			// input 30 min (usage 60), 20 min (usage 40), 10 min (usage 20); avg 20 min (avg usage 40)
 		}
 
 
