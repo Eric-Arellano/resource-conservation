@@ -89,9 +89,7 @@ public class HistoricalUsage {
 	public void addHistorical(double usageAmt) {
 		histUsage.add(usageAmt);
 		count++;
-		// if enough values, update min/max/avg
-		if (count <= 2)
-			updateValues();
+		updateValues();
 	}
 
 
@@ -134,15 +132,15 @@ public class HistoricalUsage {
 	// Internal Accessor Methods
 	// ================================================================================
 
-	private double getMinVal() {
+	public double getMinVal() {
 		return this.histUsage.get(minIndex);
 	}
 
-	private double getMaxVal() {
+	public double getMaxVal() {
 		return this.histUsage.get(maxIndex);
 	}
 
-	private double getAvg() {
+	public double getAvg() {
 		return this.avg;
 	}
 
