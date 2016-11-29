@@ -155,8 +155,8 @@ public class HistoricalUsageTest {
 		@Test
 		public void compareHistorical_GreaterMax() {
 			String returnedMessage = sampleHistorical.compareHistorical(80);
-			String expectedMessage = "You used 20 more gal than your max of 60 gal! That's 25% " +
-					"more than your max.\nYou would need to use the shower 20 fewer min to get to your " +
+			String expectedMessage = "You used 20 more gal than your max of 60 gal! That's 33% " +
+					"more than your max.\nYou would need to use the shower 10 fewer min to get to your " +
 					"average usage.";
 			assertEquals(expectedMessage, returnedMessage);
 		}

@@ -61,7 +61,6 @@ class ComparisonHelper {
 	// Return comparisons
 	// ================================================================================
 
-	// TODO: fix logic, for historical max actually comparing to avg even though saying max
 	private String returnBaseComparison() {
 		// calc values
 		determineComparisonType();
@@ -164,13 +163,16 @@ class ComparisonHelper {
 	}
 
 	private void determineComparisonAmount() {
-		if (comparisonType.equals("your max")) {
-			this.comparisonValue = maxAmount;
-		}
-		if (comparisonType.equals("your min")) {
-			this.comparisonValue = minAmount;
-		} else {
-			this.comparisonValue = avgAmount;
+		switch (comparisonType) {
+			case "your max":
+				this.comparisonValue = maxAmount;
+				break;
+			case "your min":
+				this.comparisonValue = minAmount;
+				break;
+			default:
+				this.comparisonValue = avgAmount;
+				break;
 		}
 	}
 
