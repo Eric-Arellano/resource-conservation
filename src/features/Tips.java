@@ -17,7 +17,7 @@ public class Tips { // TODO: make catch statements more useful
 		try {
 			file.createNewFile();
 		} catch (IOException fileCreationError) {
-			System.out.println("File could not be created correctly.");
+			System.err.println("File could not be created correctly.");
 		}
 		this.tipsFile = file;
 	}
@@ -34,7 +34,7 @@ public class Tips { // TODO: make catch statements more useful
 				tips += "\n"; // for line breaks
 			}
 		} catch (FileNotFoundException fileNotFound) {
-			System.out.println("Oops! File not found. Please make sure file was set up properly");
+			System.err.println("Oops! File not found. Please make sure file was set up properly");
 		}
 		return tips;
 	}
