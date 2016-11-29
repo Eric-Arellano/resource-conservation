@@ -1,42 +1,42 @@
 package features;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-public class Tips { // TODO: make catch statements more useful
+public class Tips {
 
-	private final File tipsFile; // TODO: convert to Java 7's Path API
+	private Path tipsFile;
 
 	/**
-	 * Constructs an object with given resourceName of relative path to file.
+	 * Opens pre-created Tips .txt file.
 	 */
 	public Tips(String filePath) {
-		File file = new File(filePath);
 		try {
-			file.createNewFile();
-		} catch (IOException fileCreationError) {
-			System.err.println("File could not be created correctly.");
+			tipsFile = Paths.get(filePath);
+		} catch (InvalidPathException exception) {
+			System.err.println("File could not be located. Please make sure it exists.");
 		}
-		this.tipsFile = file;
 	}
 
-	// ================================================================================
-	// Show Tips
-	// ================================================================================
-
+	// TODO: figure out support for new lines
 	public String displayTips() {
-		String tips = "";
-		try (Scanner read = new Scanner(this.tipsFile)) {
-			while (read.hasNextLine()) {
-				tips += read.nextLine();
-				tips += "\n"; // for line breaks
+		StringBuilder tips = new StringBuilder();
+		try (BufferedReader reader = Files.newBufferedReader(tipsFile, StandardCharsets.UTF_8)) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				tips.append(line);
 			}
-		} catch (FileNotFoundException fileNotFound) {
-			System.err.println("Oops! File not found. Please make sure file was set up properly");
+		} catch (IOException readerNotCreated) {
+			System.err.println("Oops! There was an issue reading that file. Please make sure it exists " +
+					"and is accesible.");
+		} finally {
+			return tips.toString();
 		}
-		return tips;
 	}
 
 }
