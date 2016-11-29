@@ -4,7 +4,7 @@ import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
-public class UsageDuration extends ResourceUsage {
+public class UsageTimeDuration extends ResourceUsage {
 
 	/**
 	 * Constructs a ResourceUsage object whose input is based on time duration.
@@ -14,13 +14,13 @@ public class UsageDuration extends ResourceUsage {
 	 * @param usageUnit - e.g. "gallons" or "liters"
 	 * @param timeType  - how time will be inputted; expected "seconds", "minutes", or "both"
 	 */
-	public UsageDuration(String name,
-	                     double rate,
-	                     String usageUnit,
-	                     String timeType,
-	                     Tips tips,
-	                     AverageUsage avg,
-	                     HistoricalUsage historical) {
+	public UsageTimeDuration(String name,
+	                         double rate,
+	                         String usageUnit,
+	                         String timeType,
+	                         Tips tips,
+	                         AverageUsage avg,
+	                         HistoricalUsage historical) {
 		super(name, rate, usageUnit, tips, avg, historical);
 		setInputUnit(timeType);
 	}

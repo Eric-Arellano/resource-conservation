@@ -3,6 +3,8 @@ package features;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import static base.UsageTimeDuration.convertToSec;
+
 class ComparisonHelper {
 
 	private double usageAmount;
@@ -201,7 +203,7 @@ class ComparisonHelper {
 	private double calcFollowupChangeAmount(double absoluteDiff) {
 		double changeAmount = absoluteDiff / rate;
 		if (usageUnit.equalsIgnoreCase("seconds")) {
-			changeAmount = base.UsageDuration.convertToSec(changeAmount);
+			changeAmount = convertToSec(changeAmount);
 		}
 		return changeAmount;
 	}

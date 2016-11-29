@@ -1,6 +1,6 @@
 import base.ResourceUsage;
-import base.UsageDuration;
-import base.UsageNumTimes;
+import base.UsageDiscreteQuantity;
+import base.UsageTimeDuration;
 import features.AverageUsage;
 import features.HistoricalUsage;
 import features.Tips;
@@ -23,7 +23,7 @@ public class WaterASUDorm {
 		AverageUsage showerAvg = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
 		HistoricalUsage showerHist = new HistoricalUsage("shower", 2.5, "gallons", "minutes",
 				8.3, 9.2, 12.4, 18.1);
-		UsageDuration shower = new UsageDuration("shower", 2.5, "gallons", "minutes", showerTips,
+		ResourceUsage shower = new UsageTimeDuration("shower", 2.5, "gallons", "minutes", showerTips,
 				showerAvg, showerHist);
 
 		// Sink object
@@ -32,19 +32,18 @@ public class WaterASUDorm {
 		AverageUsage sinkAvg = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
 		HistoricalUsage sinkHist = new HistoricalUsage("sink", 1.5, "gallons", "seconds",
 				0.2, 0.6, 0.5, 0.9);
-		UsageDuration sink = new UsageDuration("sink", 1.5, "gallons", "seconds", sinkTips,
+		ResourceUsage sink = new UsageTimeDuration("sink", 1.5, "gallons", "seconds", sinkTips,
 				sinkAvg, sinkHist);
 
 		// Washing Machine object
-		// rate = 25 gal per wash, input unit = times per month, avg = 4 washes per month
+		// rate = 25 gal per wash, avg = 4 washes per month
 		Tips washerTips = new Tips("washerTips.txt");
 		AverageUsage washerAvg = new AverageUsage("washing machine", 25, "gallons", "times per " +
 				"month", 4);
 		HistoricalUsage washerHist = new HistoricalUsage("washing machine", 25, "gallons", "times per" +
 				" month", 3, 6, 5, 5);
-		UsageNumTimes washer = new UsageNumTimes("washing machine", 25, "gallons", washerTips,
-				washerAvg, washerHist);
-		washer.setInputUnit("times per month");
+		ResourceUsage washer = new UsageDiscreteQuantity("washing machine", 25, "gallons", "times per" +
+				" month", washerTips, washerAvg, washerHist);
 
 
 		// ================================================================================

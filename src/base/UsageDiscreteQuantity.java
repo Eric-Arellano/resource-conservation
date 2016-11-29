@@ -5,9 +5,10 @@ import features.HistoricalUsage;
 import features.Tips;
 
 /**
- * Used for Resource types that occur a number of times, e.g. flushing toilet x times.
+ * Used for Resource types that occur over a discrete quantity, e.g. number of times or miles
+ * driven.
  */
-public class UsageNumTimes extends ResourceUsage {
+public class UsageDiscreteQuantity extends ResourceUsage {
 
 	/**
 	 * Constructs a ResourceUsage object whose input is based on number of times resource used.
@@ -15,15 +16,17 @@ public class UsageNumTimes extends ResourceUsage {
 	 * @param name      - name of usage type, e.g. "sink" or "shower"
 	 * @param rate      - rate of consumption, should always be in terms of use
 	 * @param usageUnit - e.g. "gallons" or "liters"
+	 * @param inputType - e.g. "times per month", "miles driven"
 	 */
-	public UsageNumTimes(String name,
-	                     double rate,
-	                     String usageUnit,
-	                     Tips tips,
-	                     AverageUsage avg,
-	                     HistoricalUsage historical) {
+	public UsageDiscreteQuantity(String name,
+	                             double rate,
+	                             String usageUnit,
+	                             String inputType,
+	                             Tips tips,
+	                             AverageUsage avg,
+	                             HistoricalUsage historical) {
 		super(name, rate, usageUnit, tips, avg, historical);
-		setInputUnit("times");
+		setInputUnit(inputType);
 	}
 
 	// ================================================================================
@@ -32,7 +35,7 @@ public class UsageNumTimes extends ResourceUsage {
 
 	public void promptInput() {
 		System.out.print("How many " + this.getInputUnit() + " did you use the " + getName() + "? ");
-		double input = in.nextDouble(); // double so that it can include things like halves
+		double input = in.nextDouble();
 		setInputAmt(input);
 	}
 
