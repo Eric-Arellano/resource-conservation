@@ -11,7 +11,7 @@ public class TipsTest {
 
 	@Test(expected = IOException.class)
 	public void accessBlankFile() throws IOException {
-		Tips sampleTips = new Tips("garbage.txt");
+		Tips sampleTips = new Tips("src/test/garbage.txt");
 	}
 
 

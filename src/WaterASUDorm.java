@@ -19,7 +19,7 @@ public class WaterASUDorm {
 
 		// Shower object
 		// rate = 2.5 gpm, avg = 10.6 min
-		Tips showerTips = new Tips("showerTips.txt");
+		Tips showerTips = new Tips("src/tip-files/showerTips.txt");
 		AverageUsage showerAvg = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
 		HistoricalUsage showerHist = new HistoricalUsage("shower", 2.5, "gallons", "minutes",
 				8.3, 9.2, 12.4, 18.1);
@@ -28,7 +28,7 @@ public class WaterASUDorm {
 
 		// Sink object
 		// rate = 1.5 gpm, avg = 0.35 minutes
-		Tips sinkTips = new Tips("sinkTips.txt");
+		Tips sinkTips = new Tips("src/tip-files/sinkTips.txt");
 		AverageUsage sinkAvg = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
 		HistoricalUsage sinkHist = new HistoricalUsage("sink", 1.5, "gallons", "seconds",
 				0.2, 0.6, 0.5, 0.9);
@@ -37,7 +37,7 @@ public class WaterASUDorm {
 
 		// Washing Machine object
 		// rate = 25 gal per wash, avg = 4 washes per month
-		Tips washerTips = new Tips("washerTips.txt");
+		Tips washerTips = new Tips("src/tip-files/washerTips.txt");
 		AverageUsage washerAvg = new AverageUsage("washing machine", 25, "gallons", "times per " +
 				"month", 4);
 		HistoricalUsage washerHist = new HistoricalUsage("washing machine", 25, "gallons", "times per" +

@@ -26,7 +26,7 @@ public class ResourceUsageTest {
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("washerTips.txt");
+			mockTips = new Tips("src/test/mockTips.txt");
 			mockAverage = new AverageUsage("washing machine", 25, "gallons", "times per month", 4);
 			mockHistorical = new HistoricalUsage("washing machine", 25, "gallons", "times per month",
 					3, 6, 5, 5);
@@ -61,7 +61,7 @@ public class ResourceUsageTest {
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("showerTips.txt");
+			mockTips = new Tips("src/test/mockTips.txt");
 			mockAverage = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
 			mockHistorical = new HistoricalUsage("sink", 1.5, "gallons", "seconds",
 					0.2, 0.6, 0.5, 0.9);
@@ -95,7 +95,7 @@ public class ResourceUsageTest {
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("showerTips.txt");
+			mockTips = new Tips("src/test/mockTips.txt");
 			mockAverage = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
 			mockHistorical = new HistoricalUsage("shower", 2.5, "gallons", "minutes",
 					8.3, 9.2, 12.4, 18.1);
@@ -129,7 +129,7 @@ public class ResourceUsageTest {
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("showerTips.txt");
+			mockTips = new Tips("src/test/mockTips.txt");
 			mockAverage = new AverageUsage("shower", 2.5, "gallons", "both", 10.6);
 			mockHistorical = new HistoricalUsage("shower", 2.5, "gallons", "both",
 					8.3, 9.2, 12.4, 18.1);
