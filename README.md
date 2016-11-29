@@ -19,15 +19,15 @@ Please note this was a project for my first semester ever of programming, so I k
 #### Poor abstraction and class contracts
 I did this project before reading *Code Complete*, so didn't know about ideas like *class contracts*, *encapsulation*, and *abstraction*.
 
-Consequently, many things are unnecessarily public and the program doesn't have a great design.
+Consequently, even after refactoring, the project's design could still be improved.
 
 #### No GUI
 This was before I had learned how to build GUIs, so the program just uses console dialogs.
 
-#### Disregard Github issues
-You'll notice there are very few commits and that these commits are from July 2016, even though I did this project in Fall 2015.
-
-This is because I was still figuring out how Git works, so went back to fix things.
+## Refactoring
+I've refactored this project in two main stages:
+1. Cleanup of contracts, code style, abstraction, etc (Sept 2016). Particularly focused on DRY, One Responsibility principle, and abstraction/encapsulation.
+2. Addition of Unit Tests + Java 7/8 (Nov 2016). Unit tests led to fixing remaining logic errors and improved ease of general refactoring. Added Path API and Lambda/Stream to better leverage API. 
 
 ## What I learned
 Above all, this project taught me how to take a programming project from initial conception to release.
@@ -35,3 +35,4 @@ Above all, this project taught me how to take a programming project from initial
 * Class relations and inheritance
 * UML diagrams
 * IO file reading and writing
+* Unit testing (refactor)
