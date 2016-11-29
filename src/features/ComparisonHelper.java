@@ -101,9 +101,9 @@ class ComparisonHelper {
 		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
 		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to get to ";
-		if (checkGlobalAverage()) {
+		if (isGlobalAverage()) {
 			followup += "the average usage.";
-		} else if (checkSingleHistoricalDatum()) {
+		} else if (isSingleHistoricalDatum()) {
 			followup += "your prior usage.";
 		} else {
 			followup += "your average usage.";
@@ -125,6 +125,14 @@ class ComparisonHelper {
 	// Comparison tests
 	// ================================================================================
 
+	private boolean isGlobalAverage() {
+		return minAmount == 0.0 && maxAmount == 0.0 && avgAmount != 0.0;
+	}
+
+	private boolean isSingleHistoricalDatum() {
+		return minAmount == maxAmount && minAmount == avgAmount && maxAmount == avgAmount;
+	}
+
 	private boolean isGreaterAvg() {
 		return usageAmount > avgAmount;
 	}
@@ -137,26 +145,14 @@ class ComparisonHelper {
 		return usageAmount < minAmount;
 	}
 
-	private boolean checkGlobalAverage() {
-		return minAmount == 0.0 && maxAmount == 0.0 && avgAmount != 0.0;
-	}
-
-	private boolean checkSingleHistoricalDatum() {
-		return minAmount == maxAmount && minAmount == avgAmount && maxAmount == avgAmount;
-	}
-
-
 	// ================================================================================
 	// Determine comparison type/values
 	// ================================================================================
 
 	private void determineComparisonType() {
-		// check if historical or average
-		if (checkGlobalAverage()) {
+		if (isGlobalAverage()) {
 			this.comparisonType = "the average use";
-		}
-		// if historical, determine comp type
-		else if (checkSingleHistoricalDatum()) {
+		} else if (isSingleHistoricalDatum()) {
 			this.comparisonType = "your prior usage";
 		} else if (isGreaterMax()) {
 			this.comparisonType = "your max";
