@@ -31,17 +31,17 @@ public class ResourceUsageTest {
 
 		@Test
 		public void promptDiscreteInput() {
-			String returnedMessage = "";
-			quantityUsage.promptInput();
-			String expectedMessage = "How many times per month did you use the washing machine? ";
-			assertEquals(expectedMessage, returnedMessage);
+			String expectedPrompt = "How many times per month did you use the washing machine? ";
+			String returnedPrompt = quantityUsage.promptInput();
+			assertEquals(expectedPrompt, returnedPrompt);
+			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayDiscreteUsage() {
-			String returnedMessage = "";
-			quantityUsage.displayUsage();
 			String expectedMessage = "That means you used 15 gallons.";
+			// TODO: how is usage being set?
+			String returnedMessage = quantityUsage.displayUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -64,17 +64,17 @@ public class ResourceUsageTest {
 
 		@Test
 		public void promptTimeInput_Seconds() {
-			String returnedMessage = "";
-			secondUsage.promptInput();
-			String expectedMessage = "How many seconds did you use the sink? ";
-			assertEquals(expectedMessage, returnedMessage);
+			String expectedPrompt = "How many seconds did you use the sink? ";
+			String returnedPrompt = secondUsage.promptInput();
+			assertEquals(expectedPrompt, returnedPrompt);
+			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayTimeUsage_Seconds() {
-			String returnedMessage = "";
-			secondUsage.displayUsage();
 			String expectedMessage = "That means you used 10 gallons.";
+			// TODO: how is usage being set?
+			String returnedMessage = secondUsage.displayUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -96,17 +96,17 @@ public class ResourceUsageTest {
 
 		@Test
 		public void promptTimeInput_Minutes() {
-			String returnedMessage = "";
-			minuteUsage.promptInput();
-			String expectedMessage = "How many minutes did you use the shower? ";
-			assertEquals(expectedMessage, returnedMessage);
+			String expectedPrompt = "How many minutes did you use the shower? ";
+			String returnedPrompt = minuteUsage.promptInput();
+			assertEquals(expectedPrompt, returnedPrompt);
+			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayTimeUsage_Minutes() {
-			String returnedMessage = "";
-			minuteUsage.displayUsage();
 			String expectedMessage = "That means you used 10 gallons.";
+			// TODO: how is usage being set?
+			String returnedMessage = minuteUsage.displayUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -128,19 +128,19 @@ public class ResourceUsageTest {
 
 		@Test
 		public void promptTimeInput_Both() {
-			String returnedMessage = "";
-			timeBothUsage.promptInput();
-			String expectedMessage = "How many times per month did you use the shower? (You'll" +
+			String expectedPrompt = "How many times per month did you use the shower? (You'll" +
 					" be asked about seconds after): ";
-			expectedMessage += "How many seconds did you use the shower? ";
-			assertEquals(expectedMessage, returnedMessage);
+			expectedPrompt += "How many seconds did you use the shower? ";
+			String returnedPrompt = timeBothUsage.promptInput();
+			assertEquals(expectedPrompt, returnedPrompt);
+			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayTimeUsage_Both() {
-			String returnedMessage = "";
-			timeBothUsage.displayUsage();
 			String expectedMessage = "That means you used 10 gallons.";
+			// TODO: how is usage being set?
+			String returnedMessage = timeBothUsage.displayUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
