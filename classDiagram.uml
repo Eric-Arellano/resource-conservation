@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-307.5" y="-123.5">features.Tips</node>
+    <node x="503.5" y="12.5">features.AverageUsage</node>
+    <node x="91.0" y="186.5">base.UsageTimeDuration</node>
+    <node x="16.75" y="-193.0">base.ResourceUsage</node>
+    <node x="461.5" y="-320.5">features.HistoricalUsage</node>
+    <node x="650.0" y="-66.0">features.ComparisonHelper</node>
+    <node x="-327.0" y="101.5">base.UsageDiscreteQuantity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="features.HistoricalUsage" target="features.ComparisonHelper">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="base.UsageDiscreteQuantity" target="base.ResourceUsage">
+      <point x="0.0" y="-15.0" />
+      <point x="88.0" y="55.0" />
+      <point x="148.25" y="55.0" />
+      <point x="-32.5" y="15.0" />
+    </edge>
+    <edge source="base.ResourceUsage" target="features.Tips">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="features.AverageUsage" target="features.ComparisonHelper">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="base.ResourceUsage" target="features.HistoricalUsage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="base.UsageTimeDuration" target="base.ResourceUsage">
+      <point x="0.0" y="-15.0" />
+      <point x="273.5" y="55.0" />
+      <point x="213.25" y="55.0" />
+      <point x="32.5" y="15.0" />
+    </edge>
+    <edge source="base.ResourceUsage" target="features.AverageUsage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="275.5" y="25.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
