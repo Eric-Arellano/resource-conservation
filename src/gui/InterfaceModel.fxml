@@ -1,0 +1,18 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<GridPane fx:controller="gui.Controller"
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="center" hgap="10" vgap="10">
+
+    <Label text="Press the button to generate a random message!"
+           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+    <Button text="Ask me!" onAction="#handleButtonAction"
+            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+    <Text fx:id="result"
+          GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+</GridPane>
