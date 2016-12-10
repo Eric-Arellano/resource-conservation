@@ -3,9 +3,6 @@ package test;
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
-import features.AverageUsage;
-import features.HistoricalUsage;
-import features.Tips;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -19,19 +16,17 @@ public class ResourceUsageTest {
 
 	public static class DiscreteQuantity {
 
-		private Tips mockTips;
-		private AverageUsage mockAverage;
-		private HistoricalUsage mockHistorical;
 		private ResourceUsage quantityUsage;
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("src/test/mockTips.txt");
-			mockAverage = new AverageUsage("washing machine", 25, "gallons", "times per month", 4);
-			mockHistorical = new HistoricalUsage("washing machine", 25, "gallons", "times per month",
+			quantityUsage = new UsageDiscreteQuantity("washing machine",
+					25,
+					"gallons",
+					"times per month",
+					"src/test/mockTips.txt",
+					4,
 					3, 6, 5, 5);
-			quantityUsage = new UsageDiscreteQuantity("washing machine", 25, "gallons", "times per " +
-					"month", mockTips, mockAverage, mockHistorical);
 		}
 
 		@Test
@@ -54,19 +49,17 @@ public class ResourceUsageTest {
 
 	public static class TimeDurationSeconds {
 
-		private Tips mockTips;
-		private AverageUsage mockAverage;
-		private HistoricalUsage mockHistorical;
 		private ResourceUsage secondUsage;
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("src/test/mockTips.txt");
-			mockAverage = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
-			mockHistorical = new HistoricalUsage("sink", 1.5, "gallons", "seconds",
+			secondUsage = new UsageTimeDuration("sink",
+					1.5,
+					"gallons",
+					"seconds",
+					"src/test/mockTips.txt",
+					0.35,
 					0.2, 0.6, 0.5, 0.9);
-			secondUsage = new UsageTimeDuration("sink", 1.5, "gallons", "seconds", mockTips,
-					mockAverage, mockHistorical);
 		}
 
 		@Test
@@ -88,19 +81,17 @@ public class ResourceUsageTest {
 
 	public static class TimeDurationMinutes {
 
-		private Tips mockTips;
-		private AverageUsage mockAverage;
-		private HistoricalUsage mockHistorical;
 		private ResourceUsage minuteUsage;
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("src/test/mockTips.txt");
-			mockAverage = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
-			mockHistorical = new HistoricalUsage("shower", 2.5, "gallons", "minutes",
+			minuteUsage = new UsageTimeDuration("shower",
+					2.5,
+					"gallons",
+					"minutes",
+					"src/test/mockTips.txt",
+					10.6,
 					8.3, 9.2, 12.4, 18.1);
-			minuteUsage = new UsageTimeDuration("shower", 2.5, "gallons", "minutes", mockTips,
-					mockAverage, mockHistorical);
 		}
 
 		@Test
@@ -122,19 +113,17 @@ public class ResourceUsageTest {
 
 	public static class TimeDurationBoth {
 
-		private Tips mockTips;
-		private AverageUsage mockAverage;
-		private HistoricalUsage mockHistorical;
 		private ResourceUsage timeBothUsage;
 
 		@Before
 		public void setupMockResources() {
-			mockTips = new Tips("src/test/mockTips.txt");
-			mockAverage = new AverageUsage("shower", 2.5, "gallons", "both", 10.6);
-			mockHistorical = new HistoricalUsage("shower", 2.5, "gallons", "both",
+			timeBothUsage = new UsageTimeDuration("shower",
+					2.5,
+					"gallons",
+					"both",
+					"src/test/mockTips.txt",
+					10.6,
 					8.3, 9.2, 12.4, 18.1);
-			timeBothUsage = new UsageTimeDuration("shower", 2.5, "gallons", "both", mockTips,
-					mockAverage, mockHistorical);
 		}
 
 		@Test

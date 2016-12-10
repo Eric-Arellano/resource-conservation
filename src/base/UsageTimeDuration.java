@@ -1,9 +1,5 @@
 package base;
 
-import features.AverageUsage;
-import features.HistoricalUsage;
-import features.Tips;
-
 public class UsageTimeDuration extends ResourceUsage {
 
 	/**
@@ -18,11 +14,16 @@ public class UsageTimeDuration extends ResourceUsage {
 	                         double rate,
 	                         String usageUnit,
 	                         String timeType,
-	                         Tips tips,
-	                         AverageUsage avg,
-	                         HistoricalUsage historical) {
-		super(name, rate, usageUnit, tips, avg, historical);
-		setInputUnit(timeType);
+	                         String tipsFilePath,
+	                         double avgInUsageUnit,
+	                         double... historicalUsagesInInputUnits) {
+		super(name,
+				rate,
+				usageUnit,
+				timeType,
+				tipsFilePath,
+				avgInUsageUnit,
+				historicalUsagesInInputUnits);
 	}
 
 	// ================================================================================

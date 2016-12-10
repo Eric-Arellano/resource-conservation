@@ -1,9 +1,6 @@
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
-import features.AverageUsage;
-import features.HistoricalUsage;
-import features.Tips;
 
 import java.util.Scanner;
 
@@ -19,31 +16,33 @@ public class WaterASUDorm {
 
 		// Shower object
 		// rate = 2.5 gpm, avg = 10.6 min
-		Tips showerTips = new Tips("src/tip-files/showerTips.txt");
-		AverageUsage showerAvg = new AverageUsage("shower", 2.5, "gallons", "minutes", 10.6);
-		HistoricalUsage showerHist = new HistoricalUsage("shower", 2.5, "gallons", "minutes",
+		ResourceUsage shower = new UsageTimeDuration("shower",
+				2.5,
+				"gallons",
+				"minutes",
+				"src/tip-files/showerTips.txt",
+				10.6,
 				8.3, 9.2, 12.4, 18.1);
-		ResourceUsage shower = new UsageTimeDuration("shower", 2.5, "gallons", "minutes", showerTips,
-				showerAvg, showerHist);
 
 		// Sink object
 		// rate = 1.5 gpm, avg = 0.35 minutes
-		Tips sinkTips = new Tips("src/tip-files/sinkTips.txt");
-		AverageUsage sinkAvg = new AverageUsage("sink", 1.5, "gallons", "seconds", 0.35);
-		HistoricalUsage sinkHist = new HistoricalUsage("sink", 1.5, "gallons", "seconds",
+		ResourceUsage sink = new UsageTimeDuration("sink",
+				1.5,
+				"gallons",
+				"seconds",
+				"src/tip-files/sinkTips.txt",
+				0.35,
 				0.2, 0.6, 0.5, 0.9);
-		ResourceUsage sink = new UsageTimeDuration("sink", 1.5, "gallons", "seconds", sinkTips,
-				sinkAvg, sinkHist);
 
 		// Washing Machine object
 		// rate = 25 gal per wash, avg = 4 washes per month
-		Tips washerTips = new Tips("src/tip-files/washerTips.txt");
-		AverageUsage washerAvg = new AverageUsage("washing machine", 25, "gallons", "times per " +
-				"month", 4);
-		HistoricalUsage washerHist = new HistoricalUsage("washing machine", 25, "gallons", "times per" +
-				" month", 3, 6, 5, 5);
-		ResourceUsage washer = new UsageDiscreteQuantity("washing machine", 25, "gallons", "times per" +
-				" month", washerTips, washerAvg, washerHist);
+		ResourceUsage washer = new UsageDiscreteQuantity("washing machine",
+				25,
+				"gallons",
+				"times per month",
+				"src/tip-files/washerTips.txt",
+				4,
+				3, 6, 5, 5);
 
 
 		// ================================================================================

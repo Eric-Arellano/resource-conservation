@@ -30,15 +30,16 @@ abstract public class ResourceUsage {
 	ResourceUsage(String name,
 	              double rate,
 	              String usageUnit,
-	              Tips tips,
-	              AverageUsage avg,
-	              HistoricalUsage historical) {
+	              String inputUnit,
+	              String tipsFilePath,
+	              double avgInUsageUnit,
+	              double... historicalUsagesInInputUnits) {
 		this.name = name;
 		this.rate = rate;
 		this.usageUnit = usageUnit;
-		this.tips = tips;
-		this.avg = avg;
-		this.hist = historical;
+		this.tips = new Tips(tipsFilePath);
+		this.avg = new AverageUsage(name, rate, usageUnit, inputUnit, avgInUsageUnit);
+		this.hist = new HistoricalUsage(name, rate, usageUnit, inputUnit, historicalUsagesInInputUnits);
 	}
 
 
