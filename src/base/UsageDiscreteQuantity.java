@@ -34,10 +34,11 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	// Prompt Input
 	// ================================================================================
 
-	public void promptInput() {
-		System.out.print("How many " + this.getInputUnit() + " did you use the " + getName() + "? ");
+	public String promptInput() {
+		String prompt = "How many " + this.getInputUnit() + " did you use the " + getName() + "? ";
+		System.out.print(prompt);
 		double input = in.nextDouble();
 		setInputAmt(input);
+		return prompt;
 	}
-
 }

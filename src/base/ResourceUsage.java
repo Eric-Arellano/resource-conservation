@@ -48,14 +48,16 @@ abstract public class ResourceUsage {
 	// Base usage
 	// ================================================================================
 
-	abstract public void promptInput();
+	abstract public String promptInput();
 
 	public void calcUsageFromInput() {
 		usageAmt = inputAmt * rate;
 	}
 
-	public void displayUsage() {
-		System.out.println("That means you used " + decimals.format(usageAmt) + " " + usageUnit + ".");
+	public String displayUsage() {
+		String usage = "That means you used " + decimals.format(usageAmt) + " " + usageUnit + ".";
+		System.out.println(usage);
+		return usage;
 	}
 
 
@@ -63,27 +65,35 @@ abstract public class ResourceUsage {
 	// Feature usage
 	// ================================================================================
 
-	public void displayTips() {
-		System.out.println(tips.displayTips());
+	public String displayTips() {
+		String tipsText = tips.displayTips();
+		System.out.println(tipsText);
+		return tipsText;
 	}
 
-	public void displayHistorical() {
-		System.out.println(hist.displayHistorical());
+	public String displayHistorical() {
+		String historicalUsage = hist.displayHistorical();
+		System.out.println(historicalUsage);
+		return historicalUsage;
 	}
 
 	/**
 	 * Compares to global average usage. Prints comparison and followup action.
 	 */
-	public void compareAverage() {
-		System.out.println(avg.compareAverage(usageAmt));
+	public String compareAverage() {
+		String averageComparison = avg.compareAverage(usageAmt);
+		System.out.println(averageComparison);
+		return averageComparison;
 	}
 
 	/**
 	 * Compares to historical min, max, and avg values. Prints comparison to relevant value and
 	 * followup action.
 	 */
-	public void compareHistorical() {
-		System.out.println(hist.compareHistorical(usageAmt));
+	public String compareHistorical() {
+		String historicalComparison = hist.compareHistorical(usageAmt);
+		System.out.println(historicalComparison);
+		return historicalComparison;
 	}
 
 	public void updateHistoricalBeforeNewInput() {

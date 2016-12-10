@@ -39,44 +39,53 @@ public class UsageTimeDuration extends ResourceUsage {
 	// Prompt input Methods
 	// ================================================================================
 
-	public void promptInput() {
+	public String promptInput() {
 		String inputUnit = getInputUnit();
 		assert inputUnit.equals("minutes") || inputUnit.equals("seconds") || inputUnit.equals("both");
+		String prompt = "";
 		switch (inputUnit) {
 			case "minutes":
-				promptMin();
+				prompt = promptMin();
 				break;
 			case "seconds":
-				promptSec();
+				prompt = promptSec();
 				break;
 			case "both":
-				promptBoth();
+				prompt = promptBoth();
 				break;
 		}
+		return prompt;
 	}
 
-	private void promptSec() {
-		System.out.print("How many seconds did you use the " + getName() + "? ");
+	private String promptSec() {
+		String prompt = "How many seconds did you use the " + getName() + "? ";
+		System.out.print(prompt);
 		double numSec = in.nextDouble();
 		double numMin = convertToMin(numSec);
 		setInputAmt(numMin);
+		return prompt;
 	}
 
-	private void promptMin() {
-		System.out.print("How many minutes did you use the " + getName() + "? ");
+	private String promptMin() {
+		String prompt = "How many minutes did you use the " + getName() + "? ";
+		System.out.print(prompt);
 		double numMin = in.nextDouble();
 		setInputAmt(numMin);
+		return prompt;
 	}
 
-	private void promptBoth() {
-		System.out.print("How many minutes did you use the " + getName() +
-				"? (You'll be asked about seconds after): ");
+	private String promptBoth() {
+		String promptMinutes = "How many minutes did you use the " + getName() + "? (You'll be asked " +
+				"about seconds after): ";
+		System.out.print(promptMinutes);
 		double numMin = in.nextDouble();
-		System.out.print("How many seconds did you use the " + getName() + "? ");
+		String promptSeconds = "How many seconds did you use the " + getName() + "? ";
+		System.out.print(promptSeconds);
 		double numSec = in.nextDouble();
 		numMin += convertToMin(numSec);
 		setInputAmt(numMin);
 		setInputUnit("minutes");
+		return promptMinutes + promptSeconds;
 	}
 
 	// ================================================================================
