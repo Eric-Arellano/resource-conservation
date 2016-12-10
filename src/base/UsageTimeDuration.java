@@ -2,6 +2,15 @@ package base;
 
 public class UsageTimeDuration extends ResourceUsage {
 
+	public enum TimeType {
+		SECONDS, MINUTES, BOTH;
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
+		}
+	}
+
 	/**
 	 * Constructs a ResourceUsage object whose input is based on time duration.
 	 *
@@ -13,14 +22,14 @@ public class UsageTimeDuration extends ResourceUsage {
 	public UsageTimeDuration(String name,
 	                         double rate,
 	                         String usageUnit,
-	                         String timeType,
+	                         TimeType timeType,
 	                         String tipsFilePath,
 	                         double avgInUsageUnit,
 	                         double... historicalUsagesInInputUnits) {
 		super(name,
 				rate,
 				usageUnit,
-				timeType,
+				timeType.toString(),
 				tipsFilePath,
 				avgInUsageUnit,
 				historicalUsagesInInputUnits);
@@ -31,15 +40,18 @@ public class UsageTimeDuration extends ResourceUsage {
 	// ================================================================================
 
 	public void promptInput() {
-		if (getInputUnit().equalsIgnoreCase("both")) {
-			promptBoth();
-		} else if (getInputUnit().equalsIgnoreCase("minutes")) {
-			promptMin();
-		} else if (getInputUnit().equalsIgnoreCase("seconds")) {
-			promptSec();
-		} else {
-			promptTimeType();
-			promptInput();
+		String inputUnit = getInputUnit();
+		assert inputUnit.equals("minutes") || inputUnit.equals("seconds") || inputUnit.equals("both");
+		switch (inputUnit) {
+			case "minutes":
+				promptMin();
+				break;
+			case "seconds":
+				promptSec();
+				break;
+			case "both":
+				promptBoth();
+				break;
 		}
 	}
 
@@ -65,35 +77,6 @@ public class UsageTimeDuration extends ResourceUsage {
 		numMin += convertToMin(numSec);
 		setInputAmt(numMin);
 		setInputUnit("minutes");
-	}
-
-	/**
-	 * Method to prompt user to supply time type for input unit instead of programmer.
-	 * Expected inputs: "minutes", "seconds", or "both"
-	 */
-	private void promptTimeType() {
-		boolean flag = false;
-		String type = "";
-		while (!flag) {
-			System.out.println("Oops, looks like the type of time input was set up incorrectly!" +
-					"\nPlease enter one of the following Strings based off of how you're inputting " +
-					"the amount of time you used the " + getName() + "." +
-					"\n\t\"seconds\"" +
-					"\n\t\"minutes\"" +
-					"\n\t\"both\"");
-
-			type = in.next();
-			if (type.equals("minutes")) {
-				flag = true;
-			}
-			if (type.equals("seconds")) {
-				flag = true;
-			}
-			if (type.equals("both")) {
-				flag = true;
-			}
-		}
-		setInputUnit(type);
 	}
 
 	// ================================================================================

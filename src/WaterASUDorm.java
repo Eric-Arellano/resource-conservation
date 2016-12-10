@@ -19,7 +19,7 @@ public class WaterASUDorm {
 		ResourceUsage shower = new UsageTimeDuration("shower",
 				2.5,
 				"gallons",
-				"minutes",
+				UsageTimeDuration.TimeType.MINUTES,
 				"src/tip-files/showerTips.txt",
 				10.6,
 				8.3, 9.2, 12.4, 18.1);
@@ -29,7 +29,7 @@ public class WaterASUDorm {
 		ResourceUsage sink = new UsageTimeDuration("sink",
 				1.5,
 				"gallons",
-				"seconds",
+				UsageTimeDuration.TimeType.SECONDS,
 				"src/tip-files/sinkTips.txt",
 				0.35,
 				0.2, 0.6, 0.5, 0.9);

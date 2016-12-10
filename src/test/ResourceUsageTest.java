@@ -56,7 +56,7 @@ public class ResourceUsageTest {
 			secondUsage = new UsageTimeDuration("sink",
 					1.5,
 					"gallons",
-					"seconds",
+					UsageTimeDuration.TimeType.SECONDS,
 					"src/test/mockTips.txt",
 					0.35,
 					0.2, 0.6, 0.5, 0.9);
@@ -88,7 +88,7 @@ public class ResourceUsageTest {
 			minuteUsage = new UsageTimeDuration("shower",
 					2.5,
 					"gallons",
-					"minutes",
+					UsageTimeDuration.TimeType.MINUTES,
 					"src/test/mockTips.txt",
 					10.6,
 					8.3, 9.2, 12.4, 18.1);
@@ -120,7 +120,7 @@ public class ResourceUsageTest {
 			timeBothUsage = new UsageTimeDuration("shower",
 					2.5,
 					"gallons",
-					"both",
+					UsageTimeDuration.TimeType.BOTH,
 					"src/test/mockTips.txt",
 					10.6,
 					8.3, 9.2, 12.4, 18.1);

@@ -37,6 +37,7 @@ abstract public class ResourceUsage {
 		this.name = name;
 		this.rate = rate;
 		this.usageUnit = usageUnit;
+		this.inputUnit = inputUnit;
 		this.tips = new Tips(tipsFilePath);
 		this.avg = new AverageUsage(name, rate, usageUnit, inputUnit, avgInUsageUnit);
 		this.hist = new HistoricalUsage(name, rate, usageUnit, inputUnit, historicalUsagesInInputUnits);
@@ -105,7 +106,7 @@ abstract public class ResourceUsage {
 	// Setter methods
 	// ================================================================================
 
-	public void setInputUnit(String inputUnit) {
+	void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
 	}
 
