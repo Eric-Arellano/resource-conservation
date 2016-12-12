@@ -3,20 +3,20 @@ package features;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import static base.UsageTimeDuration.convertToSec;
+import static base.UsageTimeDuration.convertToSeconds;
 
 class ComparisonHelper {
 
 	private double usageAmount;
-	private double avgAmount;
+	private double averageAmount;
 	private double minAmount;
 	private double maxAmount;
 
 	private String comparisonType;
 	private double comparisonValue;
 
-	private double absoluteDiff;
-	private double percentDiff;
+	private double absoluteDifference;
+	private double percentDifference;
 
 	private final String resourceName;
 	private final double rate;
@@ -42,17 +42,20 @@ class ComparisonHelper {
 	// Compare methods
 	// ================================================================================
 
-	String compareGlobalAvg(double usageAmount, double avgAmount) {
+	String compareGlobalAverage(double usageAmount, double averageAmount) {
 		this.usageAmount = usageAmount;
-		this.avgAmount = avgAmount;
+		this.averageAmount = averageAmount;
 		this.minAmount = 0.0;
 		this.maxAmount = 0.0;
-		return returnBaseComparison() + addAverageFollowup();
+		return returnBaseComparison() + addGlobalAverageFollowup();
 	}
 
-	String compareHistorical(double usageAmount, double avgAmount, double minAmount, double maxAmount) {
+	String compareHistorical(double usageAmount,
+	                         double averageAmount,
+	                         double minAmount,
+	                         double maxAmount) {
 		this.usageAmount = usageAmount;
-		this.avgAmount = avgAmount;
+		this.averageAmount = averageAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
 		return returnBaseComparison() + addHistoricalFollowup();
@@ -67,27 +70,27 @@ class ComparisonHelper {
 		// calc values
 		determineComparisonType();
 		determineComparisonAmount();
-		calcAbsoluteDiff();
-		calcPercentDiff();
+		calcAbsoluteDifference();
+		calcPercentDifference();
 		String moreOrLess = determineMoreOrLess();
 		// return result
-		return "You used " + decimals.format(absoluteDiff) + " " + moreOrLess + " " + usageUnit + " than " +
+		return "You used " + decimals.format(absoluteDifference) + " " + moreOrLess + " " + usageUnit + " than " +
 				comparisonType + " of " + decimals.format(comparisonValue) + " " + usageUnit + "! That's " +
-				percents.format(percentDiff) + " " + moreOrLess + " than " + comparisonType + ".";
+				percents.format(percentDifference) + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
-	private String addAverageFollowup() {
-		if (isGreaterAvg()) {
-			return followupHowMuchToAvg();
+	private String addGlobalAverageFollowup() {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
 		} else {
 			return followupGoodJob();
 		}
 	}
 
 	private String addHistoricalFollowup() {
-		if (isGreaterAvg()) {
-			return followupHowMuchToAvg();
-		} else if (isLessMin()) {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
+		} else if (isLessThanMin()) {
 			return followupGoodJob();
 		} else {
 			return followupHowMuchToMin();
@@ -98,8 +101,8 @@ class ComparisonHelper {
 		return "\nKeep it up!";
 	}
 
-	private String followupHowMuchToAvg() {
-		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+	private String followupHowMuchToAverage() {
+		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDifference));
 		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to get to ";
 		if (isGlobalAverage()) {
@@ -113,7 +116,7 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToMin() {
-		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDifference));
 		return "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to beat your lowest record.";
 	}
@@ -127,22 +130,22 @@ class ComparisonHelper {
 	// ================================================================================
 
 	private boolean isGlobalAverage() {
-		return minAmount == 0.0 && maxAmount == 0.0 && avgAmount != 0.0;
+		return minAmount == 0.0 && maxAmount == 0.0 && averageAmount != 0.0;
 	}
 
 	private boolean isSingleHistoricalDatum() {
-		return minAmount == maxAmount && minAmount == avgAmount && maxAmount == avgAmount;
+		return minAmount == maxAmount && minAmount == averageAmount && maxAmount == averageAmount;
 	}
 
-	private boolean isGreaterAvg() {
-		return usageAmount > avgAmount;
+	private boolean isGreaterThanAverage() {
+		return usageAmount > averageAmount;
 	}
 
-	private boolean isGreaterMax() {
+	private boolean isGreaterThanMax() {
 		return usageAmount > maxAmount;
 	}
 
-	private boolean isLessMin() {
+	private boolean isLessThanMin() {
 		return usageAmount < minAmount;
 	}
 
@@ -155,9 +158,9 @@ class ComparisonHelper {
 			this.comparisonType = "the average use";
 		} else if (isSingleHistoricalDatum()) {
 			this.comparisonType = "your prior usage";
-		} else if (isGreaterMax()) {
+		} else if (isGreaterThanMax()) {
 			this.comparisonType = "your max";
-		} else if (isLessMin()) {
+		} else if (isLessThanMin()) {
 			this.comparisonType = "your min";
 		} else {
 			this.comparisonType = "your average";
@@ -173,7 +176,7 @@ class ComparisonHelper {
 				this.comparisonValue = minAmount;
 				break;
 			default:
-				this.comparisonValue = avgAmount;
+				this.comparisonValue = averageAmount;
 				break;
 		}
 	}
@@ -187,12 +190,12 @@ class ComparisonHelper {
 	// Calculate differences
 	// ================================================================================
 
-	private void calcAbsoluteDiff() {
-		absoluteDiff = Math.abs(usageAmount - comparisonValue);
+	private void calcAbsoluteDifference() {
+		absoluteDifference = Math.abs(usageAmount - comparisonValue);
 	}
 
-	private void calcPercentDiff() {
-		percentDiff = Math.abs((usageAmount - comparisonValue) / comparisonValue);
+	private void calcPercentDifference() {
+		percentDifference = Math.abs((usageAmount - comparisonValue) / comparisonValue);
 	}
 
 
@@ -200,10 +203,10 @@ class ComparisonHelper {
 	// Calculate followup's required change amount
 	// ================================================================================
 
-	private double calcFollowupChangeAmount(double absoluteDiff) {
-		double changeAmount = absoluteDiff / rate;
+	private double calcFollowupChangeAmount(double absoluteDifference) {
+		double changeAmount = absoluteDifference / rate;
 		if (usageUnit.equalsIgnoreCase("seconds")) {
-			changeAmount = convertToSec(changeAmount);
+			changeAmount = convertToSeconds(changeAmount);
 		}
 		return changeAmount;
 	}

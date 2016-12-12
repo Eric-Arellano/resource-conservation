@@ -108,14 +108,14 @@ public class WaterASUDorm {
 					System.out.println();
 					switch (menuSelection) {
 						case 1:
-							chosenUsage.compareAverage();
+							chosenUsage.compareToGlobalAverage();
 							System.out.println();
 							break;
 						case 2:
-							chosenUsage.compareHistorical();
+							chosenUsage.compareToHistorical();
 							break;
 						case 3:
-							chosenUsage.displayHistorical();
+							chosenUsage.displayHistoricalUsages();
 							break;
 						case 4:
 							chosenUsage.displayTips();

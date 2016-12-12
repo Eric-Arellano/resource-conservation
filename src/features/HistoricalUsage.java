@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 
 public class HistoricalUsage {
 
-	private final ArrayList<Double> histUsage;
+	private final ArrayList<Double> historicalUsages;
 	private final ComparisonHelper comparisonHelper;
 
 	private final double rate;
@@ -26,7 +26,7 @@ public class HistoricalUsage {
 	                       double rate,
 	                       String usageUnit,
 	                       String inputUnit) {
-		histUsage = new ArrayList<>();
+		historicalUsages = new ArrayList<>();
 		this.rate = rate;
 		this.usageUnit = usageUnit;
 		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
@@ -40,7 +40,7 @@ public class HistoricalUsage {
 	                       String usageUnit,
 	                       String inputUnit,
 	                       double... preExistingInputAmounts) {
-		histUsage = new ArrayList<>();
+		historicalUsages = new ArrayList<>();
 		this.rate = rate;
 		this.usageUnit = usageUnit;
 		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
@@ -48,9 +48,9 @@ public class HistoricalUsage {
 
 	}
 
-	private void preFillData(double... input) {
-		for (double inputAmount : input) {
-			double usageAmount = inputAmount * rate;
+	private void preFillData(double... inputAmounts) {
+		for (double input : inputAmounts) {
+			double usageAmount = input * rate;
 			addHistorical(usageAmount);
 		}
 	}
@@ -60,24 +60,27 @@ public class HistoricalUsage {
 	// Public Interface
 	// ================================================================================
 
-	public void addHistorical(double usageAmt) {
-		histUsage.add(usageAmt);
+	public void addHistorical(double usageAmount) {
+		historicalUsages.add(usageAmount);
 	}
 
 	public String displayHistorical() {
 		StringJoiner result = new StringJoiner(", ", "Historical usage:\t", "");
-		for (double value : histUsage) {
+		for (double value : historicalUsages) {
 			final String usageAmount = decimals.format(value);
 			result.add(usageAmount + " " + usageUnit);
 		}
 		return result.toString();
 	}
 
-	public String compareHistorical(double usageAmt) {
-		if (histUsage.isEmpty()) {
+	public String compareHistorical(double usageAmount) {
+		if (historicalUsages.isEmpty()) {
 			return "Oops! Looks like there's no historical data to compare to.";
 		} else {
-			return comparisonHelper.compareHistorical(usageAmt, getAvg(), getMinVal(), getMaxVal());
+			return comparisonHelper.compareHistorical(usageAmount,
+					getAverage(),
+					getMinVal(),
+					getMaxVal());
 		}
 	}
 
@@ -86,16 +89,16 @@ public class HistoricalUsage {
 	// Accessor Methods
 	// ================================================================================
 
-	public double getMinVal() {
-		return Collections.min(histUsage);
+	private double getMinVal() {
+		return Collections.min(historicalUsages);
 	}
 
-	public double getMaxVal() {
-		return Collections.max(histUsage);
+	private double getMaxVal() {
+		return Collections.max(historicalUsages);
 	}
 
-	public double getAvg() {
-		return histUsage
+	private double getAverage() {
+		return historicalUsages
 				.stream()
 				.mapToDouble(Double::doubleValue)
 				.average()

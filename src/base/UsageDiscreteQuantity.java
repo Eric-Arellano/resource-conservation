@@ -9,25 +9,25 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	/**
 	 * Constructs a ResourceUsage object whose input is based on number of times resource used.
 	 *
-	 * @param name      - name of usage type, e.g. "sink" or "shower"
-	 * @param rate      - rate of consumption, should always be in terms of use
-	 * @param usageUnit - e.g. "gallons" or "liters"
-	 * @param inputUnit - e.g. "times per month", "miles driven"
+	 * @param resourceName - name of usage type, e.g. "sink" or "shower"
+	 * @param rate         - rate of consumption, should always be in terms of use
+	 * @param usageUnit    - e.g. "gallons" or "liters"
+	 * @param inputUnit    - e.g. "times per month", "miles driven"
 	 */
-	public UsageDiscreteQuantity(String name,
+	public UsageDiscreteQuantity(String resourceName,
 	                             double rate,
 	                             String usageUnit,
 	                             String inputUnit,
 	                             String tipsFilePath,
-	                             double avgInUsageUnit,
-	                             double... historicalUsagesInInputUnits) {
-		super(name,
+	                             double globalAverageInUsageUnit,
+	                             double... historicalUsagesInInputUnit) {
+		super(resourceName,
 				rate,
 				usageUnit,
 				inputUnit,
 				tipsFilePath,
-				avgInUsageUnit,
-				historicalUsagesInInputUnits);
+				globalAverageInUsageUnit,
+				historicalUsagesInInputUnit);
 	}
 
 	// ================================================================================
@@ -35,10 +35,10 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	// ================================================================================
 
 	public String promptInput() {
-		String prompt = "How many " + this.getInputUnit() + " did you use the " + getName() + "? ";
+		String prompt = "How many " + this.getInputUnit() + " did you use the " + getResourceName() + "? ";
 		System.out.print(prompt);
 		double input = in.nextDouble();
-		setInputAmt(input);
+		setInputAmount(input);
 		return prompt;
 	}
 }
