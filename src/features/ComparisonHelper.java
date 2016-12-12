@@ -23,10 +23,6 @@ class ComparisonHelper {
 	private final String inputUnit;
 	private final String usageUnit;
 
-	// ================================================================================
-	// Constructor
-	// ================================================================================
-
 	ComparisonHelper(String resourceName,
 	                 double rate,
 	                 String inputUnit,

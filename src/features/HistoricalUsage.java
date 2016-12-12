@@ -15,10 +15,6 @@ public class HistoricalUsage {
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
-	// ================================================================================
-	// Constructors
-	// ================================================================================
-
 	public HistoricalUsage(String resourceName,
 	                       double rate_UsagePerInput,
 	                       String inputUnit,
@@ -32,6 +28,7 @@ public class HistoricalUsage {
 				usageUnit);
 	}
 
+	// allows pre-existing inputs
 	public HistoricalUsage(String resourceName,
 	                       double rate_UsagePerInput,
 	                       String inputUnit,
@@ -86,7 +83,7 @@ public class HistoricalUsage {
 
 
 	// ================================================================================
-	// Access Aggregate Values
+	// Get Aggregate Values
 	// ================================================================================
 
 	public double getMinVal() {

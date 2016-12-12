@@ -12,8 +12,6 @@ public class UsageTimeDuration extends ResourceUsage {
 	}
 
 	/**
-	 * Constructs a ResourceUsage object whose input is based on time duration.
-	 *
 	 * @param timeInputType - unit user interfaces with; must be SECONDS, MINUTES, or BOTH
 	 * @param usageUnit     - unit reported back, e.g. "gallons" or "liters"
 	 */

@@ -12,9 +12,6 @@ public class Tips {
 
 	private Path tipsFile;
 
-	/**
-	 * Opens pre-created Tips .txt file.
-	 */
 	public Tips(String filePath) {
 		try {
 			tipsFile = Paths.get(filePath);

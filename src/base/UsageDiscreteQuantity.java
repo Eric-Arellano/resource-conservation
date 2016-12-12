@@ -7,8 +7,6 @@ package base;
 public class UsageDiscreteQuantity extends ResourceUsage {
 
 	/**
-	 * Constructs a ResourceUsage object whose input is based on number of times resource used.
-	 *
 	 * @param inputUnit - unit user interfaces with, e.g. "times per month", "miles driven"
 	 * @param usageUnit - unit reported back, e.g. "gallons" or "liters"
 	 */

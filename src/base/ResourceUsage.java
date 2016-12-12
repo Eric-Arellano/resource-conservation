@@ -7,11 +7,6 @@ import features.Tips;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-/**
- * Main program class. Used to create and interface with different resource consumption types.
- *
- * @author ericarellano
- */
 abstract public class ResourceUsage {
 
 	private final String resourceName;
@@ -99,7 +94,7 @@ abstract public class ResourceUsage {
 	}
 
 	// ================================================================================
-	// Getter methods
+	// Getters & Setters
 	// ================================================================================
 
 	String getResourceName() {
@@ -109,10 +104,6 @@ abstract public class ResourceUsage {
 	String getInputUnit() {
 		return inputUnit;
 	}
-
-	// ================================================================================
-	// Setter methods
-	// ================================================================================
 
 	void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
