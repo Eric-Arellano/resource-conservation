@@ -10,7 +10,7 @@ public class WaterASUDorm extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("gui/InterfaceModel.fxml"));
 		primaryStage.setTitle("ASU Dorm Water Usage");
-		primaryStage.setScene(new Scene(root, 300, 275));
+		primaryStage.setScene(new Scene(root, 600, 1000));
 		primaryStage.show();
 	}
 

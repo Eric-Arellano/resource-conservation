@@ -1,18 +1,41 @@
-<?import javafx.scene.control.Button?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<GridPane fx:controller="gui.Controller"
-          xmlns:fx="http://javafx.com/fxml"
-          alignment="center" hgap="10" vgap="10">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+    <top>
+        <Label fx:id="welcomeMessage"/>
+    </top>
 
-    <Label text="Press the button to generate a random message!"
-           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <left>
+        <GridPane>
+            <Label text="Select usage:" GridPane.rowIndex="0"/>
+            <Group>
+                <children>
+                    <!--TODO: set of radio options with labels (dependent on
+                    what options are fed to system)-->
+                </children>
+            </Group>
+        </GridPane>
+    </left>
 
-    <Button text="Ask me!" onAction="#handleButtonAction"
-            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <center>
+        <GridPane>
+            <Label text="Your usage"/>
+            <!-- TODO: prompt for how many times + input box-->
+            <!-- TODO: output of usage at bottom-->
+        </GridPane>
 
-    <Text fx:id="result"
-          GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    </center>
 
-</GridPane>
+    <right>
+        <GridPane>
+            <Label text="Analysis"/>
+            <!-- TODO: fixed radio options for avg, hist, & tips-->
+            <!-- TODO: textbox that prints output (e.g. comparison) on right-->
+        </GridPane>
+    </right>
+
+</BorderPane>
