@@ -55,92 +55,6 @@ class ComparisonHelper {
 	}
 
 	// ================================================================================
-	// Return comparisons
-	// ================================================================================
-
-	private String returnBaseComparison() {
-		String moreOrLess = isMoreOrLess();
-		return "You used " + decimals.format(absoluteDifference) + " " + moreOrLess + " " + usageUnit + " than " +
-				comparisonType + " of " + decimals.format(comparisonValue) + " " + usageUnit + "! That's " +
-				percents.format(percentDifference) + " " + moreOrLess + " than " + comparisonType + ".";
-	}
-
-	private String addGlobalAverageFollowup() {
-		if (isGreaterThanAverage()) {
-			return followupHowMuchToAverage();
-		} else {
-			return followupGoodJob();
-		}
-	}
-
-	private String addHistoricalFollowup() {
-		if (isGreaterThanAverage()) {
-			return followupHowMuchToAverage();
-		} else if (isLessThanMin()) {
-			return followupGoodJob();
-		} else {
-			return followupHowMuchToMin();
-		}
-	}
-
-	private String followupGoodJob() {
-		return "\nKeep it up!";
-	}
-
-	private String followupHowMuchToAverage() {
-		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
-		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
-				inputUnit + " to get to ";
-		if (isGlobalAverage()) {
-			followup += "the average usage.";
-		} else if (isSingleHistoricalDatum()) {
-			followup += "your prior usage.";
-		} else {
-			followup += "your average usage.";
-		}
-		return followup;
-	}
-
-	private String followupHowMuchToMin() {
-		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
-		return "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
-				inputUnit + " to beat your lowest record.";
-	}
-
-	private final NumberFormat percents = NumberFormat.getPercentInstance();
-	private final DecimalFormat decimals = new DecimalFormat("0.##");
-
-
-	// ================================================================================
-	// Comparison tests
-	// ================================================================================
-
-	private boolean isGlobalAverage() {
-		return minAmount == 0.0 && maxAmount == 0.0 && averageAmount != 0.0;
-	}
-
-	private boolean isSingleHistoricalDatum() {
-		return minAmount == maxAmount && minAmount == averageAmount && maxAmount == averageAmount;
-	}
-
-	private boolean isGreaterThanAverage() {
-		return usageAmount > averageAmount;
-	}
-
-	private boolean isGreaterThanMax() {
-		return usageAmount > maxAmount;
-	}
-
-	private boolean isLessThanMin() {
-		return usageAmount < minAmount;
-	}
-
-	private String isMoreOrLess() {
-		return usageAmount >= comparisonValue ? "more" : "less";
-	}
-
-
-	// ================================================================================
 	// Set comparison values
 	// ================================================================================
 
@@ -198,6 +112,92 @@ class ComparisonHelper {
 			changeAmount = convertToSeconds(changeAmount);
 		}
 		return changeAmount;
+	}
+
+
+	// ================================================================================
+	// Comparison tests
+	// ================================================================================
+
+	private boolean isGlobalAverage() {
+		return minAmount == 0.0 && maxAmount == 0.0 && averageAmount != 0.0;
+	}
+
+	private boolean isSingleHistoricalDatum() {
+		return minAmount == maxAmount && minAmount == averageAmount && maxAmount == averageAmount;
+	}
+
+	private boolean isGreaterThanAverage() {
+		return usageAmount > averageAmount;
+	}
+
+	private boolean isGreaterThanMax() {
+		return usageAmount > maxAmount;
+	}
+
+	private boolean isLessThanMin() {
+		return usageAmount < minAmount;
+	}
+
+	private String isMoreOrLess() {
+		return usageAmount >= comparisonValue ? "more" : "less";
+	}
+
+
+	// ================================================================================
+	// Return comparisons
+	// ================================================================================
+
+	private final NumberFormat percents = NumberFormat.getPercentInstance();
+	private final DecimalFormat decimals = new DecimalFormat("0.##");
+
+	private String returnBaseComparison() {
+		String moreOrLess = isMoreOrLess();
+		return "You used " + decimals.format(absoluteDifference) + " " + moreOrLess + " " + usageUnit + " than " +
+				comparisonType + " of " + decimals.format(comparisonValue) + " " + usageUnit + "! That's " +
+				percents.format(percentDifference) + " " + moreOrLess + " than " + comparisonType + ".";
+	}
+
+	private String addGlobalAverageFollowup() {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
+		} else {
+			return followupGoodJob();
+		}
+	}
+
+	private String addHistoricalFollowup() {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
+		} else if (isLessThanMin()) {
+			return followupGoodJob();
+		} else {
+			return followupHowMuchToMin();
+		}
+	}
+
+	private String followupGoodJob() {
+		return "\nKeep it up!";
+	}
+
+	private String followupHowMuchToAverage() {
+		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
+		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
+				inputUnit + " to get to ";
+		if (isGlobalAverage()) {
+			followup += "the average usage.";
+		} else if (isSingleHistoricalDatum()) {
+			followup += "your prior usage.";
+		} else {
+			followup += "your average usage.";
+		}
+		return followup;
+	}
+
+	private String followupHowMuchToMin() {
+		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
+		return "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
+				inputUnit + " to beat your lowest record.";
 	}
 
 }
