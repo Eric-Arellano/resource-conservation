@@ -55,7 +55,7 @@ abstract public class ResourceUsage {
 
 	abstract public String promptInput();
 
-	public void calcUsageFromInput() {
+	public void setUsageFromInput() {
 		usageAmount = inputAmount * rate;
 	}
 

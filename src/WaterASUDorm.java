@@ -93,7 +93,7 @@ public class WaterASUDorm {
 				System.out.println();
 				chosenUsage.promptInput();
 
-				chosenUsage.calcUsageFromInput();
+				chosenUsage.setUsageFromInput();
 				chosenUsage.displayUsage();
 
 
@@ -124,7 +124,7 @@ public class WaterASUDorm {
 						case 5:
 							chosenUsage.updateHistoricalBeforeNewInput();
 							chosenUsage.promptInput();
-							chosenUsage.calcUsageFromInput();
+							chosenUsage.setUsageFromInput();
 							chosenUsage.displayUsage();
 							break;
 						case 6:
