@@ -32,8 +32,8 @@ abstract public class ResourceUsage {
 	              String inputUnit,
 	              String usageUnit,
 	              String tipsFilePath,
-	              double globalAverageInInputUnit,
-	              double... historicalUsagesInInputUnit) {
+	              double globalAverage_InInputUnit,
+	              double... historicalUsages_InInputUnit) {
 		this.resourceName = resourceName;
 		this.rate = rate_UsagePerInput;
 		this.inputUnit = inputUnit;
@@ -43,9 +43,9 @@ abstract public class ResourceUsage {
 				rate_UsagePerInput,
 				inputUnit,
 				usageUnit,
-				globalAverageInInputUnit);
+				globalAverage_InInputUnit);
 		this.historical = new HistoricalUsage(resourceName, rate_UsagePerInput, inputUnit, usageUnit,
-				historicalUsagesInInputUnit);
+				historicalUsages_InInputUnit);
 	}
 
 

@@ -17,14 +17,15 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	                             String inputUnit,
 	                             String usageUnit,
 	                             String tipsFilePath,
-	                             double globalAverageInInputUnit,
-	                             double... historicalUsagesInInputUnit) {
+	                             double globalAverage_InInputUnit,
+	                             double... historicalUsages_InInputUnit) {
 		super(resourceName,
 				rate_UsagePerInput,
-				inputUnit, usageUnit,
+				inputUnit,
+				usageUnit,
 				tipsFilePath,
-				globalAverageInInputUnit,
-				historicalUsagesInInputUnit);
+				globalAverage_InInputUnit,
+				historicalUsages_InInputUnit);
 	}
 
 	// ================================================================================

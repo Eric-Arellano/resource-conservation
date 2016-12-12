@@ -22,15 +22,15 @@ public class UsageTimeDuration extends ResourceUsage {
 	                         TimeType timeInputType,
 	                         String usageUnit,
 	                         String tipsFilePath,
-	                         double globalAverageInInputUnit,
-	                         double... historicalUsagesInInputUnit) {
+	                         double globalAverage_InInputUnit,
+	                         double... historicalUsages_InInputUnit) {
 		super(resourceName,
 				rate_UsagePerMinute,
 				timeInputType.toString(),
 				usageUnit,
 				tipsFilePath,
-				globalAverageInInputUnit,
-				historicalUsagesInInputUnit);
+				globalAverage_InInputUnit,
+				historicalUsages_InInputUnit);
 	}
 
 	// ================================================================================

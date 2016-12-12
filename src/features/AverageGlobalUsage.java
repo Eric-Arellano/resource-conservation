@@ -9,8 +9,8 @@ public class AverageGlobalUsage {
 	                          double rate,
 	                          String inputUnit,
 	                          String usageUnit,
-	                          double globalAverageInInputUnit) {
-		this.globalAverage = globalAverageInInputUnit;
+	                          double globalAverage_InInputUnit) {
+		this.globalAverage = globalAverage_InInputUnit;
 		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
 	}
 
