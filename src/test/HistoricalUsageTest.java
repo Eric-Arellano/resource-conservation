@@ -32,7 +32,7 @@ public class HistoricalUsageTest {
 			String expectedMessage = "Historical usage:\t20 gal";
 			String returnedMessage = sampleHistorical.displayHistorical();
 			assertEquals(expectedMessage, returnedMessage);
-			assertEquals(20, sampleHistorical.getAvg(), 0.5);
+			assertEquals(20, sampleHistorical.getAverage(), 0.5);
 			assertEquals(20, sampleHistorical.getMinVal(), 0.5);
 			assertEquals(20, sampleHistorical.getMaxVal(), 0.5);
 		}
@@ -112,7 +112,7 @@ public class HistoricalUsageTest {
 			String expectedMessage = "Historical usage:\t60 gal, 40 gal, 20 gal, 100 gal";
 			String returnedMessage = sampleHistorical.displayHistorical();
 			assertEquals(expectedMessage, returnedMessage);
-			assertEquals(((60 + 40 + 20 + 100) / 4), sampleHistorical.getAvg(), 0.5);
+			assertEquals(((60 + 40 + 20 + 100) / 4), sampleHistorical.getAverage(), 0.5);
 			assertEquals(20, sampleHistorical.getMinVal(), 0.0);
 			assertEquals(100, sampleHistorical.getMaxVal(), 0.0);
 		}

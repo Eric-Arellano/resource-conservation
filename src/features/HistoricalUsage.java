@@ -89,15 +89,15 @@ public class HistoricalUsage {
 	// Accessor Methods
 	// ================================================================================
 
-	private double getMinVal() {
+	public double getMinVal() {
 		return Collections.min(historicalUsages);
 	}
 
-	private double getMaxVal() {
+	public double getMaxVal() {
 		return Collections.max(historicalUsages);
 	}
 
-	private double getAverage() {
+	public double getAverage() {
 		return historicalUsages
 				.stream()
 				.mapToDouble(Double::doubleValue)
