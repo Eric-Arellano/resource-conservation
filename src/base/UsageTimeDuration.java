@@ -14,24 +14,22 @@ public class UsageTimeDuration extends ResourceUsage {
 	/**
 	 * Constructs a ResourceUsage object whose input is based on time duration.
 	 *
-	 * @param resourceName - name of usage type, e.g. "sink" or "shower"
-	 * @param rate         - rate of consumption, should always be in terms of minutes
-	 * @param usageUnit    - e.g. "gallons" or "liters"
-	 * @param timeType     - how time will be inputted; expected "seconds", "minutes", or "both"
+	 * @param timeInputType - unit user interfaces with; must be SECONDS, MINUTES, or BOTH
+	 * @param usageUnit     - unit reported back, e.g. "gallons" or "liters"
 	 */
 	public UsageTimeDuration(String resourceName,
-	                         double rate,
+	                         double rate_UsagePerMinute,
+	                         TimeType timeInputType,
 	                         String usageUnit,
-	                         TimeType timeType,
 	                         String tipsFilePath,
-	                         double globalAverageInUsageUnit,
+	                         double globalAverageInInputUnit,
 	                         double... historicalUsagesInInputUnit) {
 		super(resourceName,
-				rate,
+				rate_UsagePerMinute,
+				timeInputType.toString(),
 				usageUnit,
-				timeType.toString(),
 				tipsFilePath,
-				globalAverageInUsageUnit,
+				globalAverageInInputUnit,
 				historicalUsagesInInputUnit);
 	}
 

@@ -7,11 +7,11 @@ public class AverageGlobalUsage {
 
 	public AverageGlobalUsage(String resourceName,
 	                          double rate,
-	                          String usageUnit,
 	                          String inputUnit,
-	                          double globalAverageInUsageUnit) {
-		this.globalAverage = globalAverageInUsageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
+	                          String usageUnit,
+	                          double globalAverageInInputUnit) {
+		this.globalAverage = globalAverageInInputUnit;
+		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
 	}
 
 	public String compareGlobalAverage(double usageAmount) {

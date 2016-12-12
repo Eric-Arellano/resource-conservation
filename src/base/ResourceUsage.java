@@ -16,8 +16,8 @@ abstract public class ResourceUsage {
 
 	private final String resourceName;
 	private final double rate;
-	private String inputUnit; // what user interfaces with, e.g. minutes
-	private final String usageUnit; // what is reported back, e.g. gallons
+	private String inputUnit; // unit user interfaces with, e.g. minutes
+	private final String usageUnit; // unit reported back, e.g. gallons
 	private double inputAmount;
 	private double usageAmount;
 	private final Tips tips;
@@ -28,20 +28,23 @@ abstract public class ResourceUsage {
 	Scanner in = new Scanner(System.in);
 
 	ResourceUsage(String resourceName,
-	              double rate,
-	              String usageUnit,
+	              double rate_UsagePerInput,
 	              String inputUnit,
+	              String usageUnit,
 	              String tipsFilePath,
-	              double globalAverageInUsageUnit,
+	              double globalAverageInInputUnit,
 	              double... historicalUsagesInInputUnit) {
 		this.resourceName = resourceName;
-		this.rate = rate;
-		this.usageUnit = usageUnit;
+		this.rate = rate_UsagePerInput;
 		this.inputUnit = inputUnit;
+		this.usageUnit = usageUnit;
 		this.tips = new Tips(tipsFilePath);
-		this.globalAverage = new AverageGlobalUsage(resourceName, rate, usageUnit, inputUnit,
-				globalAverageInUsageUnit);
-		this.historical = new HistoricalUsage(resourceName, rate, usageUnit, inputUnit,
+		this.globalAverage = new AverageGlobalUsage(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit,
+				globalAverageInInputUnit);
+		this.historical = new HistoricalUsage(resourceName, rate_UsagePerInput, inputUnit, usageUnit,
 				historicalUsagesInInputUnit);
 	}
 
@@ -79,19 +82,12 @@ abstract public class ResourceUsage {
 		return historicalUsage;
 	}
 
-	/**
-	 * Compares to global globalAverage usage. Prints comparison and followup action.
-	 */
 	public String compareToGlobalAverage() {
 		String averageComparison = globalAverage.compareGlobalAverage(usageAmount);
 		System.out.println(averageComparison);
 		return averageComparison;
 	}
 
-	/**
-	 * Compares to historical min, max, and globalAverage values. Prints comparison to relevant value and
-	 * followup action.
-	 */
 	public String compareToHistorical() {
 		String historicalComparison = historical.compareHistorical(usageAmount);
 		System.out.println(historicalComparison);

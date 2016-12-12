@@ -20,8 +20,8 @@ class ComparisonHelper {
 
 	private final String resourceName;
 	private final double rate;
-	private final String usageUnit;
 	private final String inputUnit;
+	private final String usageUnit;
 
 	// ================================================================================
 	// Constructor
@@ -29,12 +29,12 @@ class ComparisonHelper {
 
 	ComparisonHelper(String resourceName,
 	                 double rate,
-	                 String usageUnit,
-	                 String inputUnit) {
+	                 String inputUnit,
+	                 String usageUnit) {
 		this.resourceName = resourceName;
 		this.rate = rate;
-		this.usageUnit = usageUnit;
 		this.inputUnit = inputUnit;
+		this.usageUnit = usageUnit;
 	}
 
 

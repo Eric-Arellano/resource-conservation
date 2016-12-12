@@ -24,12 +24,12 @@ public class HistoricalUsage {
 	 */
 	public HistoricalUsage(String resourceName,
 	                       double rate,
-	                       String usageUnit,
-	                       String inputUnit) {
+	                       String inputUnit,
+	                       String usageUnit) {
 		historicalUsages = new ArrayList<>();
 		this.rate = rate;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
 	}
 
 	/**
@@ -37,13 +37,13 @@ public class HistoricalUsage {
 	 */
 	public HistoricalUsage(String resourceName,
 	                       double rate,
-	                       String usageUnit,
 	                       String inputUnit,
+	                       String usageUnit,
 	                       double... preExistingInputAmounts) {
 		historicalUsages = new ArrayList<>();
 		this.rate = rate;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
 		preFillData(preExistingInputAmounts);
 
 	}

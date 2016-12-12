@@ -13,8 +13,7 @@ public class AverageGlobalUsageTest {
 	public void setupAverageUsage() {
 		sampleAverage = new AverageGlobalUsage("shower",
 				2,
-				"gal",
-				"min",
+				"min", "gal",
 				20); // avg usage 20 (rate 2 gpm)
 	}
 

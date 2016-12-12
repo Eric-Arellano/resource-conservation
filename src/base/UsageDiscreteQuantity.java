@@ -9,24 +9,21 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	/**
 	 * Constructs a ResourceUsage object whose input is based on number of times resource used.
 	 *
-	 * @param resourceName - name of usage type, e.g. "sink" or "shower"
-	 * @param rate         - rate of consumption, should always be in terms of use
-	 * @param usageUnit    - e.g. "gallons" or "liters"
-	 * @param inputUnit    - e.g. "times per month", "miles driven"
+	 * @param inputUnit - unit user interfaces with, e.g. "times per month", "miles driven"
+	 * @param usageUnit - unit reported back, e.g. "gallons" or "liters"
 	 */
 	public UsageDiscreteQuantity(String resourceName,
-	                             double rate,
-	                             String usageUnit,
+	                             double rate_UsagePerInput,
 	                             String inputUnit,
+	                             String usageUnit,
 	                             String tipsFilePath,
-	                             double globalAverageInUsageUnit,
+	                             double globalAverageInInputUnit,
 	                             double... historicalUsagesInInputUnit) {
 		super(resourceName,
-				rate,
-				usageUnit,
-				inputUnit,
+				rate_UsagePerInput,
+				inputUnit, usageUnit,
 				tipsFilePath,
-				globalAverageInUsageUnit,
+				globalAverageInInputUnit,
 				historicalUsagesInInputUnit);
 	}
 
