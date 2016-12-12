@@ -12,9 +12,10 @@ public class AverageGlobalUsageTest {
 	@Before
 	public void setupAverageUsage() {
 		sampleAverage = new AverageGlobalUsage("shower",
-				2,
-				"min", "gal",
-				20); // avg usage 20 (rate 2 gpm)
+				2, // rate 2 gpm
+				"min",
+				"gal",
+				10); // avg usage 20 gal (10 min)
 	}
 
 	@Test

@@ -2,24 +2,27 @@ package features;
 
 public class AverageGlobalUsage {
 
-	private final double globalAverage;
+	private final double globalAverageUsage;
 	private final ComparisonHelper comparisonHelper;
 
 	public AverageGlobalUsage(String resourceName,
-	                          double rate,
+	                          double rate_UsagePerInput,
 	                          String inputUnit,
 	                          String usageUnit,
 	                          double globalAverage_InInputUnit) {
-		this.globalAverage = globalAverage_InInputUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
+		this.globalAverageUsage = globalAverage_InInputUnit * rate_UsagePerInput;
+		this.comparisonHelper = new ComparisonHelper(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit);
 	}
 
 	public String compareGlobalAverage(double usageAmount) {
-		return comparisonHelper.compareGlobalAverage(usageAmount, getGlobalAverage());
+		return comparisonHelper.compareGlobalAverage(usageAmount, getGlobalAverageUsage());
 	}
 
-	private double getGlobalAverage() {
-		return this.globalAverage;
+	private double getGlobalAverageUsage() {
+		return this.globalAverageUsage;
 	}
 
 }

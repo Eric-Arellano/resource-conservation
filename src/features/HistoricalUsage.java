@@ -23,27 +23,33 @@ public class HistoricalUsage {
 	 * Constructor with no prior historical usage.
 	 */
 	public HistoricalUsage(String resourceName,
-	                       double rate,
+	                       double rate_UsagePerInput,
 	                       String inputUnit,
 	                       String usageUnit) {
 		historicalUsages = new ArrayList<>();
-		this.rate = rate;
+		this.rate = rate_UsagePerInput;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit);
 	}
 
 	/**
 	 * Constructor with variable prior historical amounts (in input units).
 	 */
 	public HistoricalUsage(String resourceName,
-	                       double rate,
+	                       double rate_UsagePerInput,
 	                       String inputUnit,
 	                       String usageUnit,
 	                       double... preExistingInputAmounts) {
 		historicalUsages = new ArrayList<>();
-		this.rate = rate;
+		this.rate = rate_UsagePerInput;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, inputUnit, usageUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit);
 		preFillData(preExistingInputAmounts);
 
 	}
