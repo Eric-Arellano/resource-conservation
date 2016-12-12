@@ -17,6 +17,10 @@ public class AverageGlobalUsage {
 				usageUnit);
 	}
 
+	// ================================================================================
+	// Public interface
+	// ================================================================================
+
 	public String compareGlobalAverage(double usageAmount) {
 		return comparisonHelper.compareGlobalAverage(usageAmount, getGlobalAverageUsage());
 	}

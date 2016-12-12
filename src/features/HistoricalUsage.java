@@ -19,9 +19,6 @@ public class HistoricalUsage {
 	// Constructors
 	// ================================================================================
 
-	/**
-	 * Constructor with no prior historical usage.
-	 */
 	public HistoricalUsage(String resourceName,
 	                       double rate_UsagePerInput,
 	                       String inputUnit,
@@ -35,9 +32,6 @@ public class HistoricalUsage {
 				usageUnit);
 	}
 
-	/**
-	 * Constructor with variable prior historical amounts (in input units).
-	 */
 	public HistoricalUsage(String resourceName,
 	                       double rate_UsagePerInput,
 	                       String inputUnit,
@@ -92,7 +86,7 @@ public class HistoricalUsage {
 
 
 	// ================================================================================
-	// Accessor Methods
+	// Access Aggregate Values
 	// ================================================================================
 
 	public double getMinVal() {

@@ -34,7 +34,7 @@ public class UsageTimeDuration extends ResourceUsage {
 	}
 
 	// ================================================================================
-	// Prompt input Methods
+	// Prompt input
 	// ================================================================================
 
 	public String promptInput() {
