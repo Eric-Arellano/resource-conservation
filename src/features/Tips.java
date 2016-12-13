@@ -12,31 +12,36 @@ public class Tips {
 
 	private Path tipsFile;
 
-	/**
-	 * Opens pre-created Tips .txt file.
-	 */
 	public Tips(String filePath) {
 		try {
 			tipsFile = Paths.get(filePath);
 		} catch (InvalidPathException exception) {
-			System.err.println("File could not be located. Please make sure it exists.");
+			System.err.println(getErrorMessage(exception));
+		}
+	}
+
+	public String displayTips() {
+		try {
+			return getTipsFromFile();
+		} catch (InvalidPathException | IOException exception) {
+			return getErrorMessage(exception);
 		}
 	}
 
 	// TODO: figure out support for new lines
-	public String displayTips() {
+	private String getTipsFromFile() throws InvalidPathException, IOException {
 		StringBuilder tips = new StringBuilder();
-		try (BufferedReader reader = Files.newBufferedReader(tipsFile, StandardCharsets.UTF_8)) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				tips.append(line);
-			}
-		} catch (IOException readerNotCreated) {
-			System.err.println("Oops! There was an issue reading that file. Please make sure it exists " +
-					"and is accesible.");
-		} finally {
-			return tips.toString();
+		BufferedReader reader = Files.newBufferedReader(tipsFile, StandardCharsets.UTF_8);
+		String line;
+		while ((line = reader.readLine()) != null) {
+			tips.append(line);
 		}
+		reader.close();
+		return tips.toString();
+	}
+
+	private String getErrorMessage(Exception exception) {
+		return exception.getMessage();
 	}
 
 }

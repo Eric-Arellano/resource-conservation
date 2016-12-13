@@ -3,38 +3,34 @@ package features;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import static base.UsageTimeDuration.convertToSec;
+import static base.UsageTimeDuration.convertToSeconds;
 
 class ComparisonHelper {
 
 	private double usageAmount;
-	private double avgAmount;
+	private double averageAmount;
 	private double minAmount;
 	private double maxAmount;
 
 	private String comparisonType;
 	private double comparisonValue;
 
-	private double absoluteDiff;
-	private double percentDiff;
+	private double absoluteDifference;
+	private double percentDifference;
 
 	private final String resourceName;
 	private final double rate;
-	private final String usageUnit;
 	private final String inputUnit;
-
-	// ================================================================================
-	// Constructor
-	// ================================================================================
+	private final String usageUnit;
 
 	ComparisonHelper(String resourceName,
 	                 double rate,
-	                 String usageUnit,
-	                 String inputUnit) {
+	                 String inputUnit,
+	                 String usageUnit) {
 		this.resourceName = resourceName;
 		this.rate = rate;
-		this.usageUnit = usageUnit;
 		this.inputUnit = inputUnit;
+		this.usageUnit = usageUnit;
 	}
 
 
@@ -42,20 +38,105 @@ class ComparisonHelper {
 	// Compare methods
 	// ================================================================================
 
-	String compareGlobalAvg(double usageAmount, double avgAmount) {
-		this.usageAmount = usageAmount;
-		this.avgAmount = avgAmount;
-		this.minAmount = 0.0;
-		this.maxAmount = 0.0;
-		return returnBaseComparison() + addAverageFollowup();
+	String compareGlobalAverage(double usageAmount, double averageAmount) {
+		final double NO_MIN_MAX = 0;
+		setComparisonValues(usageAmount, averageAmount, NO_MIN_MAX, NO_MIN_MAX);
+		return returnBaseComparison() + addGlobalAverageFollowup();
 	}
 
-	String compareHistorical(double usageAmount, double avgAmount, double minAmount, double maxAmount) {
+	String compareHistorical(double usageAmount, double averageAmount, double minAmount, double
+			maxAmount) {
+		setComparisonValues(usageAmount, averageAmount, minAmount, maxAmount);
+		return returnBaseComparison() + addHistoricalFollowup();
+	}
+
+	// ================================================================================
+	// Set comparison values
+	// ================================================================================
+
+	private void setComparisonValues(double usageAmount, double averageAmount, double minAmount,
+	                                 double maxAmount) {
 		this.usageAmount = usageAmount;
-		this.avgAmount = avgAmount;
+		this.averageAmount = averageAmount;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
-		return returnBaseComparison() + addHistoricalFollowup();
+		setComparisonType();
+		setComparisonAmount();
+		setAbsoluteDifference();
+		setPercentDifference();
+	}
+
+	private void setComparisonType() {
+		if (isGlobalAverage()) {
+			this.comparisonType = "the average use";
+		} else if (isSingleHistoricalDatum()) {
+			this.comparisonType = "your prior usage";
+		} else if (isGreaterThanMax()) {
+			this.comparisonType = "your max";
+		} else if (isLessThanMin()) {
+			this.comparisonType = "your min";
+		} else {
+			this.comparisonType = "your average";
+		}
+	}
+
+	private void setComparisonAmount() {
+		switch (comparisonType) {
+			case "your max":
+				this.comparisonValue = maxAmount;
+				break;
+			case "your min":
+				this.comparisonValue = minAmount;
+				break;
+			default:
+				this.comparisonValue = averageAmount;
+				break;
+		}
+	}
+
+	private void setAbsoluteDifference() {
+		absoluteDifference = Math.abs(usageAmount - comparisonValue);
+	}
+
+	private void setPercentDifference() {
+		percentDifference = Math.abs((usageAmount - comparisonValue) / comparisonValue);
+	}
+
+	private double returnFollowupChangeAmount(double absoluteDifference) {
+		double changeAmount = absoluteDifference / rate;
+		if (usageUnit.equals("seconds")) {
+			changeAmount = convertToSeconds(changeAmount);
+		}
+		return changeAmount;
+	}
+
+
+	// ================================================================================
+	// Comparison tests
+	// ================================================================================
+
+	private boolean isGlobalAverage() {
+		return minAmount == 0.0 && maxAmount == 0.0 && averageAmount != 0.0;
+	}
+
+	private boolean isSingleHistoricalDatum() {
+		return minAmount == maxAmount && minAmount == averageAmount && maxAmount == averageAmount;
+	}
+
+	private boolean isGreaterThanAverage() {
+		return usageAmount > averageAmount;
+	}
+
+	private boolean isGreaterThanMax() {
+		return usageAmount > maxAmount;
+	}
+
+	private boolean isLessThanMin() {
+		return usageAmount < minAmount;
+	}
+
+	private String isMoreOrLess() {
+		return usageAmount >= comparisonValue ? "more" : "less";
 	}
 
 
@@ -63,31 +144,28 @@ class ComparisonHelper {
 	// Return comparisons
 	// ================================================================================
 
+	private final NumberFormat percents = NumberFormat.getPercentInstance();
+	private final DecimalFormat decimals = new DecimalFormat("0.##");
+
 	private String returnBaseComparison() {
-		// calc values
-		determineComparisonType();
-		determineComparisonAmount();
-		calcAbsoluteDiff();
-		calcPercentDiff();
-		String moreOrLess = determineMoreOrLess();
-		// return result
-		return "You used " + decimals.format(absoluteDiff) + " " + moreOrLess + " " + usageUnit + " than " +
+		String moreOrLess = isMoreOrLess();
+		return "You used " + decimals.format(absoluteDifference) + " " + moreOrLess + " " + usageUnit + " than " +
 				comparisonType + " of " + decimals.format(comparisonValue) + " " + usageUnit + "! That's " +
-				percents.format(percentDiff) + " " + moreOrLess + " than " + comparisonType + ".";
+				percents.format(percentDifference) + " " + moreOrLess + " than " + comparisonType + ".";
 	}
 
-	private String addAverageFollowup() {
-		if (isGreaterAvg()) {
-			return followupHowMuchToAvg();
+	private String addGlobalAverageFollowup() {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
 		} else {
 			return followupGoodJob();
 		}
 	}
 
 	private String addHistoricalFollowup() {
-		if (isGreaterAvg()) {
-			return followupHowMuchToAvg();
-		} else if (isLessMin()) {
+		if (isGreaterThanAverage()) {
+			return followupHowMuchToAverage();
+		} else if (isLessThanMin()) {
 			return followupGoodJob();
 		} else {
 			return followupHowMuchToMin();
@@ -98,8 +176,8 @@ class ComparisonHelper {
 		return "\nKeep it up!";
 	}
 
-	private String followupHowMuchToAvg() {
-		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+	private String followupHowMuchToAverage() {
+		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
 		String followup = "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to get to ";
 		if (isGlobalAverage()) {
@@ -113,99 +191,9 @@ class ComparisonHelper {
 	}
 
 	private String followupHowMuchToMin() {
-		String changeAmount = decimals.format(calcFollowupChangeAmount(absoluteDiff));
+		String changeAmount = decimals.format(returnFollowupChangeAmount(absoluteDifference));
 		return "\nYou would need to use the " + resourceName + " " + changeAmount + " fewer " +
 				inputUnit + " to beat your lowest record.";
-	}
-
-	private final NumberFormat percents = NumberFormat.getPercentInstance();
-	private final DecimalFormat decimals = new DecimalFormat("0.##");
-
-
-	// ================================================================================
-	// Comparison tests
-	// ================================================================================
-
-	private boolean isGlobalAverage() {
-		return minAmount == 0.0 && maxAmount == 0.0 && avgAmount != 0.0;
-	}
-
-	private boolean isSingleHistoricalDatum() {
-		return minAmount == maxAmount && minAmount == avgAmount && maxAmount == avgAmount;
-	}
-
-	private boolean isGreaterAvg() {
-		return usageAmount > avgAmount;
-	}
-
-	private boolean isGreaterMax() {
-		return usageAmount > maxAmount;
-	}
-
-	private boolean isLessMin() {
-		return usageAmount < minAmount;
-	}
-
-	// ================================================================================
-	// Determine comparison type/values
-	// ================================================================================
-
-	private void determineComparisonType() {
-		if (isGlobalAverage()) {
-			this.comparisonType = "the average use";
-		} else if (isSingleHistoricalDatum()) {
-			this.comparisonType = "your prior usage";
-		} else if (isGreaterMax()) {
-			this.comparisonType = "your max";
-		} else if (isLessMin()) {
-			this.comparisonType = "your min";
-		} else {
-			this.comparisonType = "your average";
-		}
-	}
-
-	private void determineComparisonAmount() {
-		switch (comparisonType) {
-			case "your max":
-				this.comparisonValue = maxAmount;
-				break;
-			case "your min":
-				this.comparisonValue = minAmount;
-				break;
-			default:
-				this.comparisonValue = avgAmount;
-				break;
-		}
-	}
-
-	private String determineMoreOrLess() {
-		return usageAmount >= comparisonValue ? "more" : "less";
-	}
-
-
-	// ================================================================================
-	// Calculate differences
-	// ================================================================================
-
-	private void calcAbsoluteDiff() {
-		absoluteDiff = Math.abs(usageAmount - comparisonValue);
-	}
-
-	private void calcPercentDiff() {
-		percentDiff = Math.abs((usageAmount - comparisonValue) / comparisonValue);
-	}
-
-
-	// ================================================================================
-	// Calculate followup's required change amount
-	// ================================================================================
-
-	private double calcFollowupChangeAmount(double absoluteDiff) {
-		double changeAmount = absoluteDiff / rate;
-		if (usageUnit.equalsIgnoreCase("seconds")) {
-			changeAmount = convertToSec(changeAmount);
-		}
-		return changeAmount;
 	}
 
 }

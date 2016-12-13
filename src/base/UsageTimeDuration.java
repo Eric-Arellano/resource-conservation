@@ -12,31 +12,27 @@ public class UsageTimeDuration extends ResourceUsage {
 	}
 
 	/**
-	 * Constructs a ResourceUsage object whose input is based on time duration.
-	 *
-	 * @param name      - name of usage type, e.g. "sink" or "shower"
-	 * @param rate      - rate of consumption, should always be in terms of minutes
-	 * @param usageUnit - e.g. "gallons" or "liters"
-	 * @param timeType  - how time will be inputted; expected "seconds", "minutes", or "both"
+	 * @param timeInputType - unit user interfaces with; must be SECONDS, MINUTES, or BOTH
+	 * @param usageUnit     - unit reported back, e.g. "gallons" or "liters"
 	 */
-	public UsageTimeDuration(String name,
-	                         double rate,
+	public UsageTimeDuration(String resourceName,
+	                         double rate_UsagePerMinute,
+	                         TimeType timeInputType,
 	                         String usageUnit,
-	                         TimeType timeType,
 	                         String tipsFilePath,
-	                         double avgInUsageUnit,
-	                         double... historicalUsagesInInputUnits) {
-		super(name,
-				rate,
+	                         double globalAverage_InInputUnit,
+	                         double... historicalUsages_InInputUnit) {
+		super(resourceName,
+				rate_UsagePerMinute,
+				timeInputType.toString(),
 				usageUnit,
-				timeType.toString(),
 				tipsFilePath,
-				avgInUsageUnit,
-				historicalUsagesInInputUnits);
+				globalAverage_InInputUnit,
+				historicalUsages_InInputUnit);
 	}
 
 	// ================================================================================
-	// Prompt input Methods
+	// Prompt input
 	// ================================================================================
 
 	public String promptInput() {
@@ -45,45 +41,45 @@ public class UsageTimeDuration extends ResourceUsage {
 		String prompt = "";
 		switch (inputUnit) {
 			case "minutes":
-				prompt = promptMin();
+				prompt = promptMinutes();
 				break;
 			case "seconds":
-				prompt = promptSec();
+				prompt = promptSeconds();
 				break;
 			case "both":
-				prompt = promptBoth();
+				prompt = promptBothSecondsMinutes();
 				break;
 		}
 		return prompt;
 	}
 
-	private String promptSec() {
-		String prompt = "How many seconds did you use the " + getName() + "? ";
+	private String promptSeconds() {
+		String prompt = "How many seconds did you use the " + getResourceName() + "? ";
 		System.out.print(prompt);
-		double numSec = in.nextDouble();
-		double numMin = convertToMin(numSec);
-		setInputAmt(numMin);
+		double inputInSeconds = in.nextDouble();
+		double inputInMinutes = convertToMinutes(inputInSeconds);
+		setInputAmount(inputInMinutes);
 		return prompt;
 	}
 
-	private String promptMin() {
-		String prompt = "How many minutes did you use the " + getName() + "? ";
+	private String promptMinutes() {
+		String prompt = "How many minutes did you use the " + getResourceName() + "? ";
 		System.out.print(prompt);
-		double numMin = in.nextDouble();
-		setInputAmt(numMin);
+		double inputInMinutes = in.nextDouble();
+		setInputAmount(inputInMinutes);
 		return prompt;
 	}
 
-	private String promptBoth() {
-		String promptMinutes = "How many minutes did you use the " + getName() + "? (You'll be asked " +
+	private String promptBothSecondsMinutes() {
+		String promptMinutes = "How many minutes did you use the " + getResourceName() + "? (You'll be asked " +
 				"about seconds after): ";
 		System.out.print(promptMinutes);
-		double numMin = in.nextDouble();
-		String promptSeconds = "How many seconds did you use the " + getName() + "? ";
+		double inputInMinutes = in.nextDouble();
+		String promptSeconds = "How many seconds did you use the " + getResourceName() + "? ";
 		System.out.print(promptSeconds);
-		double numSec = in.nextDouble();
-		numMin += convertToMin(numSec);
-		setInputAmt(numMin);
+		double inputInSeconds = in.nextDouble();
+		inputInMinutes += convertToMinutes(inputInSeconds);
+		setInputAmount(inputInMinutes);
 		setInputUnit("minutes");
 		return promptMinutes + promptSeconds;
 	}
@@ -92,12 +88,12 @@ public class UsageTimeDuration extends ResourceUsage {
 	// Time unit conversion
 	// ================================================================================
 
-	public static double convertToMin(double numSec) {
-		return numSec / 60;
+	public static double convertToMinutes(double seconds) {
+		return seconds / 60;
 	}
 
-	public static double convertToSec(double numMin) {
-		return numMin * 60;
+	public static double convertToSeconds(double minutes) {
+		return minutes * 60;
 	}
 
 

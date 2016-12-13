@@ -1,46 +1,46 @@
 package base;
 
-import features.AverageUsage;
+import features.AverageGlobalUsage;
 import features.HistoricalUsage;
 import features.Tips;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-/**
- * Main program class. Used to create and interface with different resource consumption types.
- *
- * @author ericarellano
- */
 abstract public class ResourceUsage {
 
-	private final String name; // name of usage type
+	private final String resourceName;
 	private final double rate;
-	private double inputAmt; // user-inputted amount; not in final units
-	private String inputUnit;
-	private double usageAmt; // converted inputAmt; in final units
-	private final String usageUnit; // unit to report in, such as gal
+	private String inputUnit; // unit user interfaces with, e.g. minutes
+	private final String usageUnit; // unit reported back, e.g. gallons
+	private double inputAmount;
+	private double usageAmount;
 	private final Tips tips;
-	private final AverageUsage avg;
-	private final HistoricalUsage hist;
+	private final AverageGlobalUsage globalAverage;
+	private final HistoricalUsage historical;
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 	Scanner in = new Scanner(System.in);
 
-	ResourceUsage(String name,
-	              double rate,
-	              String usageUnit,
+	ResourceUsage(String resourceName,
+	              double rate_UsagePerInput,
 	              String inputUnit,
+	              String usageUnit,
 	              String tipsFilePath,
-	              double avgInUsageUnit,
-	              double... historicalUsagesInInputUnits) {
-		this.name = name;
-		this.rate = rate;
-		this.usageUnit = usageUnit;
+	              double globalAverage_InInputUnit,
+	              double... historicalUsages_InInputUnit) {
+		this.resourceName = resourceName;
+		this.rate = rate_UsagePerInput;
 		this.inputUnit = inputUnit;
+		this.usageUnit = usageUnit;
 		this.tips = new Tips(tipsFilePath);
-		this.avg = new AverageUsage(name, rate, usageUnit, inputUnit, avgInUsageUnit);
-		this.hist = new HistoricalUsage(name, rate, usageUnit, inputUnit, historicalUsagesInInputUnits);
+		this.globalAverage = new AverageGlobalUsage(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit,
+				globalAverage_InInputUnit);
+		this.historical = new HistoricalUsage(resourceName, rate_UsagePerInput, inputUnit, usageUnit,
+				historicalUsages_InInputUnit);
 	}
 
 
@@ -50,12 +50,12 @@ abstract public class ResourceUsage {
 
 	abstract public String promptInput();
 
-	public void calcUsageFromInput() {
-		usageAmt = inputAmt * rate;
+	public void setUsageFromInput() {
+		usageAmount = inputAmount * rate;
 	}
 
 	public String displayUsage() {
-		String usage = "That means you used " + decimals.format(usageAmt) + " " + usageUnit + ".";
+		String usage = "That means you used " + decimals.format(usageAmount) + " " + usageUnit + ".";
 		System.out.println(usage);
 		return usage;
 	}
@@ -71,57 +71,46 @@ abstract public class ResourceUsage {
 		return tipsText;
 	}
 
-	public String displayHistorical() {
-		String historicalUsage = hist.displayHistorical();
+	public String displayHistoricalUsages() {
+		String historicalUsage = historical.displayHistorical();
 		System.out.println(historicalUsage);
 		return historicalUsage;
 	}
 
-	/**
-	 * Compares to global average usage. Prints comparison and followup action.
-	 */
-	public String compareAverage() {
-		String averageComparison = avg.compareAverage(usageAmt);
+	public String compareToGlobalAverage() {
+		String averageComparison = globalAverage.compareGlobalAverage(usageAmount);
 		System.out.println(averageComparison);
 		return averageComparison;
 	}
 
-	/**
-	 * Compares to historical min, max, and avg values. Prints comparison to relevant value and
-	 * followup action.
-	 */
-	public String compareHistorical() {
-		String historicalComparison = hist.compareHistorical(usageAmt);
+	public String compareToHistorical() {
+		String historicalComparison = historical.compareHistorical(usageAmount);
 		System.out.println(historicalComparison);
 		return historicalComparison;
 	}
 
 	public void updateHistoricalBeforeNewInput() {
-		hist.addHistorical(usageAmt);
+		historical.addHistorical(usageAmount);
 	}
 
 	// ================================================================================
-	// Getter methods
+	// Getters & Setters
 	// ================================================================================
 
-	String getName() {
-		return name;
+	String getResourceName() {
+		return resourceName;
 	}
 
 	String getInputUnit() {
 		return inputUnit;
 	}
 
-	// ================================================================================
-	// Setter methods
-	// ================================================================================
-
 	void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
 	}
 
-	void setInputAmt(double input) {
-		this.inputAmt = input;
+	void setInputAmount(double inputAmount) {
+		this.inputAmount = inputAmount;
 	}
 
 }

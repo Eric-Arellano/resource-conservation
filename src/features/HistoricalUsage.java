@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 
 public class HistoricalUsage {
 
-	private final ArrayList<Double> histUsage;
+	private final ArrayList<Double> historicalUsages;
 	private final ComparisonHelper comparisonHelper;
 
 	private final double rate;
@@ -15,42 +15,39 @@ public class HistoricalUsage {
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
 
-	// ================================================================================
-	// Constructors
-	// ================================================================================
-
-	/**
-	 * Constructor with no prior historical usage.
-	 */
 	public HistoricalUsage(String resourceName,
-	                       double rate,
-	                       String usageUnit,
-	                       String inputUnit) {
-		histUsage = new ArrayList<>();
-		this.rate = rate;
+	                       double rate_UsagePerInput,
+	                       String inputUnit,
+	                       String usageUnit) {
+		historicalUsages = new ArrayList<>();
+		this.rate = rate_UsagePerInput;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit);
 	}
 
-	/**
-	 * Constructor with variable prior historical amounts (in input units).
-	 */
+	// allows pre-existing inputs
 	public HistoricalUsage(String resourceName,
-	                       double rate,
-	                       String usageUnit,
+	                       double rate_UsagePerInput,
 	                       String inputUnit,
+	                       String usageUnit,
 	                       double... preExistingInputAmounts) {
-		histUsage = new ArrayList<>();
-		this.rate = rate;
+		historicalUsages = new ArrayList<>();
+		this.rate = rate_UsagePerInput;
 		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName, rate, usageUnit, inputUnit);
+		this.comparisonHelper = new ComparisonHelper(resourceName,
+				rate_UsagePerInput,
+				inputUnit,
+				usageUnit);
 		preFillData(preExistingInputAmounts);
 
 	}
 
-	private void preFillData(double... input) {
-		for (double inputAmount : input) {
-			double usageAmount = inputAmount * rate;
+	private void preFillData(double... inputAmounts) {
+		for (double input : inputAmounts) {
+			double usageAmount = input * rate;
 			addHistorical(usageAmount);
 		}
 	}
@@ -60,42 +57,45 @@ public class HistoricalUsage {
 	// Public Interface
 	// ================================================================================
 
-	public void addHistorical(double usageAmt) {
-		histUsage.add(usageAmt);
+	public void addHistorical(double usageAmount) {
+		historicalUsages.add(usageAmount);
 	}
 
 	public String displayHistorical() {
 		StringJoiner result = new StringJoiner(", ", "Historical usage:\t", "");
-		for (double value : histUsage) {
+		for (double value : historicalUsages) {
 			final String usageAmount = decimals.format(value);
 			result.add(usageAmount + " " + usageUnit);
 		}
 		return result.toString();
 	}
 
-	public String compareHistorical(double usageAmt) {
-		if (histUsage.isEmpty()) {
+	public String compareHistorical(double usageAmount) {
+		if (historicalUsages.isEmpty()) {
 			return "Oops! Looks like there's no historical data to compare to.";
 		} else {
-			return comparisonHelper.compareHistorical(usageAmt, getAvg(), getMinVal(), getMaxVal());
+			return comparisonHelper.compareHistorical(usageAmount,
+					getAverage(),
+					getMinVal(),
+					getMaxVal());
 		}
 	}
 
 
 	// ================================================================================
-	// Accessor Methods
+	// Get Aggregate Values
 	// ================================================================================
 
 	public double getMinVal() {
-		return Collections.min(histUsage);
+		return Collections.min(historicalUsages);
 	}
 
 	public double getMaxVal() {
-		return Collections.max(histUsage);
+		return Collections.max(historicalUsages);
 	}
 
-	public double getAvg() {
-		return histUsage
+	public double getAverage() {
+		return historicalUsages
 				.stream()
 				.mapToDouble(Double::doubleValue)
 				.average()
