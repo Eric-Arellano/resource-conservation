@@ -87,20 +87,16 @@ abstract public class ResourceUsage {
 	// Getters & Setters
 	// ================================================================================
 
-	String getResourceName() {
+	public String getResourceName() {
 		return resourceName;
 	}
 
-	String getInputUnit() {
+	public String getInputUnit() {
 		return inputUnit;
 	}
 
 	public boolean isInputAmountPresent() {
 		return inputAmount != 0;
-	}
-
-	void setInputUnit(String inputUnit) {
-		this.inputUnit = inputUnit;
 	}
 
 	void setInputAmount(double inputAmount) {

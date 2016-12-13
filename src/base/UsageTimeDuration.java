@@ -12,7 +12,7 @@ public class UsageTimeDuration extends ResourceUsage {
 	}
 
 	/**
-	 * @param timeInputType - unit user interfaces with; must be SECONDS, MINUTES, or BOTH
+	 * @param timeInputType - unit user interfaces with; must be SECONDS or MINUTES
 	 * @param usageUnit     - unit reported back, e.g. "gallons" or "liters"
 	 */
 	public UsageTimeDuration(String resourceName,
