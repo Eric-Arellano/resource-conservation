@@ -7,7 +7,7 @@ import java.util.*;
 public class ConsoleApp {
 
 	private final String welcomeMessage;
-	private List<ResourceUsage> usages;
+	private final List<ResourceUsage> usages;
 	private ResourceUsage chosenUsage;
 
 	private boolean quitProgram;
@@ -17,9 +17,7 @@ public class ConsoleApp {
 	public ConsoleApp(String welcomeMessage, ResourceUsage... resourceUsages) {
 		this.welcomeMessage = welcomeMessage;
 		this.usages = new LinkedList<>();
-		for (ResourceUsage usage : resourceUsages) {
-			this.usages.add(usage);
-		}
+		Collections.addAll(this.usages, resourceUsages);
 		this.quitProgram = false;
 		this.changeUsage = false;
 	}
@@ -78,13 +76,22 @@ public class ConsoleApp {
 	}
 
 	private int listenToResourceSelection() {
-		int resourceSelection = -1;
+		int resourceSelection;
+		final int RANGE_LOWER_BOUND = 0;
+		final int RANGE_UPPER_BOUND = usages.size();
 		try {
-			resourceSelection = scanner.nextInt();
-			// TODO: add better error handling. Repeats error message twice with non-ints.
-		} catch (InputMismatchException invalidInputException) {
-			System.out.println("Oops! Please enter an integer between 0-" + usages.size() + ".");
-			System.out.println(scanner.next() + " was not valid input.");
+			if (scanner.hasNextInt()) {
+				resourceSelection = scanner.nextInt();
+				if (isNotValidRange(resourceSelection, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
+					throw new NumberFormatException("Out of range.");
+				}
+			} else {
+				scanner.next();
+				throw new InputMismatchException("Not int.");
+			}
+		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
+			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND));
+			resourceSelection = listenToResourceSelection();
 		}
 		return resourceSelection;
 	}
@@ -92,18 +99,9 @@ public class ConsoleApp {
 	private void implementResourceSelection(int numericSelection) {
 		if (numericSelection == 0) {
 			quitProgram = true;
-		} else if (isValidResourceSelection(numericSelection)) {
-			final int INDEX_ADJUSTMENT = -1;
-			chosenUsage = usages.get(numericSelection + INDEX_ADJUSTMENT);
-		} else {
-			System.out.println("Oops! Please enter an integer between 0-" + usages.size() + ".");
-			int newResourceSelection = listenToResourceSelection();
-			implementResourceSelection(newResourceSelection);
 		}
-	}
-
-	private boolean isValidResourceSelection(int numericSelection) {
-		return numericSelection >= 0 && numericSelection <= usages.size();
+		final int INDEX_ADJUSTMENT = -1;
+		chosenUsage = usages.get(numericSelection + INDEX_ADJUSTMENT);
 	}
 
 
@@ -118,13 +116,22 @@ public class ConsoleApp {
 	}
 
 	private double listenToInput() {
-		double input = 0.0;
+		double input;
+		final double RANGE_LOWER_BOUND = 0.0;
 		try {
-			input = scanner.nextDouble();
-			// TODO: add better error handling. Currently program keeps going.
-		} catch (InputMismatchException invalidInput) {
-			System.out.println("Oops! Please enter a valid numeric input greater than 0.0.");
-			System.out.println(scanner.next() + " was not valid input.");
+			if (scanner.hasNextDouble()) {
+				input = scanner.nextDouble();
+				if (isNotValidRange(input, RANGE_LOWER_BOUND)) {
+					throw new NumberFormatException("Out of range.");
+				}
+			} else {
+				scanner.next();
+				throw new InputMismatchException("Not double.");
+			}
+
+		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
+			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND));
+			input = listenToInput();
 		}
 		return input;
 	}
@@ -141,7 +148,7 @@ public class ConsoleApp {
 
 	private void selectAndImplementFollowup() {
 		promptFollowupOptions();
-		FollowupOption followupSelection = listenToFollowupSelection();
+		int followupSelection = listenToFollowupSelection();
 		implementFollowupSelection(followupSelection);
 	}
 
@@ -157,19 +164,30 @@ public class ConsoleApp {
 		);
 	}
 
-	private FollowupOption listenToFollowupSelection() {
-		int followupSelection = -1;
+	private int listenToFollowupSelection() {
+		int followupSelection;
+		final int RANGE_LOWER_BOUND = 0;
+		final int RANGE_UPPER_BOUND = 6;
 		try {
-			followupSelection = scanner.nextInt();
-			// TODO: add better error handling. Repeats error message twice with non-ints.
-		} catch (InputMismatchException invalidInputException) {
-			System.out.println("Oops! Please enter an integer between 0-6.");
-			System.out.println(scanner.next() + " was not valid input.");
+			if (scanner.hasNextInt()) {
+				followupSelection = scanner.nextInt();
+				if (isNotValidRange(followupSelection, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
+					throw new NumberFormatException("Out of range.");
+				}
+			} else {
+				scanner.next();
+				throw new InputMismatchException("Not int.");
+			}
+		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
+			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND));
+			followupSelection = listenToFollowupSelection();
 		}
-		return FollowupOption.translateIntToOption(followupSelection);
+		// TODO: This used to return FollowupOption enum, which was more robust
+		return followupSelection;
 	}
 
-	private void implementFollowupSelection(FollowupOption selection) {
+	private void implementFollowupSelection(int numericSelection) {
+		FollowupOption selection = FollowupOption.translateIntToOption(numericSelection);
 		switch (selection) {
 			case COMPARE_GLOBAL_AVERAGE:
 				System.out.println(chosenUsage.returnComparisonToGlobalAverage());
@@ -190,6 +208,8 @@ public class ConsoleApp {
 				break;
 			case NEW_USAGE:
 				chosenUsage.updateHistoricalBeforeNewInput();
+				// TODO: Analyze if this changeUsage boolean works correctly and is necessary
+				changeUsage = true;
 				selectResource();
 				getInput();
 				renderUsage();
@@ -199,7 +219,7 @@ public class ConsoleApp {
 				break;
 			case INVALID_INPUT:
 				System.out.println("Oops! Please enter an integer between 0-6.");
-				FollowupOption newSelection = listenToFollowupSelection();
+				int newSelection = listenToFollowupSelection();
 				implementFollowupSelection(newSelection);
 				break;
 		}
@@ -229,6 +249,26 @@ public class ConsoleApp {
 					return INVALID_INPUT;
 			}
 		}
+	}
+
+	// ================================================================================
+	// Error handling support
+	// ================================================================================
+
+	private String returnOutOfBoundsMessage(double lowerBound) {
+		return "Oops! Please enter a number greater than " + lowerBound + ".";
+	}
+
+	private String returnOutOfBoundsMessage(int lowerBound, int upperBound) {
+		return "Oops! Please enter an integer between " + lowerBound + "-" + upperBound + ".";
+	}
+
+	private boolean isNotValidRange(int input, int lowerBound, int upperBound) {
+		return input < lowerBound || input > upperBound;
+	}
+
+	private boolean isNotValidRange(double input, double lowerBound) {
+		return input <= lowerBound;
 	}
 
 }
