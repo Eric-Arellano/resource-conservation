@@ -1,20 +1,19 @@
 package test;
 
 import features.HistoricalUsage;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Enclosed.class)
 public class HistoricalUsageTest {
 
-	public static class NoPriorData {
+	@Nested
+	public class NoPriorData {
 		private HistoricalUsage sampleHistorical;
 
-		@Before
+		@BeforeEach
 		public void setUpNoPriorData() {
 			sampleHistorical = new HistoricalUsage("shower", 2, "min", "gal");
 		}
@@ -45,11 +44,11 @@ public class HistoricalUsageTest {
 		}
 	}
 
-
-	public static class OnePriorDatum {
+	@Nested
+	public class OnePriorDatum {
 		private HistoricalUsage sampleHistorical;
 
-		@Before
+		@BeforeEach
 		public void setUpOnePriorDatum() throws Exception {
 			sampleHistorical = new HistoricalUsage("shower", 2, "min", "gal", 10); // rate 2; input 10
 			// min (usage 20)
@@ -89,11 +88,11 @@ public class HistoricalUsageTest {
 		}
 	}
 
-
-	public static class PriorData {
+	@Nested
+	public class PriorData {
 		private HistoricalUsage sampleHistorical;
 
-		@Before
+		@BeforeEach
 		public void setUpPriorData() throws Exception {
 			sampleHistorical = new HistoricalUsage("shower", 2, "min", "gal", 30, 20, 10); // rate 2;
 			// input 30 min (usage 60), 20 min (usage 40), 10 min (usage 20); avg 20 min (avg usage 40)
@@ -113,8 +112,8 @@ public class HistoricalUsageTest {
 			String returnedMessage = sampleHistorical.displayHistorical();
 			assertEquals(expectedMessage, returnedMessage);
 			assertEquals(((60 + 40 + 20 + 100) / 4), sampleHistorical.getAverage(), 0.5);
-			assertEquals(20, sampleHistorical.getMinVal(), 0.0);
-			assertEquals(100, sampleHistorical.getMaxVal(), 0.0);
+			assertEquals(20, sampleHistorical.getMinVal(), 0.5);
+			assertEquals(100, sampleHistorical.getMaxVal(), 0.5);
 		}
 
 		@Test

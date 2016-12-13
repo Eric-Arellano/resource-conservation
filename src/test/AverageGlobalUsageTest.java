@@ -1,15 +1,15 @@
 package test;
 
 import features.AverageGlobalUsage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AverageGlobalUsageTest {
 	private AverageGlobalUsage sampleAverage;
 
-	@Before
+	@BeforeEach
 	public void setupAverageUsage() {
 		sampleAverage = new AverageGlobalUsage("shower",
 				2, // rate 2 gpm

@@ -3,21 +3,20 @@ package test;
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Enclosed.class)
 public class ResourceUsageTest {
 
-	public static class DiscreteQuantity {
+	@Nested
+	public class DiscreteQuantity {
 
 		private ResourceUsage quantityUsage;
 
-		@Before
+		@BeforeEach
 		public void setupMockResources() {
 			quantityUsage = new UsageDiscreteQuantity("washing machine",
 					25,
@@ -45,12 +44,12 @@ public class ResourceUsageTest {
 		}
 	}
 
-
-	public static class TimeDurationSeconds {
+	@Nested
+	public class TimeDurationSeconds {
 
 		private ResourceUsage secondUsage;
 
-		@Before
+		@BeforeEach
 		public void setupMockResources() {
 			secondUsage = new UsageTimeDuration("sink",
 					1.5,
@@ -78,11 +77,12 @@ public class ResourceUsageTest {
 		}
 	}
 
-	public static class TimeDurationMinutes {
+	@Nested
+	public class TimeDurationMinutes {
 
 		private ResourceUsage minuteUsage;
 
-		@Before
+		@BeforeEach
 		public void setupMockResources() {
 			minuteUsage = new UsageTimeDuration("shower",
 					2.5,
