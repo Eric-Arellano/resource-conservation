@@ -10,7 +10,7 @@ abstract public class ResourceUsage {
 
 	private final String resourceName;
 	private final double rate;
-	private String inputUnit; // unit user interfaces with, e.g. minutes
+	private final String inputUnit; // unit user interfaces with, e.g. minutes
 	private final String usageUnit; // unit reported back, e.g. gallons
 	private double inputAmount;
 	private double usageAmount;
@@ -91,7 +91,7 @@ abstract public class ResourceUsage {
 		return resourceName;
 	}
 
-	public String getInputUnit() {
+	String getInputUnit() {
 		return inputUnit;
 	}
 
