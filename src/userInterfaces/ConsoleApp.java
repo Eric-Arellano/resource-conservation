@@ -26,10 +26,21 @@ public class ConsoleApp {
 
 	public void launchConsoleApp() {
 		welcomeUser();
-		selectResource();
-		getInput();
-		renderUsage();
-		selectAndImplementFollowup();
+		do {
+			selectResource();
+			getInput();
+			renderUsage();
+			do {
+				selectAndImplementFollowup();
+			} while (!changeUsage && !quitProgram);
+		} while (!quitProgram);
+
+		closeApp();
+	}
+
+	private void closeApp() {
+		System.out.println("This program has closed.");
+		scanner.close();
 	}
 
 	// ================================================================================
@@ -175,10 +186,13 @@ public class ConsoleApp {
 			case NEW_VALUE:
 				chosenUsage.updateHistoricalBeforeNewInput();
 				getInput();
+				renderUsage();
 				break;
 			case NEW_USAGE:
 				chosenUsage.updateHistoricalBeforeNewInput();
 				selectResource();
+				getInput();
+				renderUsage();
 				break;
 			case QUIT:
 				quitProgram = true;
