@@ -5,7 +5,6 @@ import features.HistoricalUsage;
 import features.Tips;
 
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 abstract public class ResourceUsage {
 
@@ -20,7 +19,6 @@ abstract public class ResourceUsage {
 	private final HistoricalUsage historical;
 
 	private final DecimalFormat decimals = new DecimalFormat("0.##");
-	Scanner in = new Scanner(System.in);
 
 	ResourceUsage(String resourceName,
 	              double rate_UsagePerInput,
