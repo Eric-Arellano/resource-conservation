@@ -76,24 +76,9 @@ public class ConsoleApp {
 	}
 
 	private int listenToResourceSelection() {
-		int resourceSelection;
 		final int RANGE_LOWER_BOUND = 0;
 		final int RANGE_UPPER_BOUND = usages.size();
-		try {
-			if (scanner.hasNextInt()) {
-				resourceSelection = scanner.nextInt();
-				if (isNotValidRange(resourceSelection, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
-					throw new NumberFormatException("Out of range.");
-				}
-			} else {
-				scanner.next();
-				throw new InputMismatchException("Not int.");
-			}
-		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
-			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND));
-			resourceSelection = listenToResourceSelection();
-		}
-		return resourceSelection;
+		return getValidIntInput(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND);
 	}
 
 	private void implementResourceSelection(int numericSelection) {
@@ -116,24 +101,8 @@ public class ConsoleApp {
 	}
 
 	private double listenToInput() {
-		double input;
 		final double RANGE_LOWER_BOUND = 0.0;
-		try {
-			if (scanner.hasNextDouble()) {
-				input = scanner.nextDouble();
-				if (isNotValidRange(input, RANGE_LOWER_BOUND)) {
-					throw new NumberFormatException("Out of range.");
-				}
-			} else {
-				scanner.next();
-				throw new InputMismatchException("Not double.");
-			}
-
-		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
-			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND));
-			input = listenToInput();
-		}
-		return input;
+		return getValidDoubleInput(RANGE_LOWER_BOUND);
 	}
 
 	private void renderUsage() {
@@ -148,7 +117,7 @@ public class ConsoleApp {
 
 	private void selectAndImplementFollowup() {
 		promptFollowupOptions();
-		int followupSelection = listenToFollowupSelection();
+		FollowupOption followupSelection = listenToFollowupSelection();
 		implementFollowupSelection(followupSelection);
 	}
 
@@ -164,30 +133,14 @@ public class ConsoleApp {
 		);
 	}
 
-	private int listenToFollowupSelection() {
-		int followupSelection;
+	private FollowupOption listenToFollowupSelection() {
 		final int RANGE_LOWER_BOUND = 0;
 		final int RANGE_UPPER_BOUND = 6;
-		try {
-			if (scanner.hasNextInt()) {
-				followupSelection = scanner.nextInt();
-				if (isNotValidRange(followupSelection, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
-					throw new NumberFormatException("Out of range.");
-				}
-			} else {
-				scanner.next();
-				throw new InputMismatchException("Not int.");
-			}
-		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
-			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND));
-			followupSelection = listenToFollowupSelection();
-		}
-		// TODO: This used to return FollowupOption enum, which was more robust
-		return followupSelection;
+		int numericSelection = getValidIntInput(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND);
+		return FollowupOption.translateIntToOption(numericSelection);
 	}
 
-	private void implementFollowupSelection(int numericSelection) {
-		FollowupOption selection = FollowupOption.translateIntToOption(numericSelection);
+	private void implementFollowupSelection(FollowupOption selection) {
 		switch (selection) {
 			case COMPARE_GLOBAL_AVERAGE:
 				System.out.println(chosenUsage.returnComparisonToGlobalAverage());
@@ -217,17 +170,12 @@ public class ConsoleApp {
 			case QUIT:
 				quitProgram = true;
 				break;
-			case INVALID_INPUT:
-				System.out.println("Oops! Please enter an integer between 0-6.");
-				int newSelection = listenToFollowupSelection();
-				implementFollowupSelection(newSelection);
-				break;
 		}
 	}
 
 	private enum FollowupOption {
 		COMPARE_GLOBAL_AVERAGE, COMPARE_HISTORICAL, DISPLAY_HISTORICAL, DISPLAY_TIPS, NEW_VALUE,
-		NEW_USAGE, QUIT, INVALID_INPUT;
+		NEW_USAGE, QUIT;
 
 		private static FollowupOption translateIntToOption(int numericOption) {
 			switch (numericOption) {
@@ -246,10 +194,53 @@ public class ConsoleApp {
 				case 0:
 					return QUIT;
 				default:
-					return INVALID_INPUT;
+					return QUIT;
 			}
 		}
 	}
+
+	// ================================================================================
+	// Input utilities
+	// ================================================================================
+
+	private int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPER_BOUND) {
+		int inputtedValue;
+		try {
+			if (scanner.hasNextInt()) {
+				inputtedValue = scanner.nextInt();
+				if (isNotValidRange(inputtedValue, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
+					throw new NumberFormatException("Out of range.");
+				}
+			} else {
+				scanner.next();
+				throw new InputMismatchException("Not int.");
+			}
+		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
+			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND));
+			inputtedValue = getValidIntInput(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND);
+		}
+		return inputtedValue;
+	}
+
+	private double getValidDoubleInput(double RANGE_LOWER_BOUND) {
+		double inputtedValue;
+		try {
+			if (scanner.hasNextDouble()) {
+				inputtedValue = scanner.nextDouble();
+				if (isNotValidRange(inputtedValue, RANGE_LOWER_BOUND)) {
+					throw new NumberFormatException("Out of range.");
+				}
+			} else {
+				scanner.next();
+				throw new InputMismatchException("Not double.");
+			}
+		} catch (NumberFormatException | InputMismatchException outOfRangeException) {
+			System.out.println(returnOutOfBoundsMessage(RANGE_LOWER_BOUND));
+			inputtedValue = getValidDoubleInput(RANGE_LOWER_BOUND);
+		}
+		return inputtedValue;
+	}
+
 
 	// ================================================================================
 	// Error handling support
