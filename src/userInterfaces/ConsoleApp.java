@@ -1,4 +1,4 @@
-package gui;
+package userInterfaces;
 
 import base.ResourceUsage;
 
@@ -6,13 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class ConsoleView {
+public class ConsoleApp {
 
 	private final String welcomeMessage;
 	private List<ResourceUsage> usages;
 	private ResourceUsage chosenUsage;
 
-	public ConsoleView(String welcomeMessage, ResourceUsage... resourceUsages) {
+	public ConsoleApp(String welcomeMessage, ResourceUsage... resourceUsages) {
 		this.welcomeMessage = welcomeMessage;
 		this.usages = new LinkedList<>();
 		for (ResourceUsage usage : resourceUsages) {

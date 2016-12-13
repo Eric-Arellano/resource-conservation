@@ -1,7 +1,7 @@
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
-import gui.ConsoleView;
+import userInterfaces.ConsoleApp;
 
 import java.util.Scanner;
 
@@ -50,7 +50,7 @@ public class WaterASUDorm_Console {
 		// ================================================================================
 		// Launch console view
 		// ================================================================================
-		ConsoleView console = new ConsoleView(welcomeMessage, shower, sink, washer);
+		ConsoleApp console = new ConsoleApp(welcomeMessage, shower, sink, washer);
 		console.launchConsoleApp();
 
 	}

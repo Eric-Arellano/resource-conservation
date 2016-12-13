@@ -8,7 +8,7 @@ public class WaterASUDorm_GUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("gui/InterfaceModel.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("userInterfaces/GuiModel.fxml"));
 		primaryStage.setTitle("ASU Dorm Water Usage");
 		primaryStage.setScene(new Scene(root, 600, 1000));
 		primaryStage.show();
