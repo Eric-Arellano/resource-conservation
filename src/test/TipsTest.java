@@ -1,18 +1,19 @@
 package test;
 
 import features.Tips;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import java.nio.file.InvalidPathException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TipsTest {
 
 	// TODO: This fails, error not thrown
-	@Test(expected = IOException.class)
-	public void accessBlankFile() throws IOException {
-		new Tips("src/test/garbage.txt").displayTips();
+	@Test
+	public void accessBlankFile() {
+		assertThrows(InvalidPathException.class, () -> new Tips("src/test/garbage.txt"));
 	}
 
 	@Test

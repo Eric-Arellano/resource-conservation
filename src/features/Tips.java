@@ -23,13 +23,13 @@ public class Tips {
 	public String displayTips() {
 		try {
 			return getTipsFromFile();
-		} catch (IOException exception) {
+		} catch (InvalidPathException | IOException exception) {
 			return getErrorMessage(exception);
 		}
 	}
 
 	// TODO: figure out support for new lines
-	private String getTipsFromFile() throws IOException {
+	private String getTipsFromFile() throws InvalidPathException, IOException {
 		StringBuilder tips = new StringBuilder();
 		BufferedReader reader = Files.newBufferedReader(tipsFile, StandardCharsets.UTF_8);
 		String line;
