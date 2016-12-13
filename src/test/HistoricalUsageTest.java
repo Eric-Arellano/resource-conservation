@@ -2,14 +2,17 @@ package test;
 
 import features.HistoricalUsage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("Historical usage")
 class HistoricalUsageTest {
 
 	@Nested
+	@DisplayName("no prior data")
 	class NoPriorData {
 		private HistoricalUsage sampleHistorical;
 
@@ -19,6 +22,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("display historical")
 		void displayHistorical_NoData() {
 			String returnedMessage = sampleHistorical.displayHistorical();
 			String expectedMessage = "Historical usage:\t";
@@ -26,6 +30,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("add usage")
 		void addHistorical_NoData() {
 			sampleHistorical.addHistorical(20);
 			String expectedMessage = "Historical usage:\t20 gal";
@@ -37,6 +42,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare to historical")
 		void compareHistorical_NoData() {
 			String returnedMessage = sampleHistorical.compareHistorical(30);
 			String expectedMessage = "Oops! Looks like there's no historical data to compare to.";
@@ -45,6 +51,7 @@ class HistoricalUsageTest {
 	}
 
 	@Nested
+	@DisplayName("one prior datum")
 	class OnePriorDatum {
 		private HistoricalUsage sampleHistorical;
 
@@ -55,6 +62,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("display historical")
 		void displayHistorical_OneDatum() {
 			String returnedMessage = sampleHistorical.displayHistorical();
 			String expectedMessage = "Historical usage:\t20 gal";
@@ -62,6 +70,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - less than historical")
 		void compareHistorical_OneDatum_Less() {
 			String returnedMessage = sampleHistorical.compareHistorical(10);
 			String expectedMessage = "You used 10 less gal than your prior usage of 20 gal! That's 50% " +
@@ -70,6 +79,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - equal to historical")
 		void compareHistorical_OneDatum_Equal() {
 			String returnedMessage = sampleHistorical.compareHistorical(20);
 			String expectedMessage = "You used 0 more gal than your prior usage of 20 gal! That's 0% " +
@@ -79,6 +89,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - more than historical")
 		void compareHistorical_OneDatum_More() {
 			String returnedMessage = sampleHistorical.compareHistorical(30);
 			String expectedMessage = "You used 10 more gal than your prior usage of 20 gal! That's 50% " +
@@ -89,6 +100,7 @@ class HistoricalUsageTest {
 	}
 
 	@Nested
+	@DisplayName("prior data")
 	class PriorData {
 		private HistoricalUsage sampleHistorical;
 
@@ -99,13 +111,15 @@ class HistoricalUsageTest {
 		}
 
 		@Test
-		void displayHistorical_OneDatum() {
+		@DisplayName("display historical")
+		void displayHistorical_PriorData() {
 			String returnedMessage = sampleHistorical.displayHistorical();
 			String expectedMessage = "Historical usage:\t60 gal, 40 gal, 20 gal";
 			assertEquals(expectedMessage, returnedMessage);
 		}
 
 		@Test
+		@DisplayName("add usage")
 		void addHistorical_PriorData() {
 			sampleHistorical.addHistorical(100);
 			String expectedMessage = "Historical usage:\t60 gal, 40 gal, 20 gal, 100 gal";
@@ -117,6 +131,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - less than min")
 		void compareHistorical_LessMin() {
 			String returnedMessage = sampleHistorical.compareHistorical(10);
 			String expectedMessage = "You used 10 less gal than your min of 20 gal! That's 50% " +
@@ -125,6 +140,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - greater than min")
 		void compareHistorical_LessAvg_GreaterOrEqualToMin() {
 			String returnedMessage = sampleHistorical.compareHistorical(30);
 			String expectedMessage = "You used 10 less gal than your average of 40 gal! That's 25% " +
@@ -134,6 +150,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - equal to average")
 		void compareHistorical_EqualAvg() {
 			String returnedMessage = sampleHistorical.compareHistorical(40);
 			String expectedMessage = "You used 0 more gal than your average of 40 gal! That's 0% " +
@@ -143,6 +160,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - greater than average, less than max")
 		void compareHistorical_GreaterAvg_LessOrEqualToMax() {
 			String returnedMessage = sampleHistorical.compareHistorical(50);
 			String expectedMessage = "You used 10 more gal than your average of 40 gal! That's 25% " +
@@ -152,6 +170,7 @@ class HistoricalUsageTest {
 		}
 
 		@Test
+		@DisplayName("compare - greater than max")
 		void compareHistorical_GreaterMax() {
 			String returnedMessage = sampleHistorical.compareHistorical(80);
 			String expectedMessage = "You used 20 more gal than your max of 60 gal! That's 33% " +

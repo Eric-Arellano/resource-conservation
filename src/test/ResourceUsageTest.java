@@ -4,14 +4,17 @@ import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("Resource usage")
 class ResourceUsageTest {
 
 	@Nested
+	@DisplayName("discrete quantity")
 	class DiscreteQuantity {
 
 		private ResourceUsage quantityUsage;
@@ -28,6 +31,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("input prompt")
 		void promptDiscreteInput() {
 			String expectedPrompt = "How many times per month did you use the washing machine? ";
 			String returnedPrompt = quantityUsage.promptInput();
@@ -35,6 +39,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("display usage")
 		void displayDiscreteUsage() {
 			String expectedMessage = "That means you used 25 gallons.";
 			quantityUsage.implementInput(1);
@@ -45,6 +50,7 @@ class ResourceUsageTest {
 	}
 
 	@Nested
+	@DisplayName("time in seconds")
 	class TimeDurationSeconds {
 
 		private ResourceUsage secondUsage;
@@ -61,6 +67,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("input prompt")
 		void promptTimeInput_Seconds() {
 			String expectedPrompt = "How many seconds did you use the sink? ";
 			String returnedPrompt = secondUsage.promptInput();
@@ -68,6 +75,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("display usage")
 		void displayTimeUsage_Seconds() {
 			String expectedMessage = "That means you used 1.5 gallons.";
 			secondUsage.implementInput(60);
@@ -78,6 +86,7 @@ class ResourceUsageTest {
 	}
 
 	@Nested
+	@DisplayName("time in minutes")
 	class TimeDurationMinutes {
 
 		private ResourceUsage minuteUsage;
@@ -94,6 +103,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("input prompt")
 		void promptTimeInput_Minutes() {
 			String expectedPrompt = "How many minutes did you use the shower? ";
 			String returnedPrompt = minuteUsage.promptInput();
@@ -101,6 +111,7 @@ class ResourceUsageTest {
 		}
 
 		@Test
+		@DisplayName("display usage")
 		void displayTimeUsage_Minutes() {
 			String expectedMessage = "That means you used 2.5 gallons.";
 			minuteUsage.implementInput(1);

@@ -2,10 +2,12 @@ package test;
 
 import features.AverageGlobalUsage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("average global usage")
 class AverageGlobalUsageTest {
 	private AverageGlobalUsage sampleAverage;
 
@@ -19,6 +21,7 @@ class AverageGlobalUsageTest {
 	}
 
 	@Test
+	@DisplayName("compare - less than average")
 	void compareAverage_LessThanAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(10); // usage 10
@@ -28,6 +31,7 @@ class AverageGlobalUsageTest {
 	}
 
 	@Test
+	@DisplayName("compare - equal to average")
 	void compareAverage_EqualToAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(20); // usage 20,
@@ -37,6 +41,7 @@ class AverageGlobalUsageTest {
 	}
 
 	@Test
+	@DisplayName("compare - greater than average")
 	void compareAverage_GreaterThanAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(40); // usage 40
