@@ -54,10 +54,8 @@ abstract public class ResourceUsage {
 		usageAmount = inputAmount * rate;
 	}
 
-	public String displayUsage() {
-		String usage = "That means you used " + decimals.format(usageAmount) + " " + usageUnit + ".";
-		System.out.println(usage);
-		return usage;
+	public String returnUsage() {
+		return "That means you used " + decimals.format(usageAmount) + " " + usageUnit + ".";
 	}
 
 
@@ -65,28 +63,20 @@ abstract public class ResourceUsage {
 	// Feature usage
 	// ================================================================================
 
-	public String displayTips() {
-		String tipsText = tips.displayTips();
-		System.out.println(tipsText);
-		return tipsText;
+	public String returnTips() {
+		return tips.displayTips();
 	}
 
-	public String displayHistoricalUsages() {
-		String historicalUsage = historical.displayHistorical();
-		System.out.println(historicalUsage);
-		return historicalUsage;
+	public String returnHistoricalUsages() {
+		return historical.displayHistorical();
 	}
 
-	public String compareToGlobalAverage() {
-		String averageComparison = globalAverage.compareGlobalAverage(usageAmount);
-		System.out.println(averageComparison);
-		return averageComparison;
+	public String returnComparisonToGlobalAverage() {
+		return globalAverage.compareGlobalAverage(usageAmount);
 	}
 
-	public String compareToHistorical() {
-		String historicalComparison = historical.compareHistorical(usageAmount);
-		System.out.println(historicalComparison);
-		return historicalComparison;
+	public String returnComparisonToHistorical() {
+		return historical.compareHistorical(usageAmount);
 	}
 
 	public void updateHistoricalBeforeNewInput() {

@@ -65,7 +65,7 @@ public class ConsoleView {
 
 	private void renderUsage() {
 		chosenUsage.setUsageFromInput();
-		chosenUsage.displayUsage();
+		System.out.println(chosenUsage.returnUsage());
 	}
 
 	//------------
@@ -87,16 +87,16 @@ public class ConsoleView {
 	private void implementFollowupSelection(FollowupOption selection) {
 		switch (selection) {
 			case COMPARE_GLOBAL_AVERAGE:
-				chosenUsage.compareToGlobalAverage();
+				System.out.println(chosenUsage.returnComparisonToGlobalAverage());
 				break;
 			case COMPARE_HISTORICAL:
-				chosenUsage.compareToHistorical();
+				System.out.println(chosenUsage.returnComparisonToHistorical());
 				break;
 			case DISPLAY_HISTORICAL:
-				chosenUsage.displayHistoricalUsages();
+				System.out.println(chosenUsage.returnHistoricalUsages());
 				break;
 			case DISPLAY_TIPS:
-				chosenUsage.displayTips();
+				System.out.println(chosenUsage.returnTips());
 				break;
 			case NEW_VALUE:
 				getInput();

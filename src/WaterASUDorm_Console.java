@@ -5,7 +5,7 @@ import base.UsageTimeDuration;
 import java.util.Scanner;
 
 
-public class WaterASUDormOld {
+public class WaterASUDorm_Console {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -94,7 +94,7 @@ public class WaterASUDormOld {
 				chosenUsage.promptInput();
 
 				chosenUsage.setUsageFromInput();
-				chosenUsage.displayUsage();
+				chosenUsage.returnUsage();
 
 
 				// ================================================================================
@@ -109,23 +109,23 @@ public class WaterASUDormOld {
 					System.out.println();
 					switch (menuSelection) {
 						case 1:
-							chosenUsage.compareToGlobalAverage();
+							chosenUsage.returnComparisonToGlobalAverage();
 							System.out.println();
 							break;
 						case 2:
-							chosenUsage.compareToHistorical();
+							chosenUsage.returnComparisonToHistorical();
 							break;
 						case 3:
-							chosenUsage.displayHistoricalUsages();
+							chosenUsage.returnHistoricalUsages();
 							break;
 						case 4:
-							chosenUsage.displayTips();
+							chosenUsage.returnTips();
 							break;
 						case 5:
 							chosenUsage.updateHistoricalBeforeNewInput();
 							chosenUsage.promptInput();
 							chosenUsage.setUsageFromInput();
-							chosenUsage.displayUsage();
+							chosenUsage.returnUsage();
 							break;
 						case 6:
 							chosenUsage.updateHistoricalBeforeNewInput();

@@ -36,6 +36,7 @@ public class UsageTimeDuration extends ResourceUsage {
 	// ================================================================================
 
 	public String promptInput() {
+		// TODO: abstract code so it's not forced to sue console
 		String inputUnit = getInputUnit();
 		assert inputUnit.equals("minutes") || inputUnit.equals("seconds") || inputUnit.equals("both");
 		String prompt = "";
@@ -70,6 +71,7 @@ public class UsageTimeDuration extends ResourceUsage {
 		return prompt;
 	}
 
+	// TODO: Should BOTH not be supported? Hugely complicates abstracted interface
 	private String promptBothSecondsMinutes() {
 		String promptMinutes = "How many minutes did you use the " + getResourceName() + "? (You'll be asked " +
 				"about seconds after): ";

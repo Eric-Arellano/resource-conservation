@@ -41,7 +41,7 @@ public class ResourceUsageTest {
 		public void displayDiscreteUsage() {
 			String expectedMessage = "That means you used 15 gallons.";
 			// TODO: how is usage being set?
-			String returnedMessage = quantityUsage.displayUsage();
+			String returnedMessage = quantityUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -73,7 +73,7 @@ public class ResourceUsageTest {
 		public void displayTimeUsage_Seconds() {
 			String expectedMessage = "That means you used 10 gallons.";
 			// TODO: how is usage being set?
-			String returnedMessage = secondUsage.displayUsage();
+			String returnedMessage = secondUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -104,7 +104,7 @@ public class ResourceUsageTest {
 		public void displayTimeUsage_Minutes() {
 			String expectedMessage = "That means you used 10 gallons.";
 			// TODO: how is usage being set?
-			String returnedMessage = minuteUsage.displayUsage();
+			String returnedMessage = minuteUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
@@ -137,7 +137,7 @@ public class ResourceUsageTest {
 		public void displayTimeUsage_Both() {
 			String expectedMessage = "That means you used 10 gallons.";
 			// TODO: how is usage being set?
-			String returnedMessage = timeBothUsage.displayUsage();
+			String returnedMessage = timeBothUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
 	}
