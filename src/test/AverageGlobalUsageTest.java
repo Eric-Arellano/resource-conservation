@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AverageGlobalUsageTest {
+class AverageGlobalUsageTest {
 	private AverageGlobalUsage sampleAverage;
 
 	@BeforeEach
-	public void setupAverageUsage() {
+	void setupAverageUsage() {
 		sampleAverage = new AverageGlobalUsage("shower",
 				2, // rate 2 gpm
 				"min",
@@ -19,7 +19,7 @@ public class AverageGlobalUsageTest {
 	}
 
 	@Test
-	public void compareAverage_LessThanAverage() {
+	void compareAverage_LessThanAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(10); // usage 10
 		String expectedMessage = "You used 10 less gal than the average use of 20 gal! That's 50% " +
@@ -28,7 +28,7 @@ public class AverageGlobalUsageTest {
 	}
 
 	@Test
-	public void compareAverage_EqualToAverage() {
+	void compareAverage_EqualToAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(20); // usage 20,
 		String expectedMessage = "You used 0 more gal than the average use of 20 gal! That's 0% " +
@@ -37,7 +37,7 @@ public class AverageGlobalUsageTest {
 	}
 
 	@Test
-	public void compareAverage_GreaterThanAverage() {
+	void compareAverage_GreaterThanAverage() {
 		setupAverageUsage();
 		String returnedMessage = sampleAverage.compareGlobalAverage(40); // usage 40
 		String expectedMessage = "You used 20 more gal than the average use of 20 gal! That's 100% " +
