@@ -1,6 +1,7 @@
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
+import gui.ConsoleView;
 
 import java.util.Scanner;
 
@@ -47,113 +48,12 @@ public class WaterASUDorm_Console {
 
 
 		// ================================================================================
-		// Introduce program to users
+		// Launch console view
 		// ================================================================================
-		System.out.println(welcomeMessage);
-
-
-		// ================================================================================
-		// Set up variables for menus
-		// ================================================================================
-		boolean quitProgram = false;
-		boolean changeUsage;
-		ResourceUsage chosenUsage = shower; // arbitrary initialization
-
-		do {
-			// ================================================================================
-			// User selects which ResourceUsage
-			// ================================================================================
-
-			printChooseUsage();
-			int usageSelection = in.nextInt();
-			switch (usageSelection) {
-				case 1:
-					chosenUsage = shower;
-					break;
-				case 2:
-					chosenUsage = sink;
-					break;
-				case 3:
-					chosenUsage = washer;
-					break;
-				case 0:
-					quitProgram = true;
-					break;
-				default: // TODO: add tolerability
-					System.out.print("Invalid input. Please restart the program.");
-					break;
-			}
-
-			if (!quitProgram) {
-
-				// ================================================================================
-				// Initial usage input
-				// ================================================================================
-
-				System.out.println();
-				chosenUsage.promptInput();
-
-				chosenUsage.setUsageFromInput();
-				chosenUsage.returnUsage();
-
-
-				// ================================================================================
-				// User selects follow-up Menu items
-				// ================================================================================
-
-				do {
-					changeUsage = false; // reset boolean
-					printUsageMenu();
-
-					int menuSelection = in.nextInt();
-					System.out.println();
-					switch (menuSelection) {
-						case 1:
-							chosenUsage.returnComparisonToGlobalAverage();
-							System.out.println();
-							break;
-						case 2:
-							chosenUsage.returnComparisonToHistorical();
-							break;
-						case 3:
-							chosenUsage.returnHistoricalUsages();
-							break;
-						case 4:
-							chosenUsage.returnTips();
-							break;
-						case 5:
-							chosenUsage.updateHistoricalBeforeNewInput();
-							chosenUsage.promptInput();
-							chosenUsage.setUsageFromInput();
-							chosenUsage.returnUsage();
-							break;
-						case 6:
-							chosenUsage.updateHistoricalBeforeNewInput();
-							changeUsage = true;
-							break;
-						case 0:
-							chosenUsage.updateHistoricalBeforeNewInput();
-							quitProgram = true;
-							break;
-						default: // TODO: add tolerability
-							System.out.print("Invalid input. Please restart the program.");
-							break;
-					}
-				} while (!changeUsage && !quitProgram);
-
-			}
-
-		} while (!quitProgram);
-
-		System.out.println("\nThis program has quit.");
-
-		in.close();
+		ConsoleView console = new ConsoleView(welcomeMessage, shower, sink, washer);
+		console.launchConsoleApp();
 
 	}
-
-	// ================================================================================
-	// Menu messages
-	// ================================================================================
 
 	private static final String welcomeMessage = "This app helps you keep track of your water " +
 			"consumption in your ASU dorm. After choosing from several water usages, you'll input your " +
@@ -178,5 +78,114 @@ public class WaterASUDorm_Console {
 		);
 
 	}
+
+//		// ================================================================================
+//		// Introduce program to users
+//		// ================================================================================
+//		System.out.println(welcomeMessage);
+//
+//
+//		// ================================================================================
+//		// Set up variables for menus
+//		// ================================================================================
+//		boolean quitProgram = false;
+//		boolean changeUsage;
+//		ResourceUsage chosenUsage = shower; // arbitrary initialization
+//
+//		do {
+//			// ================================================================================
+//			// User selects which ResourceUsage
+//			// ================================================================================
+//
+//			printChooseUsage();
+//			int usageSelection = in.nextInt();
+//			switch (usageSelection) {
+//				case 1:
+//					chosenUsage = shower;
+//					break;
+//				case 2:
+//					chosenUsage = sink;
+//					break;
+//				case 3:
+//					chosenUsage = washer;
+//					break;
+//				case 0:
+//					quitProgram = true;
+//					break;
+//				default: // TODO: add tolerability
+//					System.out.print("Invalid input. Please restart the program.");
+//					break;
+//			}
+//
+//			if (!quitProgram) {
+//
+//				// ================================================================================
+//				// Initial usage input
+//				// ================================================================================
+//
+//				System.out.println();
+//				chosenUsage.promptInput();
+//
+//				chosenUsage.setUsageFromInput();
+//				chosenUsage.returnUsage();
+//
+//
+//				// ================================================================================
+//				// User selects follow-up Menu items
+//				// ================================================================================
+//
+//				do {
+//					changeUsage = false; // reset boolean
+//					printUsageMenu();
+//
+//					int menuSelection = in.nextInt();
+//					System.out.println();
+//					switch (menuSelection) {
+//						case 1:
+//							chosenUsage.returnComparisonToGlobalAverage();
+//							System.out.println();
+//							break;
+//						case 2:
+//							chosenUsage.returnComparisonToHistorical();
+//							break;
+//						case 3:
+//							chosenUsage.returnHistoricalUsages();
+//							break;
+//						case 4:
+//							chosenUsage.returnTips();
+//							break;
+//						case 5:
+//							chosenUsage.updateHistoricalBeforeNewInput();
+//							chosenUsage.promptInput();
+//							chosenUsage.setUsageFromInput();
+//							chosenUsage.returnUsage();
+//							break;
+//						case 6:
+//							chosenUsage.updateHistoricalBeforeNewInput();
+//							changeUsage = true;
+//							break;
+//						case 0:
+//							chosenUsage.updateHistoricalBeforeNewInput();
+//							quitProgram = true;
+//							break;
+//						default: // TODO: add tolerability
+//							System.out.print("Invalid input. Please restart the program.");
+//							break;
+//					}
+//				} while (!changeUsage && !quitProgram);
+//
+//			}
+//
+//		} while (!quitProgram);
+//
+//		System.out.println("\nThis program has quit.");
+//
+//		in.close();
+//
+
+	// ================================================================================
+	// Menu messages
+	// ================================================================================
+
 
 }
