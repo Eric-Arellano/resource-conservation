@@ -31,11 +31,10 @@ public class UsageDiscreteQuantity extends ResourceUsage {
 	// ================================================================================
 
 	public String promptInput() {
-		// TODO: abstract code so it's not forced to sue console
-		String prompt = "How many " + this.getInputUnit() + " did you use the " + getResourceName() + "? ";
-		System.out.print(prompt);
-		double input = in.nextDouble();
-		setInputAmount(input);
-		return prompt;
+		return "How many " + this.getInputUnit() + " did you use the " + getResourceName() + "? ";
+	}
+
+	public void implementInput(double inputAmount) {
+		setInputAmount(inputAmount);
 	}
 }

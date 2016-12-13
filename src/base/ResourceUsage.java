@@ -50,6 +50,8 @@ abstract public class ResourceUsage {
 
 	abstract public String promptInput();
 
+	abstract public void implementInput(double inputAmount);
+
 	public void setUsageFromInput() {
 		usageAmount = inputAmount * rate;
 	}
@@ -93,10 +95,6 @@ abstract public class ResourceUsage {
 
 	public String getInputUnit() {
 		return inputUnit;
-	}
-
-	public boolean isInputAmountPresent() {
-		return inputAmount != 0;
 	}
 
 	void setInputAmount(double inputAmount) {

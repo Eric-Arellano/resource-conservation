@@ -36,9 +36,8 @@ public class UsageTimeDuration extends ResourceUsage {
 	// ================================================================================
 
 	public String promptInput() {
-		// TODO: abstract code so it's not forced to sue console
 		String inputUnit = getInputUnit();
-		assert inputUnit.equals("minutes") || inputUnit.equals("seconds") || inputUnit.equals("both");
+		assert inputUnit.equals("minutes") || inputUnit.equals("seconds");
 		String prompt = "";
 		switch (inputUnit) {
 			case "minutes":
@@ -52,20 +51,23 @@ public class UsageTimeDuration extends ResourceUsage {
 	}
 
 	private String promptSeconds() {
-		String prompt = "How many seconds did you use the " + getResourceName() + "? ";
-		System.out.print(prompt);
-		double inputInSeconds = in.nextDouble();
-		double inputInMinutes = convertToMinutes(inputInSeconds);
-		setInputAmount(inputInMinutes);
-		return prompt;
+		return "How many seconds did you use the " + getResourceName() + "? ";
 	}
 
 	private String promptMinutes() {
-		String prompt = "How many minutes did you use the " + getResourceName() + "? ";
-		System.out.print(prompt);
-		double inputInMinutes = in.nextDouble();
-		setInputAmount(inputInMinutes);
-		return prompt;
+		return "How many minutes did you use the " + getResourceName() + "? ";
+	}
+
+	public void implementInput(double inputAmount) {
+		switch (getInputUnit()) {
+			case "minutes":
+				setInputAmount(inputAmount);
+				break;
+			case "seconds":
+				double inputInMinutes = convertToMinutes(inputAmount);
+				setInputAmount(inputInMinutes);
+				break;
+		}
 	}
 
 	// ================================================================================

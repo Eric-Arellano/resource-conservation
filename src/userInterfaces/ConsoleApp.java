@@ -70,6 +70,7 @@ public class ConsoleApp {
 		int resourceSelection = -1;
 		try {
 			resourceSelection = scanner.nextInt();
+			// TODO: add better error handling. Repeats error message twice with non-ints.
 		} catch (InputMismatchException invalidInputException) {
 			System.out.println("Oops! Please enter an integer between 0-" + usages.size() + ".");
 			System.out.println(scanner.next() + " was not valid input.");
@@ -94,30 +95,34 @@ public class ConsoleApp {
 		return numericSelection >= 0 && numericSelection < usages.size();
 	}
 
+
 	// ================================================================================
 	// Get initial input & render usage
 	// ================================================================================
 
 	private void getInput() {
-		promptInput();
-		listenToInput();
+		System.out.println(chosenUsage.promptInput());
+		double inputAmount = listenToInput();
+		chosenUsage.implementInput(inputAmount);
 	}
 
-	private void promptInput() {
-
-	}
-
-	private void listenToInput() {
-
+	private double listenToInput() {
+		double input = 0.0;
+		try {
+			input = scanner.nextDouble();
+			// TODO: add better error handling. Currently program keeps going.
+		} catch (InputMismatchException invalidInput) {
+			System.out.println("Oops! Please enter a valid numeric input greater than 0.0.");
+			System.out.println(scanner.next() + " was not valid input.");
+		}
+		return input;
 	}
 
 	private void renderUsage() {
-		if (chosenUsage.isInputAmountPresent()) ;
-		{
-			chosenUsage.setUsageFromInput();
-			System.out.println(chosenUsage.returnUsage());
-		}
+		chosenUsage.setUsageFromInput();
+		System.out.println(chosenUsage.returnUsage());
 	}
+
 
 	// ================================================================================
 	// Followup options
@@ -145,6 +150,7 @@ public class ConsoleApp {
 		int followupSelection = -1;
 		try {
 			followupSelection = scanner.nextInt();
+			// TODO: add better error handling. Repeats error message twice with non-ints.
 		} catch (InputMismatchException invalidInputException) {
 			System.out.println("Oops! Please enter an integer between 0-6.");
 			System.out.println(scanner.next() + " was not valid input.");
