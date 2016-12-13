@@ -3,7 +3,7 @@ package base;
 public class UsageTimeDuration extends ResourceUsage {
 
 	public enum TimeType {
-		SECONDS, MINUTES, BOTH;
+		SECONDS, MINUTES;
 
 		@Override
 		public String toString() {
@@ -47,9 +47,6 @@ public class UsageTimeDuration extends ResourceUsage {
 			case "seconds":
 				prompt = promptSeconds();
 				break;
-			case "both":
-				prompt = promptBothSecondsMinutes();
-				break;
 		}
 		return prompt;
 	}
@@ -69,21 +66,6 @@ public class UsageTimeDuration extends ResourceUsage {
 		double inputInMinutes = in.nextDouble();
 		setInputAmount(inputInMinutes);
 		return prompt;
-	}
-
-	// TODO: Should BOTH not be supported? Hugely complicates abstracted interface
-	private String promptBothSecondsMinutes() {
-		String promptMinutes = "How many minutes did you use the " + getResourceName() + "? (You'll be asked " +
-				"about seconds after): ";
-		System.out.print(promptMinutes);
-		double inputInMinutes = in.nextDouble();
-		String promptSeconds = "How many seconds did you use the " + getResourceName() + "? ";
-		System.out.print(promptSeconds);
-		double inputInSeconds = in.nextDouble();
-		inputInMinutes += convertToMinutes(inputInSeconds);
-		setInputAmount(inputInMinutes);
-		setInputUnit("minutes");
-		return promptMinutes + promptSeconds;
 	}
 
 	// ================================================================================

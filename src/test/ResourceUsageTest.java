@@ -109,37 +109,4 @@ public class ResourceUsageTest {
 		}
 	}
 
-	public static class TimeDurationBoth {
-
-		private ResourceUsage timeBothUsage;
-
-		@Before
-		public void setupMockResources() {
-			timeBothUsage = new UsageTimeDuration("shower",
-					2.5,
-					UsageTimeDuration.TimeType.BOTH, "gallons",
-					"src/test/mockTips.txt",
-					10.6,
-					8.3, 9.2, 12.4, 18.1);
-		}
-
-		@Test
-		public void promptTimeInput_Both() {
-			String expectedPrompt = "How many times per month did you use the shower? (You'll" +
-					" be asked about seconds after): ";
-			expectedPrompt += "How many seconds did you use the shower? ";
-			String returnedPrompt = timeBothUsage.promptInput();
-			assertEquals(expectedPrompt, returnedPrompt);
-			// TODO: assert user being asked
-		}
-
-		@Test
-		public void displayTimeUsage_Both() {
-			String expectedMessage = "That means you used 10 gallons.";
-			// TODO: how is usage being set?
-			String returnedMessage = timeBothUsage.returnUsage();
-			assertEquals(expectedMessage, returnedMessage);
-		}
-	}
-
 }
