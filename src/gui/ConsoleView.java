@@ -2,7 +2,9 @@ package gui;
 
 import base.ResourceUsage;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class ConsoleView {
 
@@ -12,8 +14,9 @@ public class ConsoleView {
 
 	public ConsoleView(String welcomeMessage, ResourceUsage... resourceUsages) {
 		this.welcomeMessage = welcomeMessage;
+		this.usages = new LinkedList<>();
 		for (ResourceUsage usage : resourceUsages) {
-			usages.add(usage);
+			this.usages.add(usage);
 		}
 	}
 
@@ -39,7 +42,18 @@ public class ConsoleView {
 	}
 
 	private void promptResourceSelection() {
+		System.out.println("\nWhich of the following did you use? Choose one. \nEnter the number of " +
+				"the menu item you'd like and then press enter (\"0\" to quit).\n");
+		System.out.println(getResourceOptions());
+	}
 
+	private String getResourceOptions() {
+		int resourceCount = 0;
+		StringJoiner usageOptions = new StringJoiner("\n\t" + resourceCount++ + ") ");
+		for (ResourceUsage usage : usages) {
+			usageOptions.add(usage.toString());
+		}
+		return usageOptions.toString();
 	}
 
 	private void listenToResourceSelection() {
@@ -64,8 +78,11 @@ public class ConsoleView {
 	//------------
 
 	private void renderUsage() {
-		chosenUsage.setUsageFromInput();
-		System.out.println(chosenUsage.returnUsage());
+		if (chosenUsage.isInputAmountPresent()) ;
+		{
+			chosenUsage.setUsageFromInput();
+			System.out.println(chosenUsage.returnUsage());
+		}
 	}
 
 	//------------

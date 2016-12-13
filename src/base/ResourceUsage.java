@@ -95,6 +95,10 @@ abstract public class ResourceUsage {
 		return inputUnit;
 	}
 
+	public boolean isInputAmountPresent() {
+		return inputAmount != 0;
+	}
+
 	void setInputUnit(String inputUnit) {
 		this.inputUnit = inputUnit;
 	}
