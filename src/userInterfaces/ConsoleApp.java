@@ -25,16 +25,16 @@ public class ConsoleApp {
 		this.usages = new LinkedList<>();
 		Collections.addAll(this.usages, resourceUsages);
 		this.quitProgram = false;
-		this.changeUsage = false;
 	}
 
 	public void launchConsoleApp() {
 		welcomeUser();
 		do {
 			selectResource();
-			getInput();
+			getInputAmount();
 			renderUsage();
 			do {
+				changeUsage = false; // reset value
 				selectAndImplementFollowup();
 			} while (!changeUsage && !quitProgram);
 		} while (!quitProgram);
@@ -67,10 +67,10 @@ public class ConsoleApp {
 	private void promptResourceSelection() {
 		System.out.println("\nWhich of the following did you use? Choose one. \nEnter the number of " +
 				"the menu item you'd like and then press enter (\"0\" to quit).\n");
-		System.out.println(getResourceOptions());
+		System.out.println(returnResourceOptions());
 	}
 
-	private String getResourceOptions() {
+	private String returnResourceOptions() {
 		int resourceCount = 1;
 		StringJoiner usageOptions = new StringJoiner("\n\t", "\t", "");
 		for (ResourceUsage usage : usages) {
@@ -99,13 +99,13 @@ public class ConsoleApp {
 	// Get initial input & render usage
 	// ================================================================================
 
-	private void getInput() {
+	private void getInputAmount() {
 		System.out.println(chosenUsage.promptInput());
-		double inputAmount = listenToInput();
+		double inputAmount = listenToInputAmount();
 		chosenUsage.implementInput(inputAmount);
 	}
 
-	private double listenToInput() {
+	private double listenToInputAmount() {
 		final double RANGE_LOWER_BOUND = 0.0;
 		return getValidDoubleInput(RANGE_LOWER_BOUND);
 	}
@@ -161,16 +161,12 @@ public class ConsoleApp {
 				break;
 			case NEW_VALUE:
 				chosenUsage.updateHistoricalBeforeNewInput();
-				getInput();
+				getInputAmount();
 				renderUsage();
 				break;
 			case NEW_USAGE:
 				chosenUsage.updateHistoricalBeforeNewInput();
-				// TODO: Analyze if this changeUsage boolean works correctly and is necessary
 				changeUsage = true;
-				selectResource();
-				getInput();
-				renderUsage();
 				break;
 			case QUIT:
 				quitProgram = true;
