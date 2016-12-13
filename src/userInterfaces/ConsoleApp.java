@@ -130,11 +130,11 @@ public class ConsoleApp {
 		System.out.println("\nWhat would you like to do now? \nEnter the number of the menu item " +
 				"you'd  like and then press enter (\"0\" to quit).\n" +
 				"\n\n\t1) compare to the average on campus" +
-				"\t\t4) get tips for conserving" +
+				"\t\t\t4) get tips for conserving" +
 				"\n\t2) compare to my historical usage" +
-				"\t\t5) enter a new value" +
-				"\n\t3) display my historical usage" +
-				"\t\t\t6) change the thing I used"
+				"\t\t\t5) enter a new value" +
+				"\n\t3) display my prior historical usage" +
+				"\t\t6) change the thing I used"
 		);
 	}
 
