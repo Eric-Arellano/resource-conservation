@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
-// TODO: Redesign ResourceUsage classes to allow for testing, currently using sout & input prompts
 @RunWith(Enclosed.class)
 public class ResourceUsageTest {
 
@@ -22,8 +21,8 @@ public class ResourceUsageTest {
 		public void setupMockResources() {
 			quantityUsage = new UsageDiscreteQuantity("washing machine",
 					25,
-					"gallons",
 					"times per month",
+					"gallons",
 					"src/test/mockTips.txt",
 					4,
 					3, 6, 5, 5);
@@ -34,13 +33,13 @@ public class ResourceUsageTest {
 			String expectedPrompt = "How many times per month did you use the washing machine? ";
 			String returnedPrompt = quantityUsage.promptInput();
 			assertEquals(expectedPrompt, returnedPrompt);
-			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayDiscreteUsage() {
-			String expectedMessage = "That means you used 15 gallons.";
-			// TODO: how is usage being set?
+			String expectedMessage = "That means you used 25 gallons.";
+			quantityUsage.implementInput(1);
+			quantityUsage.setUsageFromInput();
 			String returnedMessage = quantityUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
@@ -55,7 +54,8 @@ public class ResourceUsageTest {
 		public void setupMockResources() {
 			secondUsage = new UsageTimeDuration("sink",
 					1.5,
-					UsageTimeDuration.TimeType.SECONDS, "gallons",
+					UsageTimeDuration.TimeType.SECONDS,
+					"gallons",
 					"src/test/mockTips.txt",
 					0.35,
 					0.2, 0.6, 0.5, 0.9);
@@ -66,13 +66,13 @@ public class ResourceUsageTest {
 			String expectedPrompt = "How many seconds did you use the sink? ";
 			String returnedPrompt = secondUsage.promptInput();
 			assertEquals(expectedPrompt, returnedPrompt);
-			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayTimeUsage_Seconds() {
-			String expectedMessage = "That means you used 10 gallons.";
-			// TODO: how is usage being set?
+			String expectedMessage = "That means you used 1.5 gallons.";
+			secondUsage.implementInput(60);
+			secondUsage.setUsageFromInput();
 			String returnedMessage = secondUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
@@ -86,7 +86,8 @@ public class ResourceUsageTest {
 		public void setupMockResources() {
 			minuteUsage = new UsageTimeDuration("shower",
 					2.5,
-					UsageTimeDuration.TimeType.MINUTES, "gallons",
+					UsageTimeDuration.TimeType.MINUTES,
+					"gallons",
 					"src/test/mockTips.txt",
 					10.6,
 					8.3, 9.2, 12.4, 18.1);
@@ -97,13 +98,13 @@ public class ResourceUsageTest {
 			String expectedPrompt = "How many minutes did you use the shower? ";
 			String returnedPrompt = minuteUsage.promptInput();
 			assertEquals(expectedPrompt, returnedPrompt);
-			// TODO: assert user being asked
 		}
 
 		@Test
 		public void displayTimeUsage_Minutes() {
-			String expectedMessage = "That means you used 10 gallons.";
-			// TODO: how is usage being set?
+			String expectedMessage = "That means you used 2.5 gallons.";
+			minuteUsage.implementInput(1);
+			minuteUsage.setUsageFromInput();
 			String returnedMessage = minuteUsage.returnUsage();
 			assertEquals(expectedMessage, returnedMessage);
 		}
