@@ -11,23 +11,50 @@ I care a lot about sustainability and created this app as a thought experiment f
 ## Object-oriented approach
 This CSE 110 class is the first time I was exposed to *object oriented programming*.
 
-I entirely redesigned my project around OOP after learning this concept, and tried to create the program so that it can be used for *any resource conservation*. Right now it's for water conservation, but can just as easily be used for looking at miles driven by someone.
+I entirely redesigned my project around OOP after learning this concept, and 
+in particular refactored the program so that it can be used for *any 
+resource conservation*. The user just has to instantiate a new usage like 
+"car", and the app will adapt the program from there.
 
-## Issues
-Please note this was a project for my first semester ever of programming, so I know a lot of this has issues! This was before I read *Code Complete* and before programming really started to click.
+## Initial Issues
+Since I did this project my very first semester of programming (and before 
+reading *Code Complete*), it had a lot of issues.
 
-#### Poor abstraction and class contracts
-I did this project before reading *Code Complete*, so didn't know about ideas like *class contracts*, *encapsulation*, and *abstraction*.
+I've tried to fix most through significant refactoring.
 
-Consequently, even after refactoring, the project's design could still be improved.
+#### Very poor original abstraction and class contracts
+I did this project before reading *Code Complete*, so the original project 
+had very poor abstraction and encapsulation. Every class knew about each 
+other, every class outputted to the console instead of just one controller, 
+and side effects abounded.
 
 #### No GUI
-This was before I had learned how to build GUIs, so the program just uses console dialogs.
+This was before I had learned how to build GUIs, so the program just uses 
+console dialogs. 
 
 ## Refactoring
-I've refactored this project in two main stages:
-1. Cleanup of contracts, code style, abstraction, etc (Sept 2016). Particularly focused on DRY, One Responsibility principle, and abstraction/encapsulation.
-2. Addition of Unit Tests + Java 7/8 (Nov 2016). Unit tests led to fixing remaining logic errors and improved ease of general refactoring. Added Path API and Lambda/Stream to better leverage API. 
+
+#### Abstraction, One Responsibility, DRY, Encapsulation
+Significantly reworked class design and methods to follow best practices; 
+limiting access to unnecessary information and classes, ensuring each method 
+and class only does one thing; controlling the level of abstraction; using 
+helper functions and classes to fight duplication.
+
+#### More readable code
+Significantly improved names, layout, and comments for readability. 
+
+#### Add unit tests
+This sparked fixing logical errors and other refactorings, and enabled such 
+drastic refactoring without fear.
+
+#### Leverage Java APIs
+Added support for Java 7/8, e.g. Lambdas/Stream, Path API, and Collections API.
+
+#### Implement Model View Controller design
+Extracted all console interface into new module, and decoupled object 
+information from presentation.
+
+Allows for easier extension from console app to JavaFx app.
 
 ## What I learned
 Above all, this project taught me how to take a programming project from initial conception to release.
@@ -35,4 +62,8 @@ Above all, this project taught me how to take a programming project from initial
 * Class relations and inheritance
 * UML diagrams
 * IO file reading and writing
+* Clean code (refactor)
 * Unit testing (refactor)
+* Error handling (refactor)
+* Model View Controller (refactor)
+
