@@ -175,8 +175,13 @@ public class ConsoleApp {
 	}
 
 	private enum FollowupOption {
-		COMPARE_GLOBAL_AVERAGE, COMPARE_HISTORICAL, DISPLAY_HISTORICAL, DISPLAY_TIPS, NEW_VALUE,
-		NEW_USAGE, QUIT;
+		COMPARE_GLOBAL_AVERAGE,
+		COMPARE_HISTORICAL,
+		DISPLAY_HISTORICAL,
+		DISPLAY_TIPS,
+		NEW_VALUE,
+		NEW_USAGE,
+		QUIT;
 
 		private static FollowupOption translateIntToOption(int numericOption) {
 			switch (numericOption) {
