@@ -37,8 +37,7 @@ console dialogs.
 #### Abstraction, One Responsibility, DRY, Encapsulation
 Significantly reworked class design and methods to follow best practices; 
 limiting access to unnecessary information and classes, ensuring each method 
-and class only does one thing; controlling the level of abstraction; using 
-helper functions and classes to fight duplication.
+and class only does one thing; controlling the level of abstraction; changing to enums; using helper functions and classes to fight duplication.
 
 #### More readable code
 Significantly improved names, layout, and comments for readability. 
@@ -46,6 +45,9 @@ Significantly improved names, layout, and comments for readability.
 #### Add unit tests
 This sparked fixing logical errors and other refactorings, and enabled such 
 drastic refactoring without fear.
+
+#### Add error handling
+Program now tolerates invalid user input without breaking the app.
 
 #### Leverage Java APIs
 Added support for Java 7/8, e.g. Lambdas/Stream, Path API, and Collections API.
