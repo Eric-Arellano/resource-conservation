@@ -1,11 +1,10 @@
-bin/
+.gradle/
+build/
 .idea/
-.settings/
 
-.project
-.classpath
-
-HonorsProject.iml
+*.iml
+*.ipr
+*.iws
 
 showerTips.txt
 sinkTips.txt

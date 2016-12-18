@@ -1,5 +1,3 @@
-package test;
-
 import base.ResourceUsage;
 import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
