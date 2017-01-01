@@ -34,15 +34,8 @@ public class HistoricalUsage {
 	                       String inputUnit,
 	                       String usageUnit,
 	                       double... preExistingInputAmounts) {
-		historicalUsages = new ArrayList<>();
-		this.rate = rate_UsagePerInput;
-		this.usageUnit = usageUnit;
-		this.comparisonHelper = new ComparisonHelper(resourceName,
-				rate_UsagePerInput,
-				inputUnit,
-				usageUnit);
+		this(resourceName, rate_UsagePerInput, inputUnit, usageUnit);
 		preFillData(preExistingInputAmounts);
-
 	}
 
 	private void preFillData(double... inputAmounts) {
