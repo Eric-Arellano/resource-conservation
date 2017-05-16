@@ -3,7 +3,7 @@ import base.UsageDiscreteQuantity;
 import base.UsageTimeDuration;
 import userInterfaces.ConsoleApp;
 
-public class WaterASUDorm_Console {
+public final class WaterASUDorm_Console {
 
 	public static void main(String[] args) {
 

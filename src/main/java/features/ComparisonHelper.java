@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 
 import static base.UsageTimeDuration.convertToSeconds;
 
-class ComparisonHelper {
+final class ComparisonHelper {
 
 	private double usageAmount;
 	private double averageAmount;

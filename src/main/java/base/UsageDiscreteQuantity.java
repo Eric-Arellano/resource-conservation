@@ -4,7 +4,7 @@ package base;
  * Used for Resource types that occur over a discrete quantity, e.g. number of times or miles
  * driven.
  */
-public class UsageDiscreteQuantity extends ResourceUsage {
+public final class UsageDiscreteQuantity extends ResourceUsage {
 
 	/**
 	 * @param inputUnit - unit user interfaces with, e.g. "times per month", "miles driven"

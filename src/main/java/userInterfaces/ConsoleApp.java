@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 import static userInterfaces.UserInputHelper.getValidDoubleInput;
 import static userInterfaces.UserInputHelper.getValidIntInput;
 
-public class ConsoleApp {
+public final class ConsoleApp {
 
 	private final String welcomeMessage;
 	private final List<ResourceUsage> usages;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringJoiner;
 
-public class HistoricalUsage {
+final public class HistoricalUsage {
 
 	private final ArrayList<Double> historicalUsages;
 	private final ComparisonHelper comparisonHelper;

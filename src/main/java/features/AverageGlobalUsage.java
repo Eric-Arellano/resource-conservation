@@ -1,6 +1,6 @@
 package features;
 
-public class AverageGlobalUsage {
+public final class AverageGlobalUsage {
 
 	private final double globalAverageUsage;
 	private final ComparisonHelper comparisonHelper;

@@ -8,7 +8,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Tips {
+public final class Tips {
 
 	private Path tipsFile;
 

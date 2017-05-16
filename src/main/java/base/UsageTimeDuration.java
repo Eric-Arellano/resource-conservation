@@ -1,6 +1,6 @@
 package base;
 
-public class UsageTimeDuration extends ResourceUsage {
+public final class UsageTimeDuration extends ResourceUsage {
 
 	public enum TimeType {
 		SECONDS, MINUTES;
