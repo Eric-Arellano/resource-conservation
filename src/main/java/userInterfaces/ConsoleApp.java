@@ -38,12 +38,12 @@ public final class ConsoleApp {
 				selectAndImplementFollowup();
 			} while (!changeUsage && !quitProgram);
 		} while (!quitProgram);
-
 		closeApp();
 	}
 
 	private void closeApp() {
 		System.out.println("This program has closed.");
+		System.exit(0);
 	}
 
 	// ================================================================================
@@ -89,6 +89,7 @@ public final class ConsoleApp {
 	private void implementResourceSelection(int numericSelection) {
 		if (numericSelection == 0) {
 			quitProgram = true;
+			closeApp();
 		}
 		final int INDEX_ADJUSTMENT = -1;
 		chosenUsage = usages.get(numericSelection + INDEX_ADJUSTMENT);
@@ -170,6 +171,7 @@ public final class ConsoleApp {
 				break;
 			case QUIT:
 				quitProgram = true;
+				closeApp();
 				break;
 		}
 	}
